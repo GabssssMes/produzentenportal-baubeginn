@@ -1,0 +1,145 @@
+.container {
+  position: relative;
+  max-width: 950px;
+  width: 100%;
+  background: #fff;
+  padding: 25px;
+  border-radius: 8px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+.container h1 {
+  font-size: 1.5rem;
+  color: #333;
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: 20px;
+}
+.container h2 {
+  font-size: 1.5rem;
+  color: #333;
+  font-weight: 500;
+  text-align: left;
+  margin-bottom: 10px;
+}
+#exception {
+  margin-top: 0;
+  padding-top: 0;
+}
+h3 {
+  font-weight: 500;
+  margin-top: 25px;
+}
+.inputbox {
+  width: 100%;
+  margin-top: 5px;
+}
+.inputbox label {
+  color: #333;
+}
+.section {
+  border-top: 2px solid rgb(8, 8, 102);
+  margin-top: 15px;
+  padding: 10px;
+}
+.radiobutton {
+  margin-right: 5px;
+}
+
+.inputfield {
+  position: relative;
+  height: 25px;
+  width: 100px;
+  outline: none;
+  font-size: 1rem;
+  color: #707070;
+  margin-top: 3px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 0 8px;
+  margin-bottom: 10px;
+}
+.inputtextfield {
+  position: relative;
+  height: 25px;
+  width: 200px;
+  outline: none;
+  font-size: 1rem;
+  color: #707070;
+  margin-top: 3px;
+  margin-left: 12px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 0 8px;
+  margin-bottom: 10px;
+}
+.radiodescription {
+  color: #333;
+  margin-left: 20px;
+}
+
+.submitbutton {
+  height: 55px;
+  width: 100%;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 400;
+  margin-top: 0px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background: rgb(70, 41, 214);
+}
+.submitbutton:hover,
+.buttonupload:hover {
+  background: rgb(88, 56, 250);
+}
+button:hover {
+  cursor: pointer;
+}
+.buttonupload {
+  margin: 10px 0;
+  border: none;
+  cursor: pointer;
+  color: #fff;
+  transition: all 0.2s ease;
+  background: rgb(70, 41, 214);
+  padding: 5px 20px;
+  border-radius: 5px;
+}
+.radiobutton:hover {
+  cursor: pointer;
+}
+.image {
+  background-image: url("../logo.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 5rem;
+  width: 10rem;
+  position: absolute;
+  left: 10px;
+  top: 10px;
+}
+.header {
+  display: flex;
+  justify-content: center;
+  min-height: 50px;
+  align-items: center;
+}
+#spannung {
+  margin-bottom: 15px;
+}
+@media (max-width: 950px) {
+  h1 {
+    padding-left: 10rem;
+  }
+}
+@media (max-width: 550px) {
+  .image {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  h1 {
+    padding-left: 0rem;
+    padding-top: 5rem;
+  }
+}
