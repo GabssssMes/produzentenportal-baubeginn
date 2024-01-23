@@ -26,7 +26,6 @@ const TechnikField = (props) => {
           onInput={test}
           maxLength={props.maxlength}
           className={style.inputfield}
-          required
         ></input>
       </div>
     );

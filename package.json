@@ -8,7 +8,7 @@
     "node": "16.16.0"
   },
   "scripts": {
-    "start": "node ./Backend/index.js && ./Frontend/react-scripts start",
+    "start": "nodemon ./Backend/index.js && ./Frontend/react-scripts start",
     "build": "cd Frontend && npm install && npm run build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
