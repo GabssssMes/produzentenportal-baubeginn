@@ -116,7 +116,7 @@ function App() {
     //const PORT = process.env.PORT || 8001;
     //const url = "http://localhost:" + PORT + "/uploadFile";
     const url =
-      "https://erstelledocsbackup-production.up.railway.app/uploadFile";
+      "https://produzentenportal-baubeginn-production.up.railway.app/uploadFile";
     const formData = new FormData();
     formData.append("file", fileToUse);
     formData.append("fileName", fileToUse.name);
@@ -182,7 +182,7 @@ function App() {
     //const PORT = process.env.PORT || 8001;
     //const url = "http://localhost:" + PORT + "/uploadAusweis";
     const url =
-      "https://erstelledocsbackup-production.up.railway.app/uploadAusweis";
+      "https://produzentenportal-baubeginn-production.up.railway.app/uploadAusweis";
     const formData = new FormData();
     formData.append("file", fileToUse);
     formData.append("fileName", fileToUse.name);
@@ -249,7 +249,7 @@ function App() {
     //const PORT = process.env.PORT || 8001;
     //const url = "http://localhost:" + PORT + "/uploadStromrechnung";
     const url =
-      "https://erstelledocsbackup-production.up.railway.app/uploadStromrechnung";
+      "https://produzentenportal-baubeginn-production.up.railway.app/uploadStromrechnung";
     const formData = new FormData();
     formData.append("file", fileToUse);
     formData.append("fileName", fileToUse.name);
@@ -317,7 +317,7 @@ function App() {
     //const url = "http://localhost:" + PORT + "/uploadKataster";
 
     const url =
-      "https://erstelledocsbackup-production.up.railway.app/uploadKataster";
+      "https://produzentenportal-baubeginn-production.up.railway.app/uploadKataster";
     const formData = new FormData();
     formData.append("file", fileToUse);
     formData.append("fileName", fileToUse.name);
@@ -498,7 +498,7 @@ function App() {
     //const url = "http://localhost:" + PORT + "/createPdf";
 
     const url =
-      "https://erstelledocsbackup-production.up.railway.app/createPdf";
+      "https://produzentenportal-baubeginn-production.up.railway.app/createPdf";
 
     axios
       .post(url, data)
