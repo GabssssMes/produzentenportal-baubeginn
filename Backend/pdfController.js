@@ -527,9 +527,7 @@ exports.createPdf = async (req, res) => {
       }
     );
     pages2[0].drawText(
-      PersonalData["Geburtsort"].content +
-        " " +
-        PersonalData["Geburtsdatum"].content,
+      PersonalData["Geburtsort"].content + " " + Geburtsdatum,
       {
         x: 205,
         y: 572,
