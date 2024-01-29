@@ -4,7 +4,6 @@ const dotenv = require("dotenv");
 const cors = require("cors");
 const app = express();
 const pdfRoute = require("./pdfRoutes");
-const fs = require("fs");
 
 dotenv.config();
 
@@ -23,6 +22,7 @@ app.get("*", (req, res) => {
 app.listen(PORT, () => {
   console.log(`Server runnin on ${PORT}`);
 });
+/*
 setInterval(() => {
   console.log("check");
   deleteFilesOlderThan("./Backend/Documents/Uploads", 7200000);
@@ -47,3 +47,4 @@ const deleteFilesOlderThan = (directory, time) => {
     });
   });
 };
+*/
