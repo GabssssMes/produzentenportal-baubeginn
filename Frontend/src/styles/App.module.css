@@ -87,11 +87,7 @@ h3 {
   border: none;
   cursor: pointer;
   transition: all 0.2s ease;
-  background: rgb(70, 41, 214);
-}
-.submitbutton:hover,
-.buttonupload:hover {
-  background: rgb(88, 56, 250);
+  background: rgb(41, 119, 164);
 }
 button:hover {
   cursor: pointer;
@@ -102,7 +98,7 @@ button:hover {
   cursor: pointer;
   color: #fff;
   transition: all 0.2s ease;
-  background: rgb(70, 41, 214);
+  background: rgb(41, 119, 164);
   padding: 5px 20px;
   border-radius: 5px;
 }
