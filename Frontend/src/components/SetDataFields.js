@@ -137,7 +137,7 @@ PVData["Spitzenleistung[kW]"] = {
   content: "",
   required: true,
 };
-PVData["Nennleistung[kW]"] = {
+PVData["Nennleistung Inverter[kW]"] = {
   type: "number",
   key: uniqid(),
   content: "",
