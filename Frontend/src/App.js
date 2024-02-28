@@ -109,6 +109,25 @@ function App() {
         progress: undefined,
         theme: "dark",
       });
+      setFile("");
+      return;
+    }
+    if (fileToUse.size > 24000000) {
+      toast.error(
+        "Das ausgewählte File ist zu groß: " +
+          (fileToUse.size / 1000000).toFixed(2) +
+          " MB (Max: 24 MB)",
+        {
+          position: "top-center",
+          autoClose: 10000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+        }
+      );
 
       setFile("");
       return;
@@ -134,6 +153,7 @@ function App() {
       setUploadedFileURL('"' + stringURL + '" wurde erfolgreich hochgeladen!');
       let copy = Object.assign({}, Unterschrift);
       copy.filename.push(response.data);
+      copy.size.push(fileToUse.size);
       setUnterschrift(copy);
       toast.success('"' + stringURL + '" wurde erfolgreich hochgeladen!', {
         position: "top-center",
@@ -178,6 +198,27 @@ function App() {
       return;
     }
 
+    if (fileToUse.size > 24000000) {
+      toast.error(
+        "Das ausgewählte File ist zu groß: " +
+          (fileToUse.size / 1000000).toFixed(2) +
+          " MB (Max: 24 MB)",
+        {
+          position: "top-center",
+          autoClose: 10000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+        }
+      );
+
+      setFileAusweis("");
+      return;
+    }
+
     event.preventDefault();
     //const PORT = process.env.PORT || 8001;
     //const url = "http://localhost:" + PORT + "/uploadAusweis";
@@ -202,6 +243,7 @@ function App() {
       );
       let copy = Object.assign({}, Ausweis);
       copy.filename.push(response.data);
+      copy.size.push(fileToUse.size);
       setAusweis(copy);
       toast.success('"' + stringURL + '" wurde erfolgreich hochgeladen!', {
         position: "top-center",
@@ -245,6 +287,27 @@ function App() {
       setFileStromrechnung("");
       return;
     }
+
+    if (fileToUse.size > 24000000) {
+      toast.error(
+        "Das ausgewählte File ist zu groß: " +
+          (fileToUse.size / 1000000).toFixed(2) +
+          " MB (Max: 24 MB)",
+        {
+          position: "top-center",
+          autoClose: 10000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+        }
+      );
+
+      setFileStromrechnung("");
+      return;
+    }
     event.preventDefault();
     //const PORT = process.env.PORT || 8001;
     //const url = "http://localhost:" + PORT + "/uploadStromrechnung";
@@ -269,6 +332,7 @@ function App() {
       );
       let copy = Object.assign({}, Stromrechnung);
       copy.filename.push(response.data);
+      copy.size.push(fileToUse.size);
       setStromrechnung(copy);
       toast.success('"' + stringURL + '" wurde erfolgreich hochgeladen!', {
         position: "top-center",
@@ -312,6 +376,27 @@ function App() {
       setFileKataster("");
       return;
     }
+
+    if (fileToUse.size > 24000000) {
+      toast.error(
+        "Das ausgewählte File ist zu groß: " +
+          (fileToUse.size / 1000000).toFixed(2) +
+          " MB (Max: 24 MB)",
+        {
+          position: "top-center",
+          autoClose: 10000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+        }
+      );
+
+      setFileKataster("");
+      return;
+    }
     event.preventDefault();
     //const PORT = process.env.PORT || 8001;
     //const url = "http://localhost:" + PORT + "/uploadKataster";
@@ -337,6 +422,7 @@ function App() {
       );
       let copy = Object.assign({}, Kataster);
       copy.filename.push(response.data);
+      copy.size.push(fileToUse.size);
       setKataster(copy);
       toast.success('"' + stringURL + '" wurde erfolgreich hochgeladen!', {
         position: "top-center",

@@ -214,15 +214,19 @@ PVLocation["Kataster-Sub."] = {
 };
 let Signature = {
   filename: [],
+  size: [],
 };
 let id = {
   filename: [],
+  size: [],
 };
 let bill = {
   filename: [],
+  size: [],
 };
 let Cadastral = {
   filename: [],
+  size: [],
 };
 
 PVData["Spannung der Anlage"] = {

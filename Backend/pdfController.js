@@ -4,8 +4,6 @@ const nodemailer = require("nodemailer");
 const fs = require("fs");
 
 exports.uploadFile = async (req, res) => {
-  //console.log("req.body");
-  //console.log(req.file.filename);
   res.send(req.file.filename);
 };
 exports.uploadAusweis = async (req, res) => {
@@ -33,6 +31,13 @@ exports.createPdf = async (req, res) => {
   }.${current.getFullYear()}`;
   const Geburtsdatum = changeDateFormat(PersonalData["Geburtsdatum"].content);
   const Baubeginn = changeDateFormat(PVData["Baubeginn"].content);
+  let attachmentSize = 200000;
+  const UploadedFileSizes = [
+    req.body.Unterschrift.size[req.body.Unterschrift.size.length - 1],
+    req.body.Ausweis.size[req.body.Ausweis.size.length - 1],
+    req.body.Stromrechnung.size[req.body.Stromrechnung.size.length - 1],
+    req.body.Kataster.size[req.body.Kataster.size.length - 1],
+  ];
   const UploadedFilesToSend = [
     {
       filename:
@@ -101,6 +106,7 @@ exports.createPdf = async (req, res) => {
   let filesToDelete = [filename];
 
   if (Number(PVData["Nennleistung Inverter[kW]"].content) > 20) {
+    attachmentSize = attachmentSize + 2450000;
     let pdfDoc4,
       filename4 =
         "07 Bis - Nuova Dichiaraz  sostitutiva di atto notorio Off  elettr  - DL 16_2012_" +
@@ -833,6 +839,7 @@ exports.createPdf = async (req, res) => {
     PVData["POD"].content.split("")[3] === "5" &&
     PVData["POD"].content.split("")[4] === "9"
   ) {
+    attachmentSize = attachmentSize + 5000000;
     let filename2 =
         "Bozza Regolamento_BT_Vierschach_2023_" +
         PersonalData["Nachname"].content +
@@ -1103,12 +1110,14 @@ exports.createPdf = async (req, res) => {
       sendMailflexible(
         pathsAndFilenames,
         UploadedFilesToSend,
+        UploadedFileSizes,
         PersonalData["Vorname"].content +
           " " +
           PersonalData["Nachname"].content,
         PersonalData["Steuer"].selectedValue,
         Modul,
-        filesToDelete
+        filesToDelete,
+        attachmentSize
       ).then(() => {
         res.send(
           "Vielen Dank, Ihre Daten wurden erfolgreich übermittelt! Sie können das Portal jetzt verlassen!"
@@ -1120,6 +1129,7 @@ exports.createPdf = async (req, res) => {
     PVData["POD"].content.split("")[3] === "5" &&
     PVData["POD"].content.split("")[4] === "5"
   ) {
+    attachmentSize = attachmentSize + 600000;
     let filename2 =
         "Bozza Regolamento_BT_Toblach_2022-1_" +
         PersonalData["Nachname"].content +
@@ -1399,12 +1409,14 @@ exports.createPdf = async (req, res) => {
       sendMailflexible(
         pathsAndFilenames,
         UploadedFilesToSend,
+        UploadedFileSizes,
         PersonalData["Vorname"].content +
           " " +
           PersonalData["Nachname"].content,
         PersonalData["Steuer"].selectedValue,
         Modul,
-        filesToDelete
+        filesToDelete,
+        attachmentSize
       ).then(() => {
         res.send(
           "Vielen Dank, Ihre Daten wurden erfolgreich übermittelt! Sie können das Portal jetzt verlassen!"
@@ -1412,6 +1424,7 @@ exports.createPdf = async (req, res) => {
       })
     );
   } else {
+    attachmentSize = attachmentSize + 350000 + 1500000;
     let filename2 =
         "Delega_mandato_di_rappresentanza_Unificato_TICA_" +
         PersonalData["Nachname"].content +
@@ -1959,12 +1972,14 @@ exports.createPdf = async (req, res) => {
       sendMailflexible(
         pathsAndFilenames,
         UploadedFilesToSend,
+        UploadedFileSizes,
         PersonalData["Vorname"].content +
           " " +
           PersonalData["Nachname"].content,
         PersonalData["Steuer"].selectedValue,
         Modul,
-        filesToDelete
+        filesToDelete,
+        attachmentSize
       ).then(() => {
         res.send(
           "Vielen Dank, Ihre Daten wurden erfolgreich übermittelt! Sie können das Portal jetzt verlassen!"
@@ -1978,7 +1993,112 @@ const changeDateFormat = (olddate) => {
   return help[2] + "/" + help[1] + "/" + help[0];
 };
 
-sendMailflexible = async (
+const sendMailflexible = async (
+  pathsAndFilenames,
+  UploadedFilesToSend,
+  UploadedFileSizes,
+  FullName,
+  Steuer,
+  Modul,
+  filesToDelete,
+  attachmentSize
+) => {
+  //console.log(UploadedFileSizes);
+  //console.log(attachmentSize);
+  let filesToSend = [];
+  filesToSend.push(pathsAndFilenames);
+  for (let i = 0; i < UploadedFilesToSend.length; i++) {
+    if (attachmentSize + UploadedFileSizes[i] < 25000000) {
+      filesToSend[filesToSend.length - 1].push(UploadedFilesToSend[i]);
+      attachmentSize = attachmentSize + UploadedFileSizes[i];
+    } else {
+      filesToSend.push([]);
+      filesToSend[filesToSend.length - 1].push(UploadedFilesToSend[i]);
+      attachmentSize = UploadedFileSizes[i];
+    }
+  }
+  //console.log(filesToSend);
+  await sendMultipleMails(filesToSend, FullName, Steuer, Modul).then(() => {
+    filesToDelete.map((file) => {
+      unlinkSync(file);
+      return;
+    });
+    deleteFilesOlderThan("./Backend/Documents/Uploads", 7200000);
+    console.log("Ihre Daten wurden erfolgreich gespeichert!");
+  });
+};
+const sendMultipleMails = async (filesToSend, FullName, Steuer, Modul) => {
+  const transporter = nodemailer.createTransport({
+    service: "Gmail",
+    host: "smtp.gmail.com",
+    port: 465,
+    secure: true,
+    auth: {
+      user: "gabrielmaler789@gmail.com",
+      pass: "owvmuijpjvbqrqpe",
+    },
+  });
+
+  await Promise.all(
+    filesToSend.map(async (doc, index) => {
+      ++index;
+      await transporter.sendMail({
+        from: "gabrielmaler789@gmail.com",
+        to: "formulare.automatisiert@gmail.com",
+        subject:
+          "Baubeginn von " +
+          FullName +
+          ", Email " +
+          index +
+          " von " +
+          filesToSend.length,
+        text:
+          "Steuerrechtliche Angabe: " +
+          Steuer +
+          "\n\n" +
+          "Daten Modul\nMarke:" +
+          Modul["Marke"].content +
+          "\nModell:" +
+          Modul["Modell"].content +
+          "\nAnzahl:" +
+          Modul["Anzahl"].content +
+          "\nLeistung[kW]:" +
+          Modul["Leistung[kW]"].content,
+        attachments: doc,
+      });
+    })
+  );
+};
+const saveFiles = async (pdfsToSend, pathsAndFilenames) => {
+  await Promise.all(
+    pdfsToSend.map(async (doc, index) => {
+      await doc.save().then((x) => {
+        writeFileSync(pathsAndFilenames[index].filename, x);
+      });
+    })
+  );
+};
+const deleteFilesOlderThan = (directory, time) => {
+  fs.readdir(directory, function (err, files) {
+    files.forEach(function (file, index) {
+      fs.stat(directory + "/" + file, function (err, stat) {
+        var endTime, now;
+        if (err) {
+          return console.error(err);
+        }
+        now = new Date().getTime();
+        endTime = new Date(stat.ctime).getTime() + time;
+        if (now > endTime) {
+          if (fs.existsSync(directory)) {
+            fs.unlinkSync(directory + "/" + file);
+          }
+        }
+      });
+    });
+  });
+};
+
+/*sendMailflexible = async (
   pathsAndFilenames,
   UploadedFilesToSend,
   FullName,
@@ -2025,35 +2145,7 @@ sendMailflexible = async (
       console.log("Ihre Daten wurden erfolgreich gespeichert!");
     });
 };
-saveFiles = async (pdfsToSend, pathsAndFilenames) => {
-  await Promise.all(
-    pdfsToSend.map(async (doc, index) => {
-      await doc.save().then((x) => {
-        writeFileSync(pathsAndFilenames[index].filename, x);
-      });
-    })
-  );
-};
-const deleteFilesOlderThan = (directory, time) => {
-  fs.readdir(directory, function (err, files) {
-    files.forEach(function (file, index) {
-      fs.stat(directory + "/" + file, function (err, stat) {
-        var endTime, now;
-        if (err) {
-          return console.error(err);
-        }
-        now = new Date().getTime();
-        endTime = new Date(stat.ctime).getTime() + time;
-        if (now > endTime) {
-          if (fs.existsSync(directory)) {
-            fs.unlinkSync(directory + "/" + file);
-          }
-        }
-      });
-    });
-  });
-};
-
+*/
 /*writeFileSync(
       filename,
       await pdfDoc.save().then(
