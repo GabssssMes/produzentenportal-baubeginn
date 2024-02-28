@@ -18,7 +18,7 @@ import {
 import { useState } from "react";
 import axios from "axios";
 import { useRef } from "react";
-import { flushSync } from "react-dom";
+//import { flushSync } from "react-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -38,10 +38,10 @@ function App() {
   const [Stromrechnung, setStromrechnung] = useState(bill);
   const [Kataster, setKataster] = useState(Cadastral);
 
-  const [file, setFile] = useState();
-  const [fileAusweis, setFileAusweis] = useState();
-  const [fileStromrechnung, setFileStromrechnung] = useState();
-  const [fileKataster, setFileKataster] = useState();
+  //const [file, setFile] = useState();
+  //const [fileAusweis, setFileAusweis] = useState();
+  //const [fileStromrechnung, setFileStromrechnung] = useState();
+  //const [fileKataster, setFileKataster] = useState();
   const hiddenFileInput = useRef(null);
   const hiddenFileInputAusweis = useRef(null);
   const hiddenFileInputStromrechnung = useRef(null);
@@ -85,16 +85,7 @@ function App() {
   function handleUpload(event, fileToUse) {
     event.preventDefault();
     if (fileToUse === undefined) {
-      toast.warning("Bitte wählen Sie eine Datei aus!", {
-        position: "top-center",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "dark",
-      });
+      //setUploadedFileURL("Es wurde noch keine Datei hochgeladen!");
       return;
     }
     let format = fileToUse.name.split(".");
@@ -109,7 +100,7 @@ function App() {
         progress: undefined,
         theme: "dark",
       });
-      setFile("");
+      //setFile("");
       return;
     }
     if (fileToUse.size > 24000000) {
@@ -129,9 +120,15 @@ function App() {
         }
       );
 
-      setFile("");
+      //setFile("");
       return;
     }
+    const toastid = toast.loading(
+      '"' + fileToUse.name + '" wird hochgeladen!',
+      {
+        autoClose: false,
+      }
+    );
     //const PORT = process.env.PORT || 8001;
     //const url = "http://localhost:" + PORT + "/uploadFile";
     const url =
@@ -155,31 +152,18 @@ function App() {
       copy.filename.push(response.data);
       copy.size.push(fileToUse.size);
       setUnterschrift(copy);
-      toast.success('"' + stringURL + '" wurde erfolgreich hochgeladen!', {
-        position: "top-center",
+      toast.update(toastid, {
+        render: '"' + stringURL + '" wurde erfolgreich hochgeladen!',
+        type: "success",
+        isLoading: false,
         autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "dark",
       });
     });
   }
   function handleUploadAusweis(event, fileToUse) {
     event.preventDefault();
     if (fileToUse === undefined) {
-      toast.warning("Bitte wählen Sie eine Datei aus!", {
-        position: "top-center",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "dark",
-      });
+      //setUploadedFileURLAusweis("Es wurde noch keine Datei hochgeladen!");
       return;
     }
     let format = fileToUse.name.split(".");
@@ -194,7 +178,7 @@ function App() {
         progress: undefined,
         theme: "dark",
       });
-      setFileAusweis("");
+      //setFileAusweis("");
       return;
     }
 
@@ -215,9 +199,15 @@ function App() {
         }
       );
 
-      setFileAusweis("");
+      //setFileAusweis("");
       return;
     }
+    const toastid = toast.loading(
+      '"' + fileToUse.name + '" wird hochgeladen!',
+      {
+        autoClose: false,
+      }
+    );
 
     event.preventDefault();
     //const PORT = process.env.PORT || 8001;
@@ -245,31 +235,18 @@ function App() {
       copy.filename.push(response.data);
       copy.size.push(fileToUse.size);
       setAusweis(copy);
-      toast.success('"' + stringURL + '" wurde erfolgreich hochgeladen!', {
-        position: "top-center",
+      toast.update(toastid, {
+        render: '"' + stringURL + '" wurde erfolgreich hochgeladen!',
+        type: "success",
+        isLoading: false,
         autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "dark",
       });
     });
   }
   function handleUploadStromrechnung(event, fileToUse) {
     event.preventDefault();
     if (fileToUse === undefined) {
-      toast.warning("Bitte wählen Sie eine Datei aus!", {
-        position: "top-center",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "dark",
-      });
+      //setUploadedFileURLStromrechnung("Es wurde noch keine Datei hochgeladen!");
       return;
     }
     let format = fileToUse.name.split(".");
@@ -284,7 +261,7 @@ function App() {
         progress: undefined,
         theme: "dark",
       });
-      setFileStromrechnung("");
+      //setFileStromrechnung("");
       return;
     }
 
@@ -305,9 +282,15 @@ function App() {
         }
       );
 
-      setFileStromrechnung("");
+      //setFileStromrechnung("");
       return;
     }
+    const toastid = toast.loading(
+      '"' + fileToUse.name + '" wird hochgeladen!',
+      {
+        autoClose: false,
+      }
+    );
     event.preventDefault();
     //const PORT = process.env.PORT || 8001;
     //const url = "http://localhost:" + PORT + "/uploadStromrechnung";
@@ -334,31 +317,18 @@ function App() {
       copy.filename.push(response.data);
       copy.size.push(fileToUse.size);
       setStromrechnung(copy);
-      toast.success('"' + stringURL + '" wurde erfolgreich hochgeladen!', {
-        position: "top-center",
+      toast.update(toastid, {
+        render: '"' + stringURL + '" wurde erfolgreich hochgeladen!',
+        type: "success",
+        isLoading: false,
         autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "dark",
       });
     });
   }
   function handleUploadKataster(event, fileToUse) {
     event.preventDefault();
     if (fileToUse === undefined) {
-      toast.warning("Bitte wählen Sie eine Datei aus!", {
-        position: "top-center",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "dark",
-      });
+      //setUploadedFileURLKataster("Es wurde noch keine Datei hochgeladen!");
       return;
     }
     let format = fileToUse.name.split(".");
@@ -373,7 +343,7 @@ function App() {
         progress: undefined,
         theme: "dark",
       });
-      setFileKataster("");
+      //setFileKataster("");
       return;
     }
 
@@ -394,9 +364,15 @@ function App() {
         }
       );
 
-      setFileKataster("");
+      //setFileKataster("");
       return;
     }
+    const toastid = toast.loading(
+      '"' + fileToUse.name + '" wird hochgeladen!',
+      {
+        autoClose: false,
+      }
+    );
     event.preventDefault();
     //const PORT = process.env.PORT || 8001;
     //const url = "http://localhost:" + PORT + "/uploadKataster";
@@ -424,15 +400,11 @@ function App() {
       copy.filename.push(response.data);
       copy.size.push(fileToUse.size);
       setKataster(copy);
-      toast.success('"' + stringURL + '" wurde erfolgreich hochgeladen!', {
-        position: "top-center",
+      toast.update(toastid, {
+        render: '"' + stringURL + '" wurde erfolgreich hochgeladen!',
+        type: "success",
+        isLoading: false,
         autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "dark",
       });
     });
   }
@@ -501,7 +473,7 @@ function App() {
   };
   const createPDF = async (e) => {
     e.preventDefault();
-    if (file === undefined) {
+    if (uploadedFileURL === "Es wurde noch keine Datei hochgeladen!") {
       toast.warning(
         "Sie müssen noch ein Foto mit Ihrer Unterschrift hochladen.",
         {
@@ -517,7 +489,7 @@ function App() {
       );
       return;
     }
-    if (fileAusweis === undefined) {
+    if (uploadedFileURLAusweis === "Es wurde noch keine Datei hochgeladen!") {
       toast.warning("Sie müssen noch eine Kopie Ihres Ausweißes hochladen.", {
         position: "top-center",
         autoClose: 5000,
@@ -530,7 +502,9 @@ function App() {
       });
       return;
     }
-    if (fileStromrechnung === undefined) {
+    if (
+      uploadedFileURLStromrechnung === "Es wurde noch keine Datei hochgeladen!"
+    ) {
       toast.warning(
         "Sie müssen noch eine Kopie Ihrer Stromrechnung hochladen.",
         {
@@ -546,7 +520,7 @@ function App() {
       );
       return;
     }
-    if (fileKataster === undefined) {
+    if (uploadedFileURLKataster === "Es wurde noch keine Datei hochgeladen!") {
       toast.warning(
         "Sie müssen noch eine Kopie Ihres Katasterauszuges hochladen.",
         {
@@ -616,9 +590,9 @@ function App() {
     hiddenFileInput.current.click();
   };
   const handleChange = (event) => {
-    flushSync(() => {
-      setFile(event.target.files[0]);
-    });
+    //flushSync(() => {
+    //  setFile(event.target.files[0]);
+    //});
     handleUpload(event, event.target.files[0]);
   };
 
@@ -626,9 +600,9 @@ function App() {
     hiddenFileInputAusweis.current.click();
   };
   const handleChangeAusweis = (event) => {
-    flushSync(() => {
-      setFileAusweis(event.target.files[0]);
-    });
+    //flushSync(() => {
+    //  setFileAusweis(event.target.files[0]);
+    //});
     handleUploadAusweis(event, event.target.files[0]);
   };
 
@@ -636,9 +610,9 @@ function App() {
     hiddenFileInputStromrechnung.current.click();
   };
   const handleChangeStromrechnung = (event) => {
-    flushSync(() => {
-      setFileStromrechnung(event.target.files[0]);
-    });
+    //flushSync(() => {
+    //  setFileStromrechnung(event.target.files[0]);
+    //});
     handleUploadStromrechnung(event, event.target.files[0]);
   };
 
@@ -646,9 +620,9 @@ function App() {
     hiddenFileInputKataster.current.click();
   };
   const handleChangeKataster = (event) => {
-    flushSync(() => {
-      setFileKataster(event.target.files[0]);
-    });
+    //flushSync(() => {
+    //  setFileKataster(event.target.files[0]);
+    //});
     handleUploadKataster(event, event.target.files[0]);
   };
   return (
