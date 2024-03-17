@@ -292,8 +292,8 @@ function App() {
       }
     );
     event.preventDefault();
-    // const PORT = process.env.PORT || 8001;
-    // const url = "http://localhost:" + PORT + "/uploadStromrechnung";
+    //const PORT = process.env.PORT || 8001;
+    //const url = "http://localhost:" + PORT + "/uploadStromrechnung";
     const url =
       "https://produzentenportal-baubeginn-production.up.railway.app/uploadStromrechnung";
     const formData = new FormData();
@@ -374,8 +374,8 @@ function App() {
       }
     );
     event.preventDefault();
-    //const PORT = process.env.PORT || 8001;
-    //const url = "http://localhost:" + PORT + "/uploadKataster";
+    // const PORT = process.env.PORT || 8001;
+    // const url = "http://localhost:" + PORT + "/uploadKataster";
 
     const url =
       "https://produzentenportal-baubeginn-production.up.railway.app/uploadKataster";
@@ -1009,6 +1009,7 @@ function App() {
                   type={PersonendatenEl[key].type}
                   key={PersonendatenEl[key].key}
                   value={PersonendatenEl[key].content}
+                  required={PersonendatenEl[key].required}
                   onChange={handleChangeEl()}
                 ></DataField>
               );
