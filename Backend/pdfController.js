@@ -381,8 +381,8 @@ exports.createPdf = async (req, res) => {
 
   if (
     PVData["POD"].content.split("")[2] === "0" &&
-    PVData["POD"].content.split("")[3] === "5" &&
-    PVData["POD"].content.split("")[4] === "5"
+    PVData["POD"].content.split("")[3] === "8" &&
+    PVData["POD"].content.split("")[4] === "1"
   ) {
     attachmentSize = attachmentSize + 1000000;
     let pdfDoc,
