@@ -1019,7 +1019,7 @@ exports.createPdf = async (req, res) => {
       size: 8,
     });
 
-    pages3[21].drawText(
+    pages3[22].drawText(
       PersonalData["Vorname"].content + " " + PersonalData["Nachname"].content,
       {
         x: 107,
@@ -1027,7 +1027,7 @@ exports.createPdf = async (req, res) => {
         size: 8,
       }
     );
-    pages3[21].drawText(PersonalData["Telefonnummer"].content, {
+    pages3[22].drawText(PersonalData["Telefonnummer"].content, {
       x: 429,
       y: 510,
       size: 8,
