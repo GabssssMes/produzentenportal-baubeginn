@@ -80,7 +80,7 @@ exports.createPdf = async (req, res) => {
     },
   ];
 
-  if (Number(PVData["Nennleistung Inverter[kW]"].content) > 20) {
+  if (Number(PVData["Nennleistung der gesamten Inverter[kW]"].content) > 20) {
     attachmentSize = attachmentSize + 2450000;
     let pdfDoc4,
       filename4 =
@@ -186,11 +186,14 @@ exports.createPdf = async (req, res) => {
         size: 8,
       });
     }
-    pages4[0].drawText(PVData["Nennleistung Inverter[kW]"].content, {
-      x: 449,
-      y: 513,
-      size: 8,
-    });
+    pages4[0].drawText(
+      PVData["Nennleistung der gesamten Inverter[kW]"].content,
+      {
+        x: 449,
+        y: 513,
+        size: 8,
+      }
+    );
     pages4[0].drawText(PVAdress["Gemeinde"].content, {
       x: 161,
       y: 477,
@@ -284,11 +287,14 @@ exports.createPdf = async (req, res) => {
         size: 8,
       });
     }
-    pages5[0].drawText(PVData["Nennleistung Inverter[kW]"].content, {
-      x: 325,
-      y: 130,
-      size: 8,
-    });
+    pages5[0].drawText(
+      PVData["Nennleistung der gesamten Inverter[kW]"].content,
+      {
+        x: 325,
+        y: 130,
+        size: 8,
+      }
+    );
     pages5[0].drawText(PVAdress["Straße"].content, {
       x: 103,
       y: 108,
@@ -357,11 +363,14 @@ exports.createPdf = async (req, res) => {
         size: 6,
       }
     );
-    pages5[1].drawText(PVData["Nennleistung Inverter[kW]"].content, {
-      x: 357,
-      y: 135,
-      size: 5,
-    });
+    pages5[1].drawText(
+      PVData["Nennleistung der gesamten Inverter[kW]"].content,
+      {
+        x: 357,
+        y: 135,
+        size: 5,
+      }
+    );
 
     filesToDelete = filesToDelete.concat([filename4, filename5]);
     pdfsToSend = pdfsToSend.concat([pdfDoc4, pdfDoc5]);
@@ -574,11 +583,14 @@ exports.createPdf = async (req, res) => {
       y: 331,
       size: 6,
     });
-    pages[0].drawText(PVData["Nennleistung Inverter[kW]"].content, {
-      x: 121,
-      y: 315,
-      size: 6,
-    });
+    pages[0].drawText(
+      PVData["Nennleistung der gesamten Inverter[kW]"].content,
+      {
+        x: 121,
+        y: 315,
+        size: 6,
+      }
+    );
     pages[0].drawText(PVData["POD"].content, {
       x: 388,
       y: 315,
@@ -661,14 +673,17 @@ exports.createPdf = async (req, res) => {
       });
     }
     if (
-      Number(PVData["Nennleistung Inverter[kW]"].content) <
+      Number(PVData["Nennleistung der gesamten Inverter[kW]"].content) <
       Number(PVData["Spitzenleistung[kW]"].content)
     ) {
-      pages[1].drawText(PVData["Nennleistung Inverter[kW]"].content, {
-        x: 493,
-        y: 624,
-        size: 8,
-      });
+      pages[1].drawText(
+        PVData["Nennleistung der gesamten Inverter[kW]"].content,
+        {
+          x: 493,
+          y: 624,
+          size: 8,
+        }
+      );
     } else {
       pages[1].drawText(PVData["Spitzenleistung[kW]"].content, {
         x: 493,
@@ -705,11 +720,14 @@ exports.createPdf = async (req, res) => {
       y: 540,
       size: 6,
     });
-    pages2[0].drawText(PVData["Nennleistung Inverter[kW]"].content, {
-      x: 416,
-      y: 540,
-      size: 6,
-    });
+    pages2[0].drawText(
+      PVData["Nennleistung der gesamten Inverter[kW]"].content,
+      {
+        x: 416,
+        y: 540,
+        size: 6,
+      }
+    );
     if (PVData["Speicher"].selectedValue === "Ja") {
       pages2[0].drawText(PVData["Speicher"].content, {
         x: 307,
@@ -735,13 +753,17 @@ exports.createPdf = async (req, res) => {
       y: 330,
       size: 6,
     });
-    if (Number(PVData["Nennleistung Inverter[kW]"].content) > 11.04) {
+    if (
+      Number(PVData["Nennleistung der gesamten Inverter[kW]"].content) > 11.04
+    ) {
       pages2[0].drawText(SPI["Modell"].content, {
         x: 378,
         y: 330,
         size: 6,
       });
-    } else if (Number(PVData["Nennleistung Inverter[kW]"].content) <= 11.04) {
+    } else if (
+      Number(PVData["Nennleistung der gesamten Inverter[kW]"].content) <= 11.04
+    ) {
       pages2[0].drawText(
         SPI["Modell"].content + " integrato nell' inverter secondo CEI 0-21",
         {
@@ -761,11 +783,14 @@ exports.createPdf = async (req, res) => {
       y: 307,
       size: 6,
     });
-    pages2[0].drawText(PVData["Nennleistung Inverter[kW]"].content, {
-      x: 478,
-      y: 307,
-      size: 5,
-    });
+    pages2[0].drawText(
+      PVData["Nennleistung der gesamten Inverter[kW]"].content,
+      {
+        x: 478,
+        y: 307,
+        size: 5,
+      }
+    );
     pages2[0].drawText(Speicher["Marke"].content, {
       x: 198,
       y: 284,
@@ -892,11 +917,14 @@ exports.createPdf = async (req, res) => {
       y: 500,
       size: 8,
     });
-    pages3[1].drawText(PVData["Nennleistung Inverter[kW]"].content, {
-      x: 315,
-      y: 418,
-      size: 8,
-    });
+    pages3[1].drawText(
+      PVData["Nennleistung der gesamten Inverter[kW]"].content,
+      {
+        x: 315,
+        y: 418,
+        size: 8,
+      }
+    );
 
     pages3[8].drawText(
       PersonalData["Vorname"].content + " " + PersonalData["Nachname"].content,
@@ -947,16 +975,19 @@ exports.createPdf = async (req, res) => {
       });
     }
     if (
-      Number(PVData["Nennleistung Inverter[kW]"].content) <
+      Number(PVData["Nennleistung der gesamten Inverter[kW]"].content) <
       Number(PVData["Spitzenleistung[kW]"].content)
     ) {
-      pages3[11].drawText(PVData["Nennleistung Inverter[kW]"].content, {
-        x: 185,
-        y: 560,
-        size: 8,
-      });
+      pages3[11].drawText(
+        PVData["Nennleistung der gesamten Inverter[kW]"].content,
+        {
+          x: 185,
+          y: 560,
+          size: 8,
+        }
+      );
     } else if (
-      Number(PVData["Nennleistung Inverter[kW]"].content) >=
+      Number(PVData["Nennleistung der gesamten Inverter[kW]"].content) >=
       Number(PVData["Spitzenleistung[kW]"].content)
     ) {
       pages3[11].drawText(PVData["Spitzenleistung[kW]"].content, {
@@ -966,11 +997,14 @@ exports.createPdf = async (req, res) => {
       });
     }
 
-    pages3[13].drawText(PVData["Nennleistung Inverter[kW]"].content, {
-      x: 97,
-      y: 184,
-      size: 8,
-    });
+    pages3[13].drawText(
+      PVData["Nennleistung der gesamten Inverter[kW]"].content,
+      {
+        x: 97,
+        y: 184,
+        size: 8,
+      }
+    );
 
     pages3[16].drawText(SPI["Marke"].content, {
       x: 197,
@@ -983,7 +1017,9 @@ exports.createPdf = async (req, res) => {
       size: 8,
     });
 
-    if (Number(PVData["Nennleistung Inverter[kW]"].content) > 11.04) {
+    if (
+      Number(PVData["Nennleistung der gesamten Inverter[kW]"].content) > 11.04
+    ) {
       pages3[16].drawLine({
         start: { x: 302, y: 567 },
         end: { x: 315, y: 580 },
@@ -992,7 +1028,9 @@ exports.createPdf = async (req, res) => {
         start: { x: 302, y: 580 },
         end: { x: 315, y: 567 },
       });
-    } else if (Number(PVData["Nennleistung Inverter[kW]"].content) <= 11.04) {
+    } else if (
+      Number(PVData["Nennleistung der gesamten Inverter[kW]"].content) <= 11.04
+    ) {
       pages3[16].drawLine({
         start: { x: 231, y: 567 },
         end: { x: 244, y: 580 },
@@ -1198,11 +1236,14 @@ exports.createPdf = async (req, res) => {
       y: 408,
       size: 6,
     });
-    pages[0].drawText(PVData["Nennleistung Inverter[kW]"].content, {
-      x: 420,
-      y: 408,
-      size: 6,
-    });
+    pages[0].drawText(
+      PVData["Nennleistung der gesamten Inverter[kW]"].content,
+      {
+        x: 420,
+        y: 408,
+        size: 6,
+      }
+    );
     pages[0].drawText(PVData["POD"].content, {
       x: 177,
       y: 396,
@@ -1251,14 +1292,17 @@ exports.createPdf = async (req, res) => {
       });
     }
     if (
-      Number(PVData["Nennleistung Inverter[kW]"].content) <
+      Number(PVData["Nennleistung der gesamten Inverter[kW]"].content) <
       Number(PVData["Spitzenleistung[kW]"].content)
     ) {
-      pages[0].drawText(PVData["Nennleistung Inverter[kW]"].content, {
-        x: 432,
-        y: 57,
-        size: 8,
-      });
+      pages[0].drawText(
+        PVData["Nennleistung der gesamten Inverter[kW]"].content,
+        {
+          x: 432,
+          y: 57,
+          size: 8,
+        }
+      );
     } else {
       pages[0].drawText(PVData["Spitzenleistung[kW]"].content, {
         x: 432,
@@ -1381,20 +1425,26 @@ exports.createPdf = async (req, res) => {
       y: 621,
       size: 6,
     });
-    pages[2].drawText(PVData["Nennleistung Inverter[kW]"].content, {
-      x: 397,
-      y: 621,
-      size: 6,
-    });
+    pages[2].drawText(
+      PVData["Nennleistung der gesamten Inverter[kW]"].content,
+      {
+        x: 397,
+        y: 621,
+        size: 6,
+      }
+    );
     if (
-      Number(PVData["Nennleistung Inverter[kW]"].content) <
+      Number(PVData["Nennleistung der gesamten Inverter[kW]"].content) <
       Number(PVData["Spitzenleistung[kW]"].content)
     ) {
-      pages[2].drawText(PVData["Nennleistung Inverter[kW]"].content, {
-        x: 133,
-        y: 612,
-        size: 5,
-      });
+      pages[2].drawText(
+        PVData["Nennleistung der gesamten Inverter[kW]"].content,
+        {
+          x: 133,
+          y: 612,
+          size: 5,
+        }
+      );
     } else {
       pages[2].drawText(PVData["Spitzenleistung[kW]"].content, {
         x: 133,
@@ -1466,13 +1516,17 @@ exports.createPdf = async (req, res) => {
       y: 470,
       size: 6,
     });
-    if (Number(PVData["Nennleistung Inverter[kW]"].content) > 11.04) {
+    if (
+      Number(PVData["Nennleistung der gesamten Inverter[kW]"].content) > 11.04
+    ) {
       pages[2].drawText(SPI["Modell"].content, {
         x: 257,
         y: 470,
         size: 6,
       });
-    } else if (Number(PVData["Nennleistung Inverter[kW]"].content) <= 11.04) {
+    } else if (
+      Number(PVData["Nennleistung der gesamten Inverter[kW]"].content) <= 11.04
+    ) {
       pages[2].drawText(
         SPI["Modell"].content + " integrato nell' inverter secondo CEI 0-21",
         {
@@ -1492,11 +1546,14 @@ exports.createPdf = async (req, res) => {
       y: 455,
       size: 6,
     });
-    pages[2].drawText(PVData["Nennleistung Inverter[kW]"].content, {
-      x: 246,
-      y: 448,
-      size: 5,
-    });
+    pages[2].drawText(
+      PVData["Nennleistung der gesamten Inverter[kW]"].content,
+      {
+        x: 246,
+        y: 448,
+        size: 5,
+      }
+    );
     pages[2].drawText(Speicher["Marke"].content, {
       x: 167,
       y: 428,
@@ -1640,11 +1697,14 @@ exports.createPdf = async (req, res) => {
         y: 513,
         size: 8,
       });
-      pages2[1].drawText(PVData["Nennleistung Inverter[kW]"].content, {
-        x: 320,
-        y: 435,
-        size: 8,
-      });
+      pages2[1].drawText(
+        PVData["Nennleistung der gesamten Inverter[kW]"].content,
+        {
+          x: 320,
+          y: 435,
+          size: 8,
+        }
+      );
 
       pages2[7].drawText(
         PersonalData["Vorname"].content +
@@ -1697,16 +1757,19 @@ exports.createPdf = async (req, res) => {
         });
       }
       if (
-        Number(PVData["Nennleistung Inverter[kW]"].content) <
+        Number(PVData["Nennleistung der gesamten Inverter[kW]"].content) <
         Number(PVData["Spitzenleistung[kW]"].content)
       ) {
-        pages2[10].drawText(PVData["Nennleistung Inverter[kW]"].content, {
-          x: 324,
-          y: 474,
-          size: 8,
-        });
+        pages2[10].drawText(
+          PVData["Nennleistung der gesamten Inverter[kW]"].content,
+          {
+            x: 324,
+            y: 474,
+            size: 8,
+          }
+        );
       } else if (
-        Number(PVData["Nennleistung Inverter[kW]"].content) >=
+        Number(PVData["Nennleistung der gesamten Inverter[kW]"].content) >=
         Number(PVData["Spitzenleistung[kW]"].content)
       ) {
         pages2[10].drawText(PVData["Spitzenleistung[kW]"].content, {
@@ -1716,11 +1779,14 @@ exports.createPdf = async (req, res) => {
         });
       }
 
-      pages2[12].drawText(PVData["Nennleistung Inverter[kW]"].content, {
-        x: 90,
-        y: 237,
-        size: 8,
-      });
+      pages2[12].drawText(
+        PVData["Nennleistung der gesamten Inverter[kW]"].content,
+        {
+          x: 90,
+          y: 237,
+          size: 8,
+        }
+      );
 
       pages2[15].drawText(SPI["Marke"].content, {
         x: 197,
@@ -1733,7 +1799,9 @@ exports.createPdf = async (req, res) => {
         size: 8,
       });
 
-      if (Number(PVData["Nennleistung Inverter[kW]"].content) > 11.04) {
+      if (
+        Number(PVData["Nennleistung der gesamten Inverter[kW]"].content) > 11.04
+      ) {
         pages2[15].drawLine({
           start: { x: 302, y: 640 },
           end: { x: 315, y: 627 },
@@ -1742,7 +1810,10 @@ exports.createPdf = async (req, res) => {
           start: { x: 302, y: 627 },
           end: { x: 315, y: 640 },
         });
-      } else if (Number(PVData["Nennleistung Inverter[kW]"].content) <= 11.04) {
+      } else if (
+        Number(PVData["Nennleistung der gesamten Inverter[kW]"].content) <=
+        11.04
+      ) {
         pages2[15].drawLine({
           start: { x: 231, y: 640 },
           end: { x: 244, y: 627 },
@@ -1948,11 +2019,14 @@ exports.createPdf = async (req, res) => {
         y: 492,
         size: 8,
       });
-      pages2[1].drawText(PVData["Nennleistung Inverter[kW]"].content, {
-        x: 317,
-        y: 413,
-        size: 8,
-      });
+      pages2[1].drawText(
+        PVData["Nennleistung der gesamten Inverter[kW]"].content,
+        {
+          x: 317,
+          y: 413,
+          size: 8,
+        }
+      );
 
       pages2[7].drawText(
         PersonalData["Vorname"].content +
@@ -2005,16 +2079,19 @@ exports.createPdf = async (req, res) => {
         });
       }
       if (
-        Number(PVData["Nennleistung Inverter[kW]"].content) <
+        Number(PVData["Nennleistung der gesamten Inverter[kW]"].content) <
         Number(PVData["Spitzenleistung[kW]"].content)
       ) {
-        pages2[10].drawText(PVData["Nennleistung Inverter[kW]"].content, {
-          x: 215,
-          y: 409,
-          size: 8,
-        });
+        pages2[10].drawText(
+          PVData["Nennleistung der gesamten Inverter[kW]"].content,
+          {
+            x: 215,
+            y: 409,
+            size: 8,
+          }
+        );
       } else if (
-        Number(PVData["Nennleistung Inverter[kW]"].content) >=
+        Number(PVData["Nennleistung der gesamten Inverter[kW]"].content) >=
         Number(PVData["Spitzenleistung[kW]"].content)
       ) {
         pages2[10].drawText(PVData["Spitzenleistung[kW]"].content, {
@@ -2024,11 +2101,14 @@ exports.createPdf = async (req, res) => {
         });
       }
 
-      pages2[12].drawText(PVData["Nennleistung Inverter[kW]"].content, {
-        x: 94,
-        y: 200,
-        size: 8,
-      });
+      pages2[12].drawText(
+        PVData["Nennleistung der gesamten Inverter[kW]"].content,
+        {
+          x: 94,
+          y: 200,
+          size: 8,
+        }
+      );
 
       pages2[15].drawText(SPI["Marke"].content, {
         x: 207,
@@ -2041,7 +2121,9 @@ exports.createPdf = async (req, res) => {
         size: 6,
       });
 
-      if (Number(PVData["Nennleistung Inverter[kW]"].content) > 11.04) {
+      if (
+        Number(PVData["Nennleistung der gesamten Inverter[kW]"].content) > 11.04
+      ) {
         pages2[15].drawLine({
           start: { x: 303, y: 574 },
           end: { x: 316, y: 587 },
@@ -2050,7 +2132,10 @@ exports.createPdf = async (req, res) => {
           start: { x: 303, y: 587 },
           end: { x: 316, y: 574 },
         });
-      } else if (Number(PVData["Nennleistung Inverter[kW]"].content) <= 11.04) {
+      } else if (
+        Number(PVData["Nennleistung der gesamten Inverter[kW]"].content) <=
+        11.04
+      ) {
         pages2[15].drawLine({
           start: { x: 231, y: 574 },
           end: { x: 244, y: 587 },
@@ -2340,11 +2425,14 @@ exports.createPdf = async (req, res) => {
         });
       }
 
-      pages3[2].drawText(PVData["Nennleistung Inverter[kW]"].content, {
-        x: 388,
-        y: 622,
-        size: 8,
-      });
+      pages3[2].drawText(
+        PVData["Nennleistung der gesamten Inverter[kW]"].content,
+        {
+          x: 388,
+          y: 622,
+          size: 8,
+        }
+      );
       pages3[5].drawText(PersonalData["Vorname"].content, {
         x: 67,
         y: 689,
@@ -2627,28 +2715,37 @@ exports.createPdf = async (req, res) => {
         y: 566,
         size: 8,
       });
-      pages3[14].drawText(PVData["Nennleistung Inverter[kW]"].content, {
-        x: 195,
-        y: 554,
-        size: 8,
-      });
+      pages3[14].drawText(
+        PVData["Nennleistung der gesamten Inverter[kW]"].content,
+        {
+          x: 195,
+          y: 554,
+          size: 8,
+        }
+      );
 
       if (
-        Number(PVData["Nennleistung Inverter[kW]"].content) <
+        Number(PVData["Nennleistung der gesamten Inverter[kW]"].content) <
         Number(PVData["Spitzenleistung[kW]"].content)
       ) {
-        pages3[14].drawText(PVData["Nennleistung Inverter[kW]"].content, {
-          x: 246,
-          y: 541,
-          size: 8,
-        });
-        pages3[2].drawText(PVData["Nennleistung Inverter[kW]"].content, {
-          x: 216,
-          y: 588,
-          size: 8,
-        });
+        pages3[14].drawText(
+          PVData["Nennleistung der gesamten Inverter[kW]"].content,
+          {
+            x: 246,
+            y: 541,
+            size: 8,
+          }
+        );
+        pages3[2].drawText(
+          PVData["Nennleistung der gesamten Inverter[kW]"].content,
+          {
+            x: 216,
+            y: 588,
+            size: 8,
+          }
+        );
       } else if (
-        Number(PVData["Nennleistung Inverter[kW]"].content) >=
+        Number(PVData["Nennleistung der gesamten Inverter[kW]"].content) >=
         Number(PVData["Spitzenleistung[kW]"].content)
       ) {
         pages3[14].drawText(PVData["Spitzenleistung[kW]"].content, {
