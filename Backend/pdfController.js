@@ -386,6 +386,50 @@ exports.createPdf = async (req, res) => {
         contentType: "application/pdf",
       },
     ]);
+  } else {
+    attachmentSize = attachmentSize + 118000;
+    let pdfDoc4,
+      filename4 =
+        "DICHIARAZIONE SOSTITUTIVA DI ATTO DI NOTORIETA ARERA 361_2023_" +
+        PersonalData["Nachname"].content +
+        "_" +
+        PersonalData["Vorname"].content +
+        ".pdf",
+      path4 =
+        "DICHIARAZIONE SOSTITUTIVA DI ATTO DI NOTORIETA ARERA 361_2023_" +
+        PersonalData["Nachname"].content +
+        "_" +
+        PersonalData["Vorname"].content +
+        ".pdf";
+    pdfDoc4 = await PDFDocument.load(
+      readFileSync(
+        "./Backend/Documents/DICHIARAZIONE SOSTITUTIVA DI ATTO DI NOTORIETA ARERA 361_2023.pdf"
+      )
+    );
+    const pages4 = pdfDoc4.getPages();
+
+    pages4[0].drawText(
+      PersonalData["Nachname"].content + " " + PersonalData["Vorname"].content,
+      {
+        x: 159,
+        y: 695,
+        size: 8,
+      }
+    );
+    pages4[0].drawLine({
+      start: { x: 100, y: 300 },
+      end: { x: 100, y: 500 },
+    });
+
+    filesToDelete = filesToDelete.concat([filename4]);
+    pdfsToSend = pdfsToSend.concat([pdfDoc4]);
+    pathsAndFilenames = pathsAndFilenames.concat([
+      {
+        filename: filename4,
+        path: path4,
+        contentType: "application/pdf",
+      },
+    ]);
   }
 
   if (
