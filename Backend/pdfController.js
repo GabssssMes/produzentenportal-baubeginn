@@ -497,7 +497,7 @@ exports.createPdf = async (req, res) => {
       {
         x: 98,
         y: 587,
-        size: 5,
+        size: 8,
       }
     );
     if (
@@ -522,7 +522,7 @@ exports.createPdf = async (req, res) => {
     pages4[0].drawText(date, {
       x: 101,
       y: 182,
-      size: 5,
+      size: 8,
     });
 
     filesToDelete = filesToDelete.concat([filename4]);
