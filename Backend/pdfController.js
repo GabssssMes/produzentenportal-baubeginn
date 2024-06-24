@@ -2032,6 +2032,359 @@ exports.createPdf = async (req, res) => {
       );
     } else if (
       PVData["POD"].content.split("")[2] === "0" &&
+      PVData["POD"].content.split("")[3] === "4" &&
+      PVData["POD"].content.split("")[4] === "5"
+    ) {
+      attachmentSize = attachmentSize + 400000;
+      let filename2 =
+          "Regolamento_BT_AE Casies_2024 RDE_Formular_" +
+          PersonalData["Nachname"].content +
+          "_" +
+          PersonalData["Vorname"].content +
+          ".pdf",
+        path2 =
+          "./Regolamento_BT_AE Casies_2024 RDE_Formular_" +
+          PersonalData["Nachname"].content +
+          "_" +
+          PersonalData["Vorname"].content +
+          ".pdf";
+
+      let pdfDoc2 = await PDFDocument.load(
+        readFileSync(
+          "./Backend/Documents/Regolamento_BT_AE Casies_2024 RDE_Formular.pdf"
+        )
+      );
+      const pages2 = pdfDoc2.getPages();
+      filesToDelete = filesToDelete.concat([filename2]);
+
+      pages2[0].drawText(
+        PersonalData["Vorname"].content +
+          " " +
+          PersonalData["Nachname"].content,
+        {
+          x: 152,
+          y: 592,
+          size: 8,
+        }
+      );
+      pages2[0].drawText(
+        PersonalData["Geburtsort"].content + " " + Geburtsdatum,
+        {
+          x: 180,
+          y: 574,
+          size: 8,
+        }
+      );
+      pages2[0].drawText(PersonalData["Steuernummer"].content, {
+        x: 194,
+        y: 557,
+        size: 8,
+      });
+      pages2[0].drawText(
+        PersonalData["Straße"].content +
+          " " +
+          PersonalData["Hausnummer"].content,
+        {
+          x: 109,
+          y: 538,
+          size: 8,
+        }
+      );
+      pages2[0].drawText(PersonalData["Fraktion"].content, {
+        x: 403,
+        y: 538,
+        size: 8,
+      });
+      pages2[0].drawText(PersonalData["Wohnhaft in der Gemeinde"].content, {
+        x: 106,
+        y: 519,
+        size: 8,
+      });
+      pages2[0].drawText(PersonalData["Postleitzahl"].content, {
+        x: 403,
+        y: 519,
+        size: 8,
+      });
+      if (PersonalData["Privatperson"].selectedValue === "Ja") {
+        pages2[0].drawLine({
+          start: { x: 57, y: 473 },
+          end: { x: 68, y: 464 },
+        });
+        pages2[0].drawLine({
+          start: { x: 57, y: 464 },
+          end: { x: 68, y: 473 },
+        });
+      } else {
+        pages2[0].drawText("legale rappresentante", {
+          x: 120,
+          y: 428,
+          size: 8,
+        });
+        pages2[0].drawText(PersonalData["Privatperson"].content, {
+          x: 380,
+          y: 410,
+          size: 8,
+        });
+      }
+
+      pages2[0].drawText(PVAdress["Straße"].content, {
+        x: 317,
+        y: 231,
+        size: 8,
+      });
+      pages2[0].drawText(PVAdress["Nummer"].content, {
+        x: 57,
+        y: 213,
+        size: 8,
+      });
+      pages2[0].drawText(PVAdress["Gemeinde"].content, {
+        x: 147,
+        y: 213,
+        size: 8,
+      });
+      pages2[0].drawText(PVAdress["Postleitzahl"].content, {
+        x: 496,
+        y: 213,
+        size: 8,
+      });
+      pages2[0].drawText(PVData["POD"].content, {
+        x: 382,
+        y: 177,
+        size: 8,
+      });
+      pages2[0].drawText(
+        PVData["Nennleistung der gesamten Inverter[kW]"].content,
+        {
+          x: 298,
+          y: 94,
+          size: 8,
+        }
+      );
+
+      pages2[6].drawText(
+        PersonalData["Vorname"].content +
+          " " +
+          PersonalData["Nachname"].content,
+        {
+          x: 65,
+          y: 228,
+          size: 8,
+        }
+      );
+      pages2[6].drawText(PersonalData["Telefonnummer"].content, {
+        x: 358,
+        y: 228,
+        size: 8,
+      });
+      pages2[6].drawText(PersonalData["Email"].content, {
+        x: 442,
+        y: 228,
+        size: 8,
+      });
+      pages2[6].drawText(
+        PersonalDataEl["Vorname"].content +
+          " " +
+          PersonalDataEl["Nachname"].content,
+        {
+          x: 65,
+          y: 200,
+          size: 8,
+        }
+      );
+      pages2[6].drawText(PersonalDataEl["Telefonnummer"].content, {
+        x: 358,
+        y: 200,
+        size: 8,
+      });
+      pages2[6].drawText(PersonalDataEl["Email"].content, {
+        x: 442,
+        y: 200,
+        size: 8,
+      });
+
+      if (PVData["Spannung der Anlage"].selectedValue === "Monofase") {
+        pages2[8].drawText("230", {
+          x: 309,
+          y: 139,
+          size: 8,
+        });
+        pages2[10].drawLine({
+          start: { x: 287, y: 293 },
+          end: { x: 297, y: 283 },
+        });
+        pages2[10].drawLine({
+          start: { x: 287, y: 283 },
+          end: { x: 297, y: 293 },
+        });
+      } else if (PVData["Spannung der Anlage"].selectedValue === "Trifase") {
+        pages2[8].drawText("400", {
+          x: 309,
+          y: 139,
+          size: 8,
+        });
+        pages2[10].drawLine({
+          start: { x: 380, y: 293 },
+          end: { x: 390, y: 283 },
+        });
+        pages2[10].drawLine({
+          start: { x: 380, y: 283 },
+          end: { x: 390, y: 293 },
+        });
+      }
+      if (
+        Number(PVData["Nennleistung der gesamten Inverter[kW]"].content) <
+        Number(PVData["Spitzenleistung[kW]"].content)
+      ) {
+        pages2[9].drawText(
+          PVData["Nennleistung der gesamten Inverter[kW]"].content,
+          {
+            x: 136,
+            y: 661,
+            size: 8,
+          }
+        );
+      } else if (
+        Number(PVData["Nennleistung der gesamten Inverter[kW]"].content) >=
+        Number(PVData["Spitzenleistung[kW]"].content)
+      ) {
+        pages2[9].drawText(PVData["Spitzenleistung[kW]"].content, {
+          x: 136,
+          y: 661,
+          size: 8,
+        });
+      }
+
+      pages2[10].drawText(
+        PVData["Nennleistung der gesamten Inverter[kW]"].content,
+        {
+          x: 76,
+          y: 248,
+          size: 8,
+        }
+      );
+
+      pages2[13].drawText(SPI["Marke"].content, {
+        x: 184,
+        y: 398,
+        size: 8,
+      });
+      pages2[13].drawText(SPI["Modell"].content, {
+        x: 123,
+        y: 379,
+        size: 8,
+      });
+
+      if (
+        Number(PVData["Nennleistung der gesamten Inverter[kW]"].content) > 11.04
+      ) {
+        pages2[13].drawLine({
+          start: { x: 296, y: 352 },
+          end: { x: 308, y: 340 },
+        });
+        pages2[13].drawLine({
+          start: { x: 296, y: 340 },
+          end: { x: 308, y: 352 },
+        });
+      } else if (
+        Number(PVData["Nennleistung der gesamten Inverter[kW]"].content) <=
+        11.04
+      ) {
+        pages2[13].drawLine({
+          start: { x: 217, y: 352 },
+          end: { x: 230, y: 340 },
+        });
+        pages2[13].drawLine({
+          start: { x: 217, y: 340 },
+          end: { x: 230, y: 352 },
+        });
+      }
+
+      pages2[12].drawText(Speicher["Marke"].content, {
+        x: 79,
+        y: 350,
+        size: 8,
+      });
+      pages2[12].drawText(Speicher["Modell"].content, {
+        x: 169,
+        y: 350,
+        size: 8,
+      });
+      pages2[12].drawText(PVData["Speicher"].leistung, {
+        x: 259,
+        y: 350,
+        size: 8,
+      });
+      pages2[12].drawText(PVData["Speicher"].leistung, {
+        x: 340,
+        y: 350,
+        size: 8,
+      });
+      pages2[12].drawText(PVData["Speicher"].content, {
+        x: 407,
+        y: 350,
+        size: 8,
+      });
+
+      pages2[18].drawText(
+        PersonalData["Vorname"].content +
+          " " +
+          PersonalData["Nachname"].content,
+        {
+          x: 94,
+          y: 546,
+          size: 8,
+        }
+      );
+      pages2[18].drawText(PersonalData["Telefonnummer"].content, {
+        x: 410,
+        y: 546,
+        size: 8,
+      });
+
+      pages2[18].drawText(
+        PersonalDataEl["Vorname"].content +
+          " " +
+          PersonalDataEl["Nachname"].content,
+        {
+          x: 94,
+          y: 582,
+          size: 8,
+        }
+      );
+      pages2[18].drawText(PersonalDataEl["Telefonnummer"].content, {
+        x: 411,
+        y: 582,
+        size: 8,
+      });
+
+      pdfsToSend = pdfsToSend.concat([pdfDoc2]);
+      pathsAndFilenames = pathsAndFilenames.concat([
+        {
+          filename: filename2,
+          path: path2,
+          contentType: "application/pdf",
+        },
+      ]);
+      await saveFiles(pdfsToSend, pathsAndFilenames).then(
+        sendMailflexible(
+          pathsAndFilenames,
+          UploadedFilesToSend,
+          UploadedFileSizes,
+          PersonalData["Vorname"].content +
+            " " +
+            PersonalData["Nachname"].content,
+          PersonalData["Steuer"].selectedValue,
+          Modul,
+          filesToDelete,
+          attachmentSize
+        ).then(() => {
+          res.send(
+            "Vielen Dank, Ihre Daten wurden erfolgreich übermittelt! Sie können das Portal jetzt verlassen!"
+          );
+        })
+      );
+    } else if (
+      PVData["POD"].content.split("")[2] === "0" &&
       PVData["POD"].content.split("")[3] === "5" &&
       PVData["POD"].content.split("")[4] === "0"
     ) {
