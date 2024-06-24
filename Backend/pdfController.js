@@ -2307,7 +2307,7 @@ exports.createPdf = async (req, res) => {
       pages2[12].drawText(Speicher["Modell"].content, {
         x: 169,
         y: 350,
-        size: 8,
+        size: 6,
       });
       pages2[12].drawText(PVData["Speicher"].leistung, {
         x: 259,
