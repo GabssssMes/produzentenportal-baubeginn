@@ -3496,8 +3496,8 @@ exports.createPdf = async (req, res) => {
             " " +
             PersonalData["Nachname"].content,
           {
-            x: 108,
-            y: 645,
+            x: 140,
+            y: 646,
             size: 8,
           }
         );
@@ -3593,8 +3593,8 @@ exports.createPdf = async (req, res) => {
           pages3[2].drawText(
             PVData["Nennleistung der gesamten Inverter[kW]"].content,
             {
-              x: 216,
-              y: 588,
+              x: 324,
+              y: 601,
               size: 8,
             }
           );
@@ -3608,8 +3608,8 @@ exports.createPdf = async (req, res) => {
             size: 8,
           });
           pages3[2].drawText(PVData["Spitzenleistung[kW]"].content, {
-            x: 216,
-            y: 588,
+            x: 324,
+            y: 601,
             size: 8,
           });
         }
