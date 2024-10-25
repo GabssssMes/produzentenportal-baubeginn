@@ -208,7 +208,7 @@ exports.createPdf = async (req, res) => {
         {
           x: 415,
           y: 504,
-          size: 5,
+          size: 8,
         }
       );
       pages6[0].drawText(
