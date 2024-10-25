@@ -119,6 +119,129 @@ exports.createPdf = async (req, res) => {
       readFileSync("./Backend/Documents/DENUNCIA ATTIVITA OFFICINA_Vorlage.pdf")
     );
     const pages5 = pdfDoc5.getPages();
+    if (PersonalData["Privatperson"].selectedValue !== "Ja") {
+      attachmentSize = attachmentSize + 410000;
+      let pdfDoc6,
+        filename6 =
+          "Delega_UTF_" +
+          PersonalData["Nachname"].content +
+          "_" +
+          PersonalData["Vorname"].content +
+          ".pdf",
+        path6 =
+          "./Delega_UTF_" +
+          PersonalData["Nachname"].content +
+          "_" +
+          PersonalData["Vorname"].content +
+          ".pdf";
+      pdfDoc6 = await PDFDocument.load(
+        readFileSync("./Backend/Documents/Vorlage Delega.pdf")
+      );
+      const pages6 = pdfDoc6.getPages();
+      pages6[0].drawText(
+        PersonalData["Vorname"].content +
+          " " +
+          PersonalData["Nachname"].content,
+        {
+          x: 121,
+          y: 605,
+          size: 8,
+        }
+      );
+      pages6[0].drawText(PersonalData["Geburtsort"].content, {
+        x: 387,
+        y: 605,
+        size: 8,
+      });
+      pages6[0].drawText(Geburtsdatum, {
+        x: 318,
+        y: 605,
+        size: 8,
+      });
+      pages6[0].drawText(PersonalData["Steuernummer"].content, {
+        x: 93,
+        y: 584,
+        size: 8,
+      });
+      pages6[0].drawText(
+        PersonalData["Postleitzahl"].content +
+          " " +
+          PersonalData["Wohnhaft in der Gemeinde"].content,
+        {
+          x: 289,
+          y: 584,
+          size: 8,
+        }
+      );
+      pages6[0].drawText(
+        PersonalData["Straße"].content +
+          " " +
+          PersonalData["Hausnummer"].content,
+        {
+          x: 58,
+          y: 564,
+          size: 8,
+        }
+      );
+      pages6[0].drawText(PersonalData["Privatperson"].content, {
+        x: 58,
+        y: 544,
+        size: 8,
+      });
+      pages6[0].drawText(PersonalData["Privatperson"].content, {
+        x: 58,
+        y: 790,
+        size: 8,
+      });
+      pages6[0].drawText(PersonalData["Partita Iva"].content, {
+        x: 322,
+        y: 544,
+        size: 8,
+      });
+      pages6[0].drawText(PersonalData["Partita Iva"].content, {
+        x: 450,
+        y: 544,
+        size: 8,
+      });
+      pages6[0].drawText(
+        PVData["Nennleistung der gesamten Inverter[kW]"].content,
+        {
+          x: 415,
+          y: 504,
+          size: 5,
+        }
+      );
+      pages6[0].drawText(
+        PVAdress["Postleitzahl"].content + " " + PVAdress["Gemeinde"].content,
+        {
+          x: 125,
+          y: 484,
+          size: 8,
+        }
+      );
+      pages6[0].drawText(
+        PVAdress["Straße"].content + " " + PVAdress["Nummer"].content,
+        {
+          x: 354,
+          y: 484,
+          size: 8,
+        }
+      );
+      pages6[0].drawText(date, {
+        x: 97,
+        y: 252,
+        size: 8,
+      });
+      filesToDelete = filesToDelete.concat([filename6]);
+      pdfsToSend = pdfsToSend.concat([pdfDoc6]);
+      pathsAndFilenames = pathsAndFilenames.concat([
+        {
+          filename: filename6,
+          path: path6,
+          contentType: "application/pdf",
+        },
+      ]);
+    }
 
     pages4[0].drawText(
       PersonalData["Nachname"].content + " " + PersonalData["Vorname"].content,
