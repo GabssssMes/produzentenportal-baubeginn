@@ -1886,7 +1886,7 @@ exports.createPdf = async (req, res) => {
 
       pages3[1].drawText(Geburtsdatum, {
         x: 415,
-        y: 587,
+        y: 565,
         size: 8,
       });
       pages3[1].drawText(PersonalData["Steuernummer"].content, {
