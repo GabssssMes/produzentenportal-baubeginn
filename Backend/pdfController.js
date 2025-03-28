@@ -2501,6 +2501,21 @@ exports.createPdf = async (req, res) => {
           y: 105,
           size: 8,
         });
+        pages2[9].drawText(date, {
+          x: 423,
+          y: 82,
+          size: 8,
+        });
+        pages2[11].drawText(date, {
+          x: 66,
+          y: 149,
+          size: 8,
+        });
+        pages2[13].drawText(date, {
+          x: 63,
+          y: 141,
+          size: 8,
+        });
 
         pages2[3].drawText(
           PersonalData["Vorname"].content +
@@ -4223,6 +4238,21 @@ exports.createPdf = async (req, res) => {
         pages3[5].drawText(date, {
           x: 67,
           y: 129,
+          size: 8,
+        });
+        pages3[9].drawText(date, {
+          x: 423,
+          y: 82,
+          size: 8,
+        });
+        pages3[11].drawText(date, {
+          x: 66,
+          y: 149,
+          size: 8,
+        });
+        pages3[13].drawText(date, {
+          x: 63,
+          y: 141,
           size: 8,
         });
 
