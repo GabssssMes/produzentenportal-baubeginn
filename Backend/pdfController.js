@@ -1874,31 +1874,24 @@ exports.createPdf = async (req, res) => {
           PersonalData["Nachname"].content,
         {
           x: 95,
-          y: 605,
+          y: 583,
           size: 8,
         }
       );
-      pages3[0].drawLine({
-        start: { x: 200, y: 200 },
-        end: { x: 400, y: 200 },
+      pages3[1].drawText(PersonalData["Geburtsort"].content, {
+        x: 144,
+        y: 565,
+        size: 8,
       });
-      pages3[1].drawText(
-        PersonalData["Geburtsort"].content + " " + Geburtsdatum,
-        {
-          x: 142,
-          y: 587,
-          size: 8,
-        }
-      );
 
       pages3[1].drawText(Geburtsdatum, {
-        x: 405,
+        x: 415,
         y: 587,
         size: 8,
       });
       pages3[1].drawText(PersonalData["Steuernummer"].content, {
-        x: 158,
-        y: 570,
+        x: 162,
+        y: 548,
         size: 8,
       });
       pages3[1].drawText(
@@ -1906,40 +1899,40 @@ exports.createPdf = async (req, res) => {
           " " +
           PersonalData["Hausnummer"].content,
         {
-          x: 130,
-          y: 553,
+          x: 183,
+          y: 531,
           size: 8,
         }
       );
       pages3[1].drawText(PersonalData["Wohnhaft in der Gemeinde"].content, {
-        x: 194,
-        y: 538,
+        x: 195,
+        y: 515,
         size: 8,
       });
       if (PersonalData["Privatperson"].selectedValue !== "Ja") {
         pages3[1].drawText("legale rappresentante", {
-          x: 162,
-          y: 470,
+          x: 156,
+          y: 446,
           size: 8,
         });
         pages3[1].drawText(PersonalData["Privatperson"].content, {
-          x: 285,
-          y: 453,
+          x: 292,
+          y: 429,
           size: 8,
         });
 
         pages3[1].drawText(PersonalData["Partita Iva"].content, {
-          x: 362,
-          y: 420,
+          x: 372,
+          y: 394,
           size: 8,
         });
       }
 
-      pages3[2].drawText(date, {
-        x: 95,
-        y: 235,
-        size: 8,
-      });
+      //pages3[2].drawText(date, {
+      //  x: 95,
+      //  y: 235,
+      //  size: 8,
+      //});
 
       pdfsToSend = pdfsToSend.concat([pdfDoc3]);
       pathsAndFilenames = pathsAndFilenames.concat([
