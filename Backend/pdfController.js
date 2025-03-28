@@ -2578,8 +2578,10 @@ exports.createPdf = async (req, res) => {
           size: 8,
         });
         pages2[4].drawText(
-          Number(Modul["Anzahl"].content) *
-            Number(Modul["Leistung[kW]"].content),
+          String(
+            Number(Modul["Anzahl"].content) *
+              Number(Modul["Leistung[kW]"].content)
+          ),
           {
             x: 139,
             y: 204,
