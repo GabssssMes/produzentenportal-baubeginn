@@ -1878,6 +1878,10 @@ exports.createPdf = async (req, res) => {
           size: 8,
         }
       );
+      pages3[0].drawLine({
+        start: { x: 200, y: 200 },
+        end: { x: 400, y: 200 },
+      });
       pages3[1].drawText(
         PersonalData["Geburtsort"].content + " " + Geburtsdatum,
         {
