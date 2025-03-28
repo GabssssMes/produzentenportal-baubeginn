@@ -2567,12 +2567,12 @@ exports.createPdf = async (req, res) => {
           size: 8,
         });
 
-        pages2[4].drawText(Modul["Anzahl"].content, {
+        pages2[4].drawText(String(Modul["Anzahl"].content), {
           x: 28,
           y: 204,
           size: 8,
         });
-        pages2[4].drawText(Modul["Leistung[kW]"].content, {
+        pages2[4].drawText(String(Modul["Leistung[kW]"].content), {
           x: 67,
           y: 204,
           size: 8,
