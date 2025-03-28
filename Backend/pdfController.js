@@ -2656,34 +2656,35 @@ exports.createPdf = async (req, res) => {
             size: 8,
           }
         );
+
         pages2[6].drawText(PVData["POD"].content, {
-          x: 342,
-          y: 472,
+          x: 349,
+          y: 480,
           size: 8,
         });
         pages2[6].drawText(
           PVAdress["Straße"].content + " " + PVAdress["Nummer"].content,
           {
-            x: 109,
-            y: 513,
+            x: 115,
+            y: 520,
             size: 8,
           }
         );
         pages2[6].drawText(PVAdress["Postleitzahl"].content, {
-          x: 440,
-          y: 493,
+          x: 450,
+          y: 500,
           size: 8,
         });
         pages2[6].drawText(PVAdress["Gemeinde"].content, {
-          x: 107,
-          y: 493,
+          x: 114,
+          y: 500,
           size: 8,
         });
         pages2[6].drawText(
           PVData["Nennleistung der gesamten Inverter[kW]"].content,
           {
-            x: 385,
-            y: 435,
+            x: 400,
+            y: 443,
             size: 8,
           }
         );
@@ -2695,8 +2696,8 @@ exports.createPdf = async (req, res) => {
           pages2[6].drawText(
             PVData["Nennleistung der gesamten Inverter[kW]"].content,
             {
-              x: 467,
-              y: 415,
+              x: 232,
+              y: 412,
               size: 8,
             }
           );
@@ -2705,12 +2706,16 @@ exports.createPdf = async (req, res) => {
           Number(PVData["Spitzenleistung[kW]"].content)
         ) {
           pages2[6].drawText(PVData["Spitzenleistung[kW]"].content, {
-            x: 467,
-            y: 415,
+            x: 232,
+            y: 412,
             size: 8,
           });
         }
-
+        pages2[6].drawText(date, {
+          x: 90,
+          y: 152,
+          size: 8,
+        });
         pages2[7].drawText(
           PersonalData["Vorname"].content +
             " " +
@@ -4708,33 +4713,33 @@ exports.createPdf = async (req, res) => {
           }
         );
         pages3[6].drawText(PVData["POD"].content, {
-          x: 342,
-          y: 472,
+          x: 349,
+          y: 480,
           size: 8,
         });
         pages3[6].drawText(
           PVAdress["Straße"].content + " " + PVAdress["Nummer"].content,
           {
-            x: 109,
-            y: 513,
+            x: 115,
+            y: 520,
             size: 8,
           }
         );
         pages3[6].drawText(PVAdress["Postleitzahl"].content, {
-          x: 440,
-          y: 493,
+          x: 450,
+          y: 500,
           size: 8,
         });
         pages3[6].drawText(PVAdress["Gemeinde"].content, {
-          x: 107,
-          y: 493,
+          x: 114,
+          y: 500,
           size: 8,
         });
         pages3[6].drawText(
           PVData["Nennleistung der gesamten Inverter[kW]"].content,
           {
-            x: 385,
-            y: 435,
+            x: 400,
+            y: 443,
             size: 8,
           }
         );
@@ -4746,8 +4751,8 @@ exports.createPdf = async (req, res) => {
           pages3[6].drawText(
             PVData["Nennleistung der gesamten Inverter[kW]"].content,
             {
-              x: 467,
-              y: 415,
+              x: 232,
+              y: 412,
               size: 8,
             }
           );
@@ -4756,11 +4761,16 @@ exports.createPdf = async (req, res) => {
           Number(PVData["Spitzenleistung[kW]"].content)
         ) {
           pages3[6].drawText(PVData["Spitzenleistung[kW]"].content, {
-            x: 467,
-            y: 415,
+            x: 232,
+            y: 412,
             size: 8,
           });
         }
+        pages3[6].drawText(date, {
+          x: 90,
+          y: 152,
+          size: 8,
+        });
 
         pages3[7].drawText(
           PersonalData["Vorname"].content +
