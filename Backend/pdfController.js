@@ -1358,7 +1358,7 @@ exports.createPdf = async (req, res) => {
       });
       pages3[22].drawText(date, {
         x: 374,
-        y: 133,
+        y: 140,
         size: 8,
       });
 
