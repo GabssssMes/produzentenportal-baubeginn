@@ -1072,7 +1072,7 @@ exports.createPdf = async (req, res) => {
     if (
       Number(PVData["Nennleistung der gesamten Inverter[kW]"].content) > 11.08
     ) {
-      attachmentSize = attachmentSize + 7700000;
+      attachmentSize = attachmentSize + 7500000;
       let pdfDoc3,
         filename3 =
           "Bozza Regolamento_" +
@@ -1397,7 +1397,7 @@ exports.createPdf = async (req, res) => {
         })
       );
     } else {
-      attachmentSize = attachmentSize + 500000;
+      attachmentSize = attachmentSize + 7500000;
       let pdfDoc3,
         filename3 =
           "Bozza Regolamento_" +
