@@ -2203,15 +2203,15 @@ exports.createPdf = async (req, res) => {
       if (
         Number(PVData["Nennleistung der gesamten Inverter[kW]"].content) > 11.08
       ) {
-        attachmentSize = attachmentSize + 12000000;
+        attachmentSize = attachmentSize + 8000000;
         let filename2 =
-            "Regolamento_di_Esercizio_BT_ab-11,08 Vierschach_" +
+            "Bozza Regolamento_BT_Vierschach_2024_" +
             PersonalData["Nachname"].content +
             "_" +
             PersonalData["Vorname"].content +
             ".pdf",
           path2 =
-            "./Regolamento_di_Esercizio_BT_ab-11,08 Vierschach_" +
+            "./Bozza Regolamento_BT_Vierschach_2024_" +
             PersonalData["Nachname"].content +
             "_" +
             PersonalData["Vorname"].content +
@@ -2219,7 +2219,7 @@ exports.createPdf = async (req, res) => {
 
         let pdfDoc2 = await PDFDocument.load(
           readFileSync(
-            "./Backend/Documents/Regolamento_di_Esercizio_BT_ab-11,08 Vierschach.pdf"
+            "./Backend/Documents/Bozza Regolamento_BT_Vierschach_2024.pdf"
           )
         );
         const pages2 = pdfDoc2.getPages();
@@ -2229,363 +2229,169 @@ exports.createPdf = async (req, res) => {
             " " +
             PersonalData["Nachname"].content,
           {
-            x: 131,
-            y: 656,
-            size: 8,
-          }
-        );
-
-        pages2[0].drawText(
-          PersonalData["Geburtsort"].content + "    " + Geburtsdatum,
-          {
-            x: 171,
-            y: 620,
-            size: 8,
-          }
-        );
-        pages2[0].drawText(
-          PersonalData["Steuernummer"].content +
-            "       " +
-            PersonalData["Partita Iva"].content,
-          {
-            x: 171,
-            y: 590,
-            size: 8,
-          }
-        );
-        pages2[0].drawText(
-          PersonalData["Straße"].content +
-            " " +
-            PersonalData["Hausnummer"].content,
-          {
-            x: 99,
+            x: 176,
             y: 550,
             size: 8,
           }
         );
-        pages2[0].drawText(PersonalData["Fraktion"].content, {
-          x: 337,
-          y: 549,
-          size: 8,
-        });
-        pages2[0].drawText(PersonalData["Wohnhaft in der Gemeinde"].content, {
-          x: 74,
-          y: 517,
-          size: 8,
-        });
         pages2[0].drawText(
-          PersonalData[
-            "Provinz (Abkürzung, maximal 2 Zeichen ,z.B. BZ für Bozen)"
-          ].content,
+          PersonalData["Geburtsort"].content + " " + Geburtsdatum,
           {
-            x: 321,
-            y: 517,
-            size: 8,
-          }
-        );
-        pages2[0].drawText(PersonalData["Postleitzahl"].content, {
-          x: 406,
-          y: 517,
-          size: 8,
-        });
-
-        pages2[2].drawText(PVData["Name PV-Anlage"].content, {
-          x: 156,
-          y: 746,
-          size: 8,
-        });
-        pages2[2].drawText(
-          PVAdress["Straße"].content + " " + PVAdress["Nummer"].content,
-          {
-            x: 96,
-            y: 724,
-            size: 8,
-          }
-        );
-        pages2[2].drawText(PVAdress["Gemeinde"].content, {
-          x: 92,
-          y: 703,
-          size: 8,
-        });
-        pages2[2].drawText(PVAdress["Postleitzahl"].content, {
-          x: 436,
-          y: 703,
-          size: 8,
-        });
-        pages2[2].drawText(PVData["POD"].content, {
-          x: 343,
-          y: 682,
-          size: 8,
-        });
-        if (PVData["Spannung der Anlage"].selectedValue === "Monofase") {
-          pages2[2].drawLine({
-            start: { x: 289, y: 664 },
-            end: { x: 297, y: 673 },
-          });
-          pages2[2].drawLine({
-            start: { x: 289, y: 673 },
-            end: { x: 297, y: 664 },
-          });
-        } else if (PVData["Spannung der Anlage"].selectedValue === "Trifase") {
-          pages2[2].drawLine({
-            start: { x: 426, y: 664 },
-            end: { x: 434, y: 673 },
-          });
-          pages2[2].drawLine({
-            start: { x: 426, y: 673 },
-            end: { x: 434, y: 664 },
-          });
-        }
-
-        pages2[2].drawText(
-          PVData["Nennleistung der gesamten Inverter[kW]"].content,
-          {
-            x: 388,
-            y: 622,
-            size: 8,
-          }
-        );
-        pages2[5].drawText(PersonalData["Vorname"].content, {
-          x: 67,
-          y: 689,
-          size: 8,
-        });
-        pages2[5].drawText(PersonalData["Nachname"].content, {
-          x: 284,
-          y: 689,
-          size: 8,
-        });
-        pages2[5].drawText(PersonalData["Geburtsort"].content, {
-          x: 71,
-          y: 670,
-          size: 8,
-        });
-        pages2[5].drawText(Geburtsdatum, {
-          x: 438,
-          y: 670,
-          size: 8,
-        });
-        pages2[5].drawText(PersonalData["Steuernummer"].content, {
-          x: 113,
-          y: 652,
-          size: 8,
-        });
-        pages2[5].drawText(
-          PersonalData["Straße"].content +
-            " " +
-            PersonalData["Hausnummer"].content,
-          {
-            x: 114,
-            y: 634,
-            size: 8,
-          }
-        );
-        pages2[5].drawText(PersonalData["Wohnhaft in der Gemeinde"].content, {
-          x: 85,
-          y: 616,
-          size: 8,
-        });
-        pages2[5].drawText(
-          PersonalData[
-            "Provinz (Abkürzung, maximal 2 Zeichen ,z.B. BZ für Bozen)"
-          ].content,
-          {
-            x: 305,
-            y: 616,
-            size: 8,
-          }
-        );
-        pages2[5].drawText(PersonalData["Postleitzahl"].content, {
-          x: 445,
-          y: 616,
-          size: 8,
-        });
-        pages2[5].drawText(PVAdress["Straße"].content, {
-          x: 89,
-          y: 568,
-          size: 8,
-        });
-        pages2[5].drawText(PVAdress["Nummer"].content, {
-          x: 471,
-          y: 568,
-          size: 8,
-        });
-        pages2[5].drawText(PVAdress["Gemeinde"].content, {
-          x: 82,
-          y: 550,
-          size: 8,
-        });
-        pages2[5].drawText(
-          PVAdress["Provinz (Abkürzung, maximal 2 Zeichen ,z.B. BZ für Bozen)"]
-            .content,
-          {
-            x: 305,
-            y: 550,
-            size: 8,
-          }
-        );
-        pages2[5].drawText(PVAdress["Postleitzahl"].content, {
-          x: 447,
-          y: 550,
-          size: 8,
-        });
-        pages2[5].drawText(PVData["POD"].content, {
-          x: 346,
-          y: 533,
-          size: 8,
-        });
-        pages2[5].drawText(
-          PersonalData["Vorname"].content +
-            " " +
-            PersonalData["Nachname"].content,
-          {
-            x: 141,
-            y: 482,
-            size: 8,
-          }
-        );
-        pages2[5].drawText(
-          PersonalData["Vorname"].content +
-            " " +
-            PersonalData["Nachname"].content,
-          {
-            x: 141,
-            y: 375,
-            size: 8,
-          }
-        );
-        pages2[5].drawText(
-          PersonalDataEl["Vorname"].content +
-            " " +
-            PersonalDataEl["Nachname"].content,
-          {
-            x: 141,
-            y: 428,
-            size: 8,
-          }
-        );
-        pages2[5].drawText(
-          PersonalDataEl["Vorname"].content +
-            " " +
-            PersonalDataEl["Nachname"].content,
-          {
-            x: 141,
-            y: 319,
-            size: 8,
-          }
-        );
-        pages2[5].drawText(PersonalData["Telefonnummer"].content, {
-          x: 383,
-          y: 482,
-          size: 8,
-        });
-        pages2[5].drawText(PersonalData["Telefonnummer"].content, {
-          x: 383,
-          y: 375,
-          size: 8,
-        });
-        pages2[5].drawText(PersonalDataEl["Telefonnummer"].content, {
-          x: 383,
-          y: 430,
-          size: 8,
-        });
-        pages2[5].drawText(PersonalDataEl["Telefonnummer"].content, {
-          x: 383,
-          y: 325,
-          size: 8,
-        });
-        pages2[5].drawText(PersonalData["Email"].content, {
-          x: 313,
-          y: 464,
-          size: 8,
-        });
-        pages2[5].drawText(PersonalData["Email"].content, {
-          x: 313,
-          y: 357,
-          size: 8,
-        });
-        pages2[5].drawText(PersonalDataEl["Email"].content, {
-          x: 313,
-          y: 411,
-          size: 8,
-        });
-        pages2[5].drawText(PersonalDataEl["Email"].content, {
-          x: 313,
-          y: 302,
-          size: 8,
-        });
-        pages2[5].drawText(date, {
-          x: 67,
-          y: 129,
-          size: 8,
-        });
-        pages2[9].drawText(date, {
-          x: 423,
-          y: 82,
-          size: 8,
-        });
-        pages2[11].drawText(date, {
-          x: 66,
-          y: 149,
-          size: 8,
-        });
-        pages2[13].drawText(date, {
-          x: 63,
-          y: 141,
-          size: 8,
-        });
-        pages2[12].drawText(
-          PersonalData["Vorname"].content +
-            " " +
-            PersonalData["Nachname"].content,
-          {
-            x: 78,
-            y: 591,
-            size: 8,
-          }
-        );
-        pages2[12].drawText(
-          PersonalData["Vorname"].content +
-            " " +
-            PersonalData["Nachname"].content,
-          {
-            x: 264,
+            x: 200,
             y: 531,
             size: 8,
           }
         );
-        pages2[12].drawText(
-          PVAdress["Straße"].content + " " + PVAdress["Nummer"].content,
+        pages2[0].drawText(PersonalData["Steuernummer"].content, {
+          x: 215,
+          y: 513,
+          size: 8,
+        });
+        pages2[0].drawText(PersonalData["Partita Iva"].content, {
+          x: 388,
+          y: 513,
+          size: 8,
+        });
+        pages2[0].drawText(
+          PersonalData["Straße"].content +
+            " " +
+            PersonalData["Hausnummer"].content,
           {
-            x: 272,
-            y: 592,
+            x: 127,
+            y: 495,
             size: 8,
           }
         );
-        pages2[12].drawText(PVAdress["Gemeinde"].content, {
-          x: 273,
-          y: 571,
+        pages2[0].drawText(PersonalData["Fraktion"].content, {
+          x: 453,
+          y: 495,
           size: 8,
         });
-
+        pages2[0].drawText(PersonalData["Wohnhaft in der Gemeinde"].content, {
+          x: 125,
+          y: 477,
+          size: 8,
+        });
+        pages2[0].drawText(PersonalData["Postleitzahl"].content, {
+          x: 408,
+          y: 477,
+          size: 8,
+        });
+        if (PersonalData["Privatperson"].selectedValue === "Ja") {
+          pages2[0].drawLine({
+            start: { x: 72, y: 419 },
+            end: { x: 85, y: 430 },
+          });
+          pages2[0].drawLine({
+            start: { x: 72, y: 430 },
+            end: { x: 85, y: 419 },
+          });
+        } else {
+          pages2[0].drawText("legale rappresentante", {
+            x: 141,
+            y: 381,
+            size: 8,
+          });
+          pages2[0].drawText(PersonalData["Privatperson"].content, {
+            x: 404,
+            y: 364,
+            size: 8,
+          });
+        }
+      
+        pages2[1].drawText(PVAdress["Straße"].content, {
+          x: 78,
+          y: 555,
+          size: 8,
+        });
+        pages2[1].drawText(PVAdress["Nummer"].content, {
+          x: 461,
+          y: 555,
+          size: 8,
+        });
+        pages2[1].drawText(PVAdress["Gemeinde"].content, {
+          x: 78,
+          y: 536,
+          size: 8,
+        });
+        pages2[1].drawText(PVAdress["Postleitzahl"].content, {
+          x: 386,
+          y: 536,
+          size: 8,
+        });
+        pages2[1].drawText(PVData["POD"].content, {
+          x: 397,
+          y: 500,
+          size: 8,
+        });
+        pages2[1].drawText(
+          PVData["Nennleistung der gesamten Inverter[kW]"].content,
+          {
+            x: 315,
+            y: 418,
+            size: 8,
+          }
+        );
+      
+        pages2[8].drawText(
+          PersonalData["Vorname"].content +
+            " " +
+            PersonalData["Nachname"].content,
+          {
+            x: 73,
+            y: 414,
+            size: 8,
+          }
+        );
+        pages2[8].drawText(PersonalData["Telefonnummer"].content, {
+          x: 369,
+          y: 414,
+          size: 8,
+        });
+        pages2[8].drawText(PersonalData["Email"].content, {
+          x: 453,
+          y: 414,
+          size: 8,
+        });
+      
+        if (PVData["Spannung der Anlage"].selectedValue === "Monofase") {
+          pages2[11].drawText("230", {
+            x: 323,
+            y: 621,
+            size: 8,
+          });
+          pages2[13].drawLine({
+            start: { x: 301, y: 220 },
+            end: { x: 314, y: 232 },
+          });
+          pages2[13].drawLine({
+            start: { x: 301, y: 232 },
+            end: { x: 314, y: 220 },
+          });
+        } else if (PVData["Spannung der Anlage"].selectedValue === "Trifase") {
+          pages2[11].drawText("400", {
+            x: 323,
+            y: 621,
+            size: 8,
+          });
+          pages2[13].drawLine({
+            start: { x: 389, y: 220 },
+            end: { x: 402, y: 232 },
+          });
+          pages2[13].drawLine({
+            start: { x: 389, y: 232 },
+            end: { x: 402, y: 220 },
+          });
+        }
         if (
           Number(PVData["Nennleistung der gesamten Inverter[kW]"].content) <
           Number(PVData["Spitzenleistung[kW]"].content)
         ) {
-          pages2[2].drawText(
-            PVData["Nennleistung der gesamten Inverter[kW]"].content,
-            {
-              x: 324,
-              y: 601,
-              size: 8,
-            }
-          );
-
           pages2[11].drawText(
             PVData["Nennleistung der gesamten Inverter[kW]"].content,
             {
-              x: 306,
-              y: 626,
+              x: 185,
+              y: 560,
               size: 8,
             }
           );
@@ -2593,28 +2399,109 @@ exports.createPdf = async (req, res) => {
           Number(PVData["Nennleistung der gesamten Inverter[kW]"].content) >=
           Number(PVData["Spitzenleistung[kW]"].content)
         ) {
-          pages2[2].drawText(PVData["Spitzenleistung[kW]"].content, {
-            x: 324,
-            y: 601,
-            size: 8,
-          });
-
           pages2[11].drawText(PVData["Spitzenleistung[kW]"].content, {
-            x: 306,
-            y: 626,
+            x: 185,
+            y: 560,
             size: 8,
           });
         }
+        pages2[12].drawText("Versciaco il " + date, {
+          x: 140,
+          y: 487,
+          size: 8,
+        });
+      
         pages2[13].drawText(
+          PVData["Nennleistung der gesamten Inverter[kW]"].content,
+          {
+            x: 97,
+            y: 184,
+            size: 8,
+          }
+        );
+      
+        pages2[16].drawText(SPI["Marke"].content, {
+          x: 197,
+          y: 626,
+          size: 8,
+        });
+        pages2[16].drawText(SPI["Modell"].content, {
+          x: 142,
+          y: 608,
+          size: 8,
+        });
+      
+        if (
+          Number(PVData["Nennleistung der gesamten Inverter[kW]"].content) > 11.08
+        ) {
+          pages2[16].drawLine({
+            start: { x: 302, y: 567 },
+            end: { x: 315, y: 580 },
+          });
+          pages2[16].drawLine({
+            start: { x: 302, y: 580 },
+            end: { x: 315, y: 567 },
+          });
+        } else if (
+          Number(PVData["Nennleistung der gesamten Inverter[kW]"].content) <=
+          11.08
+        ) {
+          pages2[16].drawLine({
+            start: { x: 231, y: 567 },
+            end: { x: 244, y: 580 },
+          });
+          pages2[16].drawLine({
+            start: { x: 231, y: 580 },
+            end: { x: 244, y: 567 },
+          });
+        }
+        pages2[18].drawText(date, {
+          x: 460,
+          y: 346,
+          size: 8,
+        });
+      
+        pages2[19].drawText(Speicher["Marke"].content, {
+          x: 85,
+          y: 556,
+          size: 8,
+        });
+        pages2[19].drawText(Speicher["Modell"].content, {
+          x: 211,
+          y: 556,
+          size: 8,
+        });
+        pages2[19].drawText(PVData["Speicher"].leistung, {
+          x: 325,
+          y: 556,
+          size: 8,
+        });
+        pages2[21].drawText(date, {
+          x: 100,
+          y: 393,
+          size: 8,
+        });
+        pages2[22].drawText(date, {
+          x: 374,
+          y: 140,
+          size: 8,
+        });
+      
+        pages2[22].drawText(
           PersonalData["Vorname"].content +
             " " +
             PersonalData["Nachname"].content,
           {
-            x: 84,
-            y: 253,
+            x: 107,
+            y: 510,
             size: 8,
           }
         );
+        pages2[22].drawText(PersonalData["Telefonnummer"].content, {
+          x: 429,
+          y: 510,
+          size: 8,
+        });
 
         pdfsToSend = pdfsToSend.concat([pdfDoc2]);
         pathsAndFilenames = pathsAndFilenames.concat([
@@ -2645,13 +2532,13 @@ exports.createPdf = async (req, res) => {
       } else {
         attachmentSize = attachmentSize + 2000000;
         let filename2 =
-            "Regolamento_di_Esercizio_BT_bis-11,08 Vierschach_" +
+            "Bozza Regolamento_BT_Vierschach_2024 sotto 11,08kW_" +
             PersonalData["Nachname"].content +
             "_" +
             PersonalData["Vorname"].content +
             ".pdf",
           path2 =
-            "./Regolamento_di_Esercizio_BT_bis-11,08 Vierschach_" +
+            "./Bozza Regolamento_BT_Vierschach_2024 sotto 11,08kW_" +
             PersonalData["Nachname"].content +
             "_" +
             PersonalData["Vorname"].content +
@@ -2659,7 +2546,7 @@ exports.createPdf = async (req, res) => {
 
         let pdfDoc2 = await PDFDocument.load(
           readFileSync(
-            "./Backend/Documents/Regolamento_di_Esercizio_BT_bis-11,08 Vierschach.pdf"
+            "./Backend/Documents/Bozza Regolamento_BT_Vierschach_2024 sotto 11,08kW.pdf"
           )
         );
         const pages2 = pdfDoc2.getPages();
@@ -2670,305 +2557,153 @@ exports.createPdf = async (req, res) => {
             " " +
             PersonalData["Nachname"].content,
           {
-            x: 131,
-            y: 656,
+            x: 176,
+            y: 550,
             size: 8,
           }
         );
         pages2[0].drawText(
-          PersonalData["Geburtsort"].content + "    " + Geburtsdatum,
+          PersonalData["Geburtsort"].content + " " + Geburtsdatum,
           {
-            x: 171,
-            y: 620,
+            x: 200,
+            y: 531,
             size: 8,
           }
         );
-        pages2[0].drawText(
-          PersonalData["Steuernummer"].content +
-            "       " +
-            PersonalData["Partita Iva"].content,
-          {
-            x: 171,
-            y: 590,
-            size: 8,
-          }
-        );
+        pages2[0].drawText(PersonalData["Steuernummer"].content, {
+          x: 215,
+          y: 513,
+          size: 8,
+        });
+        pages2[0].drawText(PersonalData["Partita Iva"].content, {
+          x: 388,
+          y: 513,
+          size: 8,
+        });
         pages2[0].drawText(
           PersonalData["Straße"].content +
             " " +
             PersonalData["Hausnummer"].content,
           {
-            x: 99,
-            y: 530,
+            x: 127,
+            y: 495,
             size: 8,
           }
         );
         pages2[0].drawText(PersonalData["Fraktion"].content, {
-          x: 339,
-          y: 530,
+          x: 453,
+          y: 495,
           size: 8,
         });
         pages2[0].drawText(PersonalData["Wohnhaft in der Gemeinde"].content, {
-          x: 79,
-          y: 501,
+          x: 125,
+          y: 477,
           size: 8,
         });
-
-        pages2[0].drawText(PVData["POD"].content, {
-          x: 318,
-          y: 475,
+        pages2[0].drawText(PersonalData["Postleitzahl"].content, {
+          x: 408,
+          y: 477,
           size: 8,
         });
-        pages2[0].drawText(
+        if (PersonalData["Privatperson"].selectedValue === "Ja") {
+          pages2[0].drawLine({
+            start: { x: 72, y: 419 },
+            end: { x: 85, y: 430 },
+          });
+          pages2[0].drawLine({
+            start: { x: 72, y: 430 },
+            end: { x: 85, y: 419 },
+          });
+        } else {
+          pages2[0].drawText("legale rappresentante", {
+            x: 141,
+            y: 381,
+            size: 8,
+          });
+          pages2[0].drawText(PersonalData["Privatperson"].content, {
+            x: 404,
+            y: 364,
+            size: 8,
+          });
+        }
+      
+        pages2[1].drawText(PVAdress["Straße"].content, {
+          x: 78,
+          y: 555,
+          size: 8,
+        });
+        pages2[1].drawText(PVAdress["Nummer"].content, {
+          x: 461,
+          y: 555,
+          size: 8,
+        });
+        pages2[1].drawText(PVAdress["Gemeinde"].content, {
+          x: 78,
+          y: 536,
+          size: 8,
+        });
+        pages2[1].drawText(PVAdress["Postleitzahl"].content, {
+          x: 386,
+          y: 536,
+          size: 8,
+        });
+        pages2[1].drawText(PVData["POD"].content, {
+          x: 397,
+          y: 500,
+          size: 8,
+        });
+        pages2[1].drawText(
           PVData["Nennleistung der gesamten Inverter[kW]"].content,
           {
-            x: 201,
+            x: 315,
             y: 418,
             size: 8,
           }
         );
-        if (
-          Number(PVData["Nennleistung der gesamten Inverter[kW]"].content) <
-          Number(PVData["Spitzenleistung[kW]"].content)
-        ) {
-          pages2[0].drawText(
-            PVData["Nennleistung der gesamten Inverter[kW]"].content,
-            {
-              x: 235,
-              y: 390,
-              size: 8,
-            }
-          );
-        } else {
-          pages2[0].drawText(PVData["Spitzenleistung[kW]"].content, {
-            x: 235,
-            y: 390,
+      
+        pages2[8].drawText(
+          PersonalData["Vorname"].content +
+            " " +
+            PersonalData["Nachname"].content,
+          {
+            x: 73,
+            y: 414,
+            size: 8,
+          }
+        );
+        pages2[8].drawText(PersonalData["Telefonnummer"].content, {
+          x: 369,
+          y: 414,
+          size: 8,
+        });
+        pages2[8].drawText(PersonalData["Email"].content, {
+          x: 453,
+          y: 414,
+          size: 8,
+        });
+      
+        if (PVData["Spannung der Anlage"].selectedValue === "Monofase") {
+          pages2[11].drawText("230", {
+            x: 323,
+            y: 621,
+            size: 8,
+          });
+        } else if (PVData["Spannung der Anlage"].selectedValue === "Trifase") {
+          pages2[11].drawText("400", {
+            x: 323,
+            y: 621,
             size: 8,
           });
         }
-
-        pages2[2].drawText(
-          PersonalData["Vorname"].content +
-            " " +
-            PersonalData["Nachname"].content,
-          {
-            x: 55,
-            y: 333,
-            size: 8,
-          }
-        );
-        pages2[2].drawText(PersonalDataEl["Telefonnummer"].content, {
-          x: 205,
-          y: 344,
-          size: 6,
-        });
-        pages2[2].drawText(PersonalData["Email"].content, {
-          x: 205,
-          y: 332,
-          size: 6,
-        });
-        pages2[2].drawText(date, {
-          x: 62,
-          y: 105,
-          size: 8,
-        });
-
-        pages2[3].drawText(
-          PersonalData["Vorname"].content +
-            " " +
-            PersonalData["Nachname"].content,
-          {
-            x: 253,
-            y: 526,
-            size: 8,
-          }
-        );
-        pages2[3].drawText(PVAdress["Straße"].content, {
-          x: 149,
-          y: 479,
-          size: 8,
-        });
-
-        pages2[3].drawText(PVAdress["Nummer"].content, {
-          x: 469,
-          y: 479,
-          size: 8,
-        });
-        pages2[3].drawText(PVAdress["Gemeinde"].content, {
-          x: 82,
-          y: 459,
-          size: 8,
-        });
-
-        pages2[3].drawText("BZ", {
-          x: 304,
-          y: 459,
-          size: 8,
-        });
-        pages2[3].drawText(PVAdress["Postleitzahl"].content, {
-          x: 446,
-          y: 459,
-          size: 8,
-        });
-        pages2[3].drawText(PVData["POD"].content, {
-          x: 343,
-          y: 439,
-          size: 8,
-        });
-
-        pages2[3].drawText(
-          PVAdress["Straße"].content + " " + PVAdress["Nummer"].content,
-          {
-            x: 54,
-            y: 315,
-            size: 8,
-          }
-        );
-        pages2[3].drawText(PVData["POD"].content, {
-          x: 450,
-          y: 315,
-          size: 8,
-        });
-        pages2[3].drawText(PVData["POD"].content, {
-          x: 86,
-          y: 185,
-          size: 8,
-        });
-
-        pages2[4].drawText(String(Modul["Anzahl"].content), {
-          x: 28,
-          y: 204,
-          size: 8,
-        });
-        pages2[4].drawText(String(Modul["Leistung[kW]"].content), {
-          x: 67,
-          y: 204,
-          size: 8,
-        });
-        pages2[4].drawText(
-          String(
-            Number(Modul["Anzahl"].content) *
-              Number(Modul["Leistung[kW]"].content)
-          ),
-          {
-            x: 139,
-            y: 204,
-            size: 8,
-          }
-        );
-
-        pages2[5].drawText(date, {
-          x: 78,
-          y: 154,
-          size: 8,
-        });
-
-        pages2[6].drawText(
-          PersonalData["Vorname"].content +
-            " " +
-            PersonalData["Nachname"].content,
-          {
-            x: 140,
-            y: 683,
-            size: 8,
-          }
-        );
-        pages2[6].drawText(
-          PersonalData["Geburtsort"].content + "     " + Geburtsdatum,
-          {
-            x: 178,
-            y: 662,
-            size: 8,
-          }
-        );
-        pages2[6].drawText(
-          PersonalData["Steuernummer"].content +
-            "     " +
-            PersonalData["Partita Iva"].content,
-          {
-            x: 177,
-            y: 639,
-            size: 8,
-          }
-        );
-        pages2[6].drawText(
-          PersonalData["Straße"].content +
-            "     " +
-            PersonalData["Hausnummer"].content,
-          {
-            x: 109,
-            y: 609,
-            size: 8,
-          }
-        );
-
-        pages2[6].drawText(PersonalData["Fraktion"].content, {
-          x: 341,
-          y: 608,
-          size: 8,
-        });
-        pages2[6].drawText(PersonalData["Postleitzahl"].content, {
-          x: 407,
-          y: 586,
-          size: 8,
-        });
-        pages2[6].drawText(PersonalData["Wohnhaft in der Gemeinde"].content, {
-          x: 87,
-          y: 586,
-          size: 8,
-        });
-        pages2[6].drawText(
-          PersonalData[
-            "Provinz (Abkürzung, maximal 2 Zeichen ,z.B. BZ für Bozen)"
-          ].content,
-          {
-            x: 324,
-            y: 586,
-            size: 8,
-          }
-        );
-
-        pages2[6].drawText(PVData["POD"].content, {
-          x: 349,
-          y: 480,
-          size: 8,
-        });
-        pages2[6].drawText(
-          PVAdress["Straße"].content + " " + PVAdress["Nummer"].content,
-          {
-            x: 115,
-            y: 520,
-            size: 8,
-          }
-        );
-        pages2[6].drawText(PVAdress["Postleitzahl"].content, {
-          x: 450,
-          y: 500,
-          size: 8,
-        });
-        pages2[6].drawText(PVAdress["Gemeinde"].content, {
-          x: 114,
-          y: 500,
-          size: 8,
-        });
-        pages2[6].drawText(
-          PVData["Nennleistung der gesamten Inverter[kW]"].content,
-          {
-            x: 400,
-            y: 443,
-            size: 8,
-          }
-        );
-
         if (
           Number(PVData["Nennleistung der gesamten Inverter[kW]"].content) <
           Number(PVData["Spitzenleistung[kW]"].content)
         ) {
-          pages2[6].drawText(
+          pages2[11].drawText(
             PVData["Nennleistung der gesamten Inverter[kW]"].content,
             {
-              x: 232,
-              y: 412,
+              x: 185,
+              y: 560,
               size: 8,
             }
           );
@@ -2976,65 +2711,16 @@ exports.createPdf = async (req, res) => {
           Number(PVData["Nennleistung der gesamten Inverter[kW]"].content) >=
           Number(PVData["Spitzenleistung[kW]"].content)
         ) {
-          pages2[6].drawText(PVData["Spitzenleistung[kW]"].content, {
-            x: 232,
-            y: 412,
+          pages2[11].drawText(PVData["Spitzenleistung[kW]"].content, {
+            x: 185,
+            y: 560,
             size: 8,
           });
         }
-        pages2[6].drawText(date, {
-          x: 90,
-          y: 152,
-          size: 8,
-        });
-        pages2[7].drawText(
-          PersonalData["Vorname"].content +
-            " " +
-            PersonalData["Nachname"].content,
-          {
-            x: 78,
-            y: 591,
-            size: 8,
-          }
-        );
-        pages2[7].drawText(
-          PersonalData["Vorname"].content +
-            " " +
-            PersonalData["Nachname"].content,
-          {
-            x: 264,
-            y: 531,
-            size: 8,
-          }
-        );
-        pages2[7].drawText(
-          PVAdress["Straße"].content + " " + PVAdress["Nummer"].content,
-          {
-            x: 272,
-            y: 592,
-            size: 8,
-          }
-        );
-        pages2[7].drawText(PVAdress["Gemeinde"].content, {
-          x: 273,
-          y: 571,
-          size: 8,
-        });
-
-        pages2[8].drawText(
-          PersonalData["Vorname"].content +
-            " " +
-            PersonalData["Nachname"].content,
-          {
-            x: 88,
-            y: 254,
-            size: 8,
-          }
-        );
-
-        pages2[8].drawText(date, {
-          x: 58,
-          y: 143,
+      
+        pages2[12].drawText("Versciaco il " + date, {
+          x: 140,
+          y: 487,
           size: 8,
         });
 
