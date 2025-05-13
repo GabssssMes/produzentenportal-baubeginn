@@ -2298,7 +2298,7 @@ exports.createPdf = async (req, res) => {
             size: 8,
           });
         }
-      
+
         pages2[1].drawText(PVAdress["Straße"].content, {
           x: 78,
           y: 555,
@@ -2332,7 +2332,7 @@ exports.createPdf = async (req, res) => {
             size: 8,
           }
         );
-      
+
         pages2[8].drawText(
           PersonalData["Vorname"].content +
             " " +
@@ -2353,7 +2353,7 @@ exports.createPdf = async (req, res) => {
           y: 414,
           size: 8,
         });
-      
+
         if (PVData["Spannung der Anlage"].selectedValue === "Monofase") {
           pages2[11].drawText("230", {
             x: 323,
@@ -2390,7 +2390,7 @@ exports.createPdf = async (req, res) => {
           pages2[11].drawText(
             PVData["Nennleistung der gesamten Inverter[kW]"].content,
             {
-              x: 185,
+              x: 298,
               y: 560,
               size: 8,
             }
@@ -2400,7 +2400,7 @@ exports.createPdf = async (req, res) => {
           Number(PVData["Spitzenleistung[kW]"].content)
         ) {
           pages2[11].drawText(PVData["Spitzenleistung[kW]"].content, {
-            x: 185,
+            x: 298,
             y: 560,
             size: 8,
           });
@@ -2410,7 +2410,7 @@ exports.createPdf = async (req, res) => {
           y: 474,
           size: 8,
         });
-      
+
         pages2[13].drawText(
           PVData["Nennleistung der gesamten Inverter[kW]"].content,
           {
@@ -2419,7 +2419,7 @@ exports.createPdf = async (req, res) => {
             size: 8,
           }
         );
-      
+
         pages2[16].drawText(SPI["Marke"].content, {
           x: 197,
           y: 626,
@@ -2430,9 +2430,10 @@ exports.createPdf = async (req, res) => {
           y: 608,
           size: 8,
         });
-      
+
         if (
-          Number(PVData["Nennleistung der gesamten Inverter[kW]"].content) > 11.08
+          Number(PVData["Nennleistung der gesamten Inverter[kW]"].content) >
+          11.08
         ) {
           pages2[16].drawLine({
             start: { x: 302, y: 567 },
@@ -2460,7 +2461,7 @@ exports.createPdf = async (req, res) => {
           y: 346,
           size: 8,
         });
-      
+
         pages2[19].drawText(Speicher["Marke"].content, {
           x: 85,
           y: 556,
@@ -2486,7 +2487,7 @@ exports.createPdf = async (req, res) => {
           y: 140,
           size: 8,
         });
-      
+
         pages2[22].drawText(
           PersonalData["Vorname"].content +
             " " +
@@ -2626,7 +2627,7 @@ exports.createPdf = async (req, res) => {
             size: 8,
           });
         }
-      
+
         pages2[1].drawText(PVAdress["Straße"].content, {
           x: 78,
           y: 538,
@@ -2660,7 +2661,7 @@ exports.createPdf = async (req, res) => {
             size: 8,
           }
         );
-      
+
         pages2[8].drawText(
           PersonalData["Vorname"].content +
             " " +
@@ -2681,7 +2682,7 @@ exports.createPdf = async (req, res) => {
           y: 414,
           size: 8,
         });
-      
+
         if (PVData["Spannung der Anlage"].selectedValue === "Monofase") {
           pages2[11].drawText("230", {
             x: 323,
@@ -2702,7 +2703,7 @@ exports.createPdf = async (req, res) => {
           pages2[11].drawText(
             PVData["Nennleistung der gesamten Inverter[kW]"].content,
             {
-              x: 185,
+              x: 319,
               y: 560,
               size: 8,
             }
@@ -2712,12 +2713,12 @@ exports.createPdf = async (req, res) => {
           Number(PVData["Spitzenleistung[kW]"].content)
         ) {
           pages2[11].drawText(PVData["Spitzenleistung[kW]"].content, {
-            x: 185,
+            x: 319,
             y: 560,
             size: 8,
           });
         }
-      
+
         pages2[12].drawText("Versciaco il " + date, {
           x: 140,
           y: 477,
