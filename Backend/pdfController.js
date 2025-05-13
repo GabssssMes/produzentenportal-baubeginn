@@ -2375,12 +2375,12 @@ exports.createPdf = async (req, res) => {
             size: 8,
           });
           pages2[13].drawLine({
-            start: { x: 389, y: 220 },
-            end: { x: 402, y: 232 },
+            start: { x: 386, y: 198 },
+            end: { x: 398, y: 186 },
           });
           pages2[13].drawLine({
-            start: { x: 389, y: 232 },
-            end: { x: 402, y: 220 },
+            start: { x: 386, y: 186 },
+            end: { x: 398, y: 198 },
           });
         }
         if (
@@ -2407,7 +2407,7 @@ exports.createPdf = async (req, res) => {
         }
         pages2[12].drawText("Versciaco il " + date, {
           x: 140,
-          y: 487,
+          y: 474,
           size: 8,
         });
       
@@ -2415,7 +2415,7 @@ exports.createPdf = async (req, res) => {
           PVData["Nennleistung der gesamten Inverter[kW]"].content,
           {
             x: 97,
-            y: 184,
+            y: 149,
             size: 8,
           }
         );
@@ -2530,7 +2530,7 @@ exports.createPdf = async (req, res) => {
           })
         );
       } else {
-        attachmentSize = attachmentSize + 2000000;
+        attachmentSize = attachmentSize + 8000000;
         let filename2 =
             "Bozza Regolamento_BT_Vierschach_2024 sotto 11,08kW_" +
             PersonalData["Nachname"].content +
@@ -2629,34 +2629,34 @@ exports.createPdf = async (req, res) => {
       
         pages2[1].drawText(PVAdress["Straße"].content, {
           x: 78,
-          y: 555,
+          y: 538,
           size: 8,
         });
         pages2[1].drawText(PVAdress["Nummer"].content, {
-          x: 461,
-          y: 555,
+          x: 460,
+          y: 538,
           size: 8,
         });
         pages2[1].drawText(PVAdress["Gemeinde"].content, {
           x: 78,
-          y: 536,
+          y: 519,
           size: 8,
         });
         pages2[1].drawText(PVAdress["Postleitzahl"].content, {
-          x: 386,
-          y: 536,
+          x: 383,
+          y: 519,
           size: 8,
         });
         pages2[1].drawText(PVData["POD"].content, {
           x: 397,
-          y: 500,
+          y: 484,
           size: 8,
         });
         pages2[1].drawText(
           PVData["Nennleistung der gesamten Inverter[kW]"].content,
           {
             x: 315,
-            y: 418,
+            y: 404,
             size: 8,
           }
         );
@@ -2720,7 +2720,7 @@ exports.createPdf = async (req, res) => {
       
         pages2[12].drawText("Versciaco il " + date, {
           x: 140,
-          y: 487,
+          y: 477,
           size: 8,
         });
 
