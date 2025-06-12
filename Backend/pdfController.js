@@ -1056,12 +1056,12 @@ exports.createPdf = async (req, res) => {
     });
     pages2[0].drawText(PersonalData["IBAN laufend auf"].content, {
       x: 58,
-      y: 192,
+      y: 152,
       size: 6,
     });
     pages2[0].drawText(PersonalData["IBAN"].content, {
-      x: 343,
-      y: 192,
+      x: 337,
+      y: 152,
       size: 6,
     });
     pages2[1].drawText(PVAdress["Fraktion"].content, {
@@ -1919,12 +1919,20 @@ exports.createPdf = async (req, res) => {
       end: { x: 126, y: 582 },
     });
     pages[1].drawLine({
-      start: { x: 166, y: 572 },
-      end: { x: 161, y: 566 },
+      start: { x: 166, y: 556 },
+      end: { x: 162, y: 561 },
     });
     pages[1].drawLine({
-      start: { x: 166, y: 566 },
-      end: { x: 161, y: 572 },
+      start: { x: 166, y: 561 },
+      end: { x: 162, y: 556 },
+    });
+    pages[1].drawLine({
+      start: { x: 179, y: 551 },
+      end: { x: 185, y: 546 },
+    });
+    pages[1].drawLine({
+      start: { x: 179, y: 546 },
+      end: { x: 185, y: 551 },
     });
     pages[1].drawText(PVAdress["Fraktion"].content + "    " + date, {
       x: 133,
@@ -2017,21 +2025,21 @@ exports.createPdf = async (req, res) => {
       end: { x: 62, y: 370 },
     });
     pages[2].drawLine({
-      start: { x: 90, y: 349 },
-      end: { x: 95, y: 354 },
-    });
-    pages[2].drawLine({
-      start: { x: 90, y: 354 },
+      start: { x: 91, y: 353 },
       end: { x: 95, y: 349 },
     });
+    pages[2].drawLine({
+      start: { x: 91, y: 349 },
+      end: { x: 95, y: 353 },
+    });
     pages[2].drawText(PersonalData["IBAN laufend auf"].content, {
-      x: 440,
-      y: 351,
+      x: 423,
+      y: 319,
       size: 6,
     });
     pages[2].drawText(PersonalData["IBAN"].content, {
-      x: 179,
-      y: 339,
+      x: 162,
+      y: 306,
       size: 6,
     });
     pages[3].drawText(PVAdress["Fraktion"].content, {
