@@ -2025,12 +2025,12 @@ exports.createPdf = async (req, res) => {
       end: { x: 62, y: 370 },
     });
     pages[2].drawLine({
-      start: { x: 91, y: 353 },
-      end: { x: 95, y: 349 },
+      start: { x: 91, y: 321 },
+      end: { x: 95, y: 317 },
     });
     pages[2].drawLine({
-      start: { x: 91, y: 349 },
-      end: { x: 95, y: 353 },
+      start: { x: 91, y: 317 },
+      end: { x: 95, y: 321 },
     });
     pages[2].drawText(PersonalData["IBAN laufend auf"].content, {
       x: 423,
