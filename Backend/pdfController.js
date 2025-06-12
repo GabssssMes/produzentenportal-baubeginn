@@ -2034,7 +2034,7 @@ exports.createPdf = async (req, res) => {
     });
     pages[2].drawText(PersonalData["IBAN laufend auf"].content, {
       x: 423,
-      y: 319,
+      y: 325,
       size: 6,
     });
     pages[2].drawText(PersonalData["IBAN"].content, {
