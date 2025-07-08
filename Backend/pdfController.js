@@ -1366,7 +1366,7 @@ exports.createPdf = async (req, res) => {
         y: 87,
         size: 8,
       });
-    }
+    } //kommentar für testlog
 
     pages3[17].drawText(SPI["Marke"].content, {
       x: 104,
