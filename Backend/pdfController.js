@@ -824,7 +824,7 @@ exports.createPdf = async (req, res) => {
       pages[0].drawText(PersonalData["Privatperson"].content, {
         x: 288,
         y: 602,
-        size: 8,
+        size: 6,
       });
       pages[0].drawText(PersonalData["Partita Iva"].content, {
         x: 441,
@@ -836,7 +836,7 @@ exports.createPdf = async (req, res) => {
         y: 588,
         size: 8,
       });
-      
+
       pages[0].drawText(PersonalData["Telefonnummer"].content, {
         x: 156,
         y: 563,
