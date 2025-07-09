@@ -802,16 +802,7 @@ exports.createPdf = async (req, res) => {
       y: 617,
       size: 8,
     });
-    if (PersonalData["Privatperson"].selectedValue === "Ja") {
-      pages[0].drawLine({
-        start: { x: 77, y: 503 },
-        end: { x: 85, y: 496 },
-      });
-      pages[0].drawLine({
-        start: { x: 77, y: 496 },
-        end: { x: 85, y: 503 },
-      });
-    } else {
+    if (PersonalData["Privatperson"].selectedValue !== "Ja") {
       pages[0].drawLine({
         start: { x: 59, y: 599 },
         end: { x: 67, y: 590 },
@@ -820,28 +811,11 @@ exports.createPdf = async (req, res) => {
         start: { x: 59, y: 590 },
         end: { x: 67, y: 599 },
       });
-      pages[0].drawLine({
-        start: { x: 77, y: 462 },
-        end: { x: 85, y: 454 },
-      });
-      pages[0].drawLine({
-        start: { x: 77, y: 454 },
-        end: { x: 85, y: 462 },
-      });
       pages[0].drawText("legale rappresentante", {
         x: 123,
         y: 591,
         size: 8,
       });
-      pages[0].drawText(
-        "Legale rappresentante della ditta " +
-          PersonalData["Privatperson"].content,
-        {
-          x: 173,
-          y: 454,
-          size: 8,
-        }
-      );
       pages[0].drawText(PersonalData["Privatperson"].content, {
         x: 300,
         y: 591,
