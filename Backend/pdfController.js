@@ -1052,8 +1052,8 @@ exports.createPdf = async (req, res) => {
       size: 8,
     });
     pages2[0].drawText(PersonalData["IBAN"].content, {
-      x: 131,
-      y: 335,
+      x: 186,
+      y: 345,
       size: 8,
     });
     pages2[0].drawText(PVAdress["Fraktion"].content, {
