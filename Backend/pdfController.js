@@ -1049,7 +1049,8 @@ exports.createPdf = async (req, res) => {
         " " +
         Inverter["Modell"].content +
         ", " +
-        PVData["Nennleistung der gesamten Inverter[kW]"].content,
+        PVData["Nennleistung der gesamten Inverter[kW]"].content +
+        " kW",
       {
         x: 82,
         y: 475,
