@@ -987,43 +987,43 @@ exports.createPdf = async (req, res) => {
       }
     );
     pages2[0].drawText(PVData["Spitzenleistung[kW]"].content, {
-      x: 429,
-      y: 632,
+      x: 487,
+      y: 628,
       size: 8,
     });
     pages2[0].drawText(
       PVData["Nennleistung der gesamten Inverter[kW]"].content,
       {
-        x: 316,
-        y: 619,
+        x: 325,
+        y: 615,
         size: 8,
       }
     );
     if (PVData["Speicher"].selectedValue === "Ja") {
       pages2[0].drawText(PVData["Speicher"].content, {
-        x: 286,
-        y: 587,
+        x: 280,
+        y: 582,
         size: 8,
       });
       pages2[0].drawLine({
-        start: { x: 73, y: 555 },
-        end: { x: 78, y: 550 },
+        start: { x: 72, y: 564 },
+        end: { x: 78, y: 558 },
       });
       pages2[0].drawLine({
-        start: { x: 73, y: 550 },
-        end: { x: 78, y: 555 },
+        start: { x: 72, y: 558 },
+        end: { x: 78, y: 564 },
       });
       pages2[0].drawLine({
-        start: { x: 252, y: 555 },
-        end: { x: 257, y: 550 },
+        start: { x: 252, y: 564 },
+        end: { x: 257, y: 558 },
       });
       pages2[0].drawLine({
-        start: { x: 252, y: 550 },
-        end: { x: 257, y: 555 },
+        start: { x: 252, y: 558 },
+        end: { x: 257, y: 564 },
       });
       pages2[0].drawText(PVData["Speicher"].leistung, {
-        x: 426,
-        y: 525,
+        x: 425,
+        y: 533,
         size: 8,
       });
       pages2[0].drawText(
@@ -1037,8 +1037,8 @@ exports.createPdf = async (req, res) => {
           PVData["Speicher"].content +
           " kWh",
         {
-          x: 82,
-          y: 449,
+          x: 94,
+          y: 455,
           size: 8,
         }
       );
@@ -1052,8 +1052,8 @@ exports.createPdf = async (req, res) => {
         PVData["Nennleistung der gesamten Inverter[kW]"].content +
         " kW",
       {
-        x: 82,
-        y: 475,
+        x: 94,
+        y: 483,
         size: 8,
       }
     );
@@ -1068,24 +1068,24 @@ exports.createPdf = async (req, res) => {
         Modul["Leistung[kW]"].content +
         "kWp",
       {
-        x: 82,
-        y: 463,
+        x: 94,
+        y: 469,
         size: 8,
       }
     );
     pages2[0].drawText(PersonalData["IBAN laufend auf"].content, {
       x: 393,
-      y: 359,
+      y: 367,
       size: 8,
     });
     pages2[0].drawText(PersonalData["IBAN"].content, {
-      x: 186,
-      y: 345,
+      x: 130,
+      y: 355,
       size: 8,
     });
     pages2[0].drawText(PVAdress["Fraktion"].content, {
-      x: 114,
-      y: 65,
+      x: 115,
+      y: 85,
       size: 8,
     });
 
