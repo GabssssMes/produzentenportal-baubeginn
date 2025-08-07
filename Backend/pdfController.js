@@ -1171,10 +1171,10 @@ exports.createPdf = async (req, res) => {
     });
     pages2[0].drawLine({
       start: { x: 70, y: 550 },
-      end: { x: 74, y: 446 },
+      end: { x: 74, y: 546 },
     });
     pages2[0].drawLine({
-      start: { x: 70, y: 446 },
+      start: { x: 70, y: 546 },
       end: { x: 74, y: 550 },
     });
     pages2[0].drawText(PVData["Speicher"].leistung, {
