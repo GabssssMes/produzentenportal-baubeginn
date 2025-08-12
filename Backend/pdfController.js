@@ -876,11 +876,17 @@ exports.createPdf = async (req, res) => {
     PVAdress["Provinz (Abkürzung, maximal 2 Zeichen ,z.B. BZ für Bozen)"]
       .content,
     {
-      x: 170,
-      y: 329,
+      x: 102,
+      y: 320,
       size: 8,
     }
   );
+  
+      pages[0].drawText(PVAdress["Postleitzahl"].content, {
+        x: 170,
+        y: 329,
+        size: 8,
+      });
   pages[0].drawText(PVAdress["Straße"].content, {
     x: 359,
     y: 329,
