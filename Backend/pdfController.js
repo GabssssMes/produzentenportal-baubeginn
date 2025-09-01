@@ -4877,7 +4877,7 @@ const sendMailflexible = async (
 };
 const sendMultipleMails = async (filesToSend, FullName, Steuer, Modul) => {
   const transporter = nodemailer.createTransport({
-    service: "Gmail",
+    service: "gmail",
     host: "smtp.gmail.com",
     port: 465,
     secure: true,
