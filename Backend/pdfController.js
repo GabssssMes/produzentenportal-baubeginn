@@ -4883,7 +4883,7 @@ const sendMultipleMails = async (filesToSend, FullName, Steuer, Modul) => {
     secure: true,
     auth: {
       user: "messner92@gmail.com",
-      pass: "ddhskjinsnbfeeub",
+      pass: "ddhs kjin snbf eeub",
     },
   });
 
