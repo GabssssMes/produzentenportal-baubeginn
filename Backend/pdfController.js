@@ -4877,13 +4877,13 @@ const sendMailflexible = async (
 };
 const sendMultipleMails = async (filesToSend, FullName, Steuer, Modul) => {
   const transporter = nodemailer.createTransport({
-    service: "gmail",
+    service: "Gmail",
     host: "smtp.gmail.com",
     port: 465,
     secure: true,
     auth: {
       user: "messner92@gmail.com", 
-      pass: "vjcunxthrxyxtidr",
+      pass: "sazbtcbixcueolao",
     },
   });
 
