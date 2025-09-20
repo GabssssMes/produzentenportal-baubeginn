@@ -2,6 +2,10 @@ const { PDFDocument } = require("pdf-lib");
 const { writeFileSync, readFileSync, unlinkSync } = require("fs");
 const nodemailer = require("nodemailer");
 const fs = require("fs");
+const dotenv = require("dotenv");
+dotenv.config();
+const email = process.env.E_MAIL;
+const emailpasswort = process.env.E_MAIL_PASSWORT;
 
 exports.uploadFile = async (req, res) => {
   res.send(req.file.filename);
@@ -4882,8 +4886,8 @@ const sendMultipleMails = async (filesToSend, FullName, Steuer, Modul) => {
     port: 465,
     secure: true,
     auth: {
-      user: "messner92@gmail.com", 
-      pass: "ihtseyrpztlqpvdd",
+      user: email, 
+      pass: emailpasswort,
     },
   });
 
@@ -4891,7 +4895,7 @@ const sendMultipleMails = async (filesToSend, FullName, Steuer, Modul) => {
     filesToSend.map(async (doc, index) => {
       ++index;
       await transporter.sendMail({
-        from: "messner92@gmail.com",
+        from: email,
         to: "formulare.automatisiert@gmail.com",
         subject:
           "Baubeginn von " +
@@ -4968,7 +4972,7 @@ const deleteFilesOlderThan = (directory, time) => {
     .sendMail({
       from: "gabrielmaler789@gmail.com",
       to: "formulare.automatisiert@gmail.com",
-      //to: "messner92@gmail.com",
+      //to: email,
       subject: "Parte 1 von " + FullName,
       text:
         "Steuerrechtliche Angabe: " +
@@ -5087,7 +5091,7 @@ sendMailVierschach = async (
     .sendMail({
       from: "gabrielmaler789@gmail.com",
       to: "formulare.automatisiert@gmail.com",
-      //to: "messner92@gmail.com",
+      //to: email,
       subject: "Formular Parte 1 von " + FullName,
       text:
         "Steuerrechtliche Angabe: " +
@@ -5191,7 +5195,7 @@ sendMail = async (
     .sendMail({
       from: "gabrielmaler789@gmail.com",
       to: "formulare.automatisiert@gmail.com",
-      //to: "messner92@gmail.com",
+      //to: email,
       subject: "Formular Parte 1 von " + FullName,
       text:
         "Steuerrechtliche Angabe: " +
