@@ -4,11 +4,14 @@ const dotenv = require("dotenv");
 const cors = require("cors");
 const pdfRoute = require("./pdfRoutes");
 const admin = require("firebase-admin");
-const { initializeApp, cert } = require("firebase-admin/app");
-const serviceAccount = require("./serviceAccountKey.json"); // Pfad ggf. anpassen
+//const { initializeApp, cert } = require("firebase-admin/app");
 
 dotenv.config();
-initializeApp({
+const serviceAccount = JSON.parse(process.env.GOOGLE_SERVICE_ACCOUNT_KEY); // Pfad ggf. anpassen-> beim testen auf lokalhost
+if (serviceAccount.private_key) {
+  serviceAccount.private_key = serviceAccount.private_key.replace(/\\n/g, "\n");
+}
+admin.initializeApp({
   credential: cert(serviceAccount),
 });
 const app = express();
