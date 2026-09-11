@@ -1,4 +1,5 @@
 import style from "./styles/App.module.css";
+import logoutSvg from "./logout.svg";
 import { DataField } from "./components/DataField";
 import { TechnikField } from "./components/TechnikField";
 import {
@@ -15,14 +16,19 @@ import {
   Inv,
   Speiche,
 } from "./components/SetDataFields";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import { useRef } from "react";
 //import { flushSync } from "react-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { auth } from "./components/firebase";
+import { onAuthStateChanged, signOut } from "firebase/auth";
+import Login from "./components/Login";
 
 function App() {
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
   const [Personendaten, setPersonendaten] = useState(PersonalData);
   const [PersonendatenEl, setPersonendatenEl] = useState(PersonalDataEl);
   const [PVDaten, setPVDaten] = useState(PVData);
@@ -38,24 +44,20 @@ function App() {
   const [Stromrechnung, setStromrechnung] = useState(bill);
   const [Kataster, setKataster] = useState(Cadastral);
 
-  //const [file, setFile] = useState();
-  //const [fileAusweis, setFileAusweis] = useState();
-  //const [fileStromrechnung, setFileStromrechnung] = useState();
-  //const [fileKataster, setFileKataster] = useState();
   const hiddenFileInput = useRef(null);
   const hiddenFileInputAusweis = useRef(null);
   const hiddenFileInputStromrechnung = useRef(null);
   const hiddenFileInputKataster = useRef(null);
   const [uploadedFileURL, setUploadedFileURL] = useState(
-    "Es wurde noch keine Datei hochgeladen!"
+    "Es wurde noch keine Datei hochgeladen!",
   );
   const [uploadedFileURLAusweis, setUploadedFileURLAusweis] = useState(
-    "Es wurde noch keine Datei hochgeladen!"
+    "Es wurde noch keine Datei hochgeladen!",
   );
   const [uploadedFileURLStromrechnung, setUploadedFileURLStromrechnung] =
     useState("Es wurde noch keine Datei hochgeladen!");
   const [uploadedFileURLKataster, setUploadedFileURLKataster] = useState(
-    "Es wurde noch keine Datei hochgeladen!"
+    "Es wurde noch keine Datei hochgeladen!",
   );
   const handleChangeEl = () => (e) => {
     let copy = Object.assign({}, PersonendatenEl);
@@ -117,7 +119,7 @@ function App() {
           draggable: true,
           progress: undefined,
           theme: "dark",
-        }
+        },
       );
 
       //setFile("");
@@ -127,7 +129,7 @@ function App() {
       '"' + fileToUse.name + '" wird hochgeladen!',
       {
         autoClose: false,
-      }
+      },
     );
     //const PORT = process.env.PORT || 8001;
     //const url = "http://localhost:" + PORT + "/uploadFile";
@@ -196,7 +198,7 @@ function App() {
           draggable: true,
           progress: undefined,
           theme: "dark",
-        }
+        },
       );
 
       //setFileAusweis("");
@@ -206,7 +208,7 @@ function App() {
       '"' + fileToUse.name + '" wird hochgeladen!',
       {
         autoClose: false,
-      }
+      },
     );
 
     event.preventDefault();
@@ -229,7 +231,7 @@ function App() {
         stringURL = stringURL + splitedResponse[i];
       }
       setUploadedFileURLAusweis(
-        '"' + stringURL + '" wurde erfolgreich hochgeladen!'
+        '"' + stringURL + '" wurde erfolgreich hochgeladen!',
       );
       let copy = Object.assign({}, Ausweis);
       copy.filename.push(response.data);
@@ -279,7 +281,7 @@ function App() {
           draggable: true,
           progress: undefined,
           theme: "dark",
-        }
+        },
       );
 
       //setFileStromrechnung("");
@@ -289,7 +291,7 @@ function App() {
       '"' + fileToUse.name + '" wird hochgeladen!',
       {
         autoClose: false,
-      }
+      },
     );
     event.preventDefault();
     //const PORT = process.env.PORT || 8001;
@@ -311,7 +313,7 @@ function App() {
         stringURL = stringURL + splitedResponse[i];
       }
       setUploadedFileURLStromrechnung(
-        '"' + stringURL + '" wurde erfolgreich hochgeladen!'
+        '"' + stringURL + '" wurde erfolgreich hochgeladen!',
       );
       let copy = Object.assign({}, Stromrechnung);
       copy.filename.push(response.data);
@@ -361,7 +363,7 @@ function App() {
           draggable: true,
           progress: undefined,
           theme: "dark",
-        }
+        },
       );
 
       //setFileKataster("");
@@ -371,11 +373,11 @@ function App() {
       '"' + fileToUse.name + '" wird hochgeladen!',
       {
         autoClose: false,
-      }
+      },
     );
     event.preventDefault();
-    // const PORT = process.env.PORT || 8001;
-    // const url = "http://localhost:" + PORT + "/uploadKataster";
+    //const PORT = process.env.PORT || 8001;
+    //const url = "http://localhost:" + PORT + "/uploadKataster";
 
     const url =
       "https://produzentenportal-baubeginn-production.up.railway.app/uploadKataster";
@@ -394,7 +396,7 @@ function App() {
         stringURL = stringURL + splitedResponse[i];
       }
       setUploadedFileURLKataster(
-        '"' + stringURL + '" wurde erfolgreich hochgeladen!'
+        '"' + stringURL + '" wurde erfolgreich hochgeladen!',
       );
       let copy = Object.assign({}, Kataster);
       copy.filename.push(response.data);
@@ -485,7 +487,7 @@ function App() {
           draggable: true,
           progress: undefined,
           theme: "dark",
-        }
+        },
       );
       return;
     }
@@ -516,7 +518,7 @@ function App() {
           draggable: true,
           progress: undefined,
           theme: "dark",
-        }
+        },
       );
       return;
     }
@@ -532,11 +534,12 @@ function App() {
           draggable: true,
           progress: undefined,
           theme: "dark",
-        }
+        },
       );
       return;
     }
     setButtonenabled(true);
+    const userEmail = user.email;
     const data = {
       PVDaten,
       PVAdresse,
@@ -550,6 +553,7 @@ function App() {
       Inverter,
       Spi,
       Speicher,
+      userEmail,
     };
     const id = toast.loading("Bitte warten, ihre Daten werden übermittelt.", {
       autoClose: false,
@@ -620,412 +624,457 @@ function App() {
     hiddenFileInputKataster.current.click();
   };
   const handleChangeKataster = (event) => {
-    //flushSync(() => {
-    //  setFileKataster(event.target.files[0]);
-    //});
     handleUploadKataster(event, event.target.files[0]);
   };
+
+  // Überwacht automatisch, ob der Nutzer eingeloggt ist
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+      setLoading(false);
+    });
+    return () => unsubscribe();
+  }, []);
+
+  if (loading) return <div style={{ padding: "20px" }}>Laden...</div>;
+
   return (
     <div className="App">
-      <ToastContainer
-        position="top-center"
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="dark"
-      />
-      <section className={style.container}>
-        <div className={style.header}>
-          <div className={style.image}></div>
-          <h1>Produzentenportal für PV-Anlagen (Baubeginn)</h1>
-        </div>
-        <div className={style.section}>
-          <h2>Unterschrift</h2>
-          <div className={style.description}>
-            Bitte laden Sie hier Ihre Unterschrift hoch.
-          </div>
-          <button className={style.buttonupload} onClick={handleClick}>
-            Datei hochladen
-          </button>
-          <input
-            type="file"
-            onChange={handleChange}
-            ref={hiddenFileInput}
-            style={{ display: "none" }}
+      {!user ? (
+        // BILD SCHIRM 1: Login anzeigen, wenn nicht eingeloggt
+        <Login />
+      ) : (
+        // BILD SCHIRM 2: Dashboard anzeigen, wenn eingeloggt
+        <div>
+          <ToastContainer
+            position="top-center"
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="dark"
           />
-          <div>{uploadedFileURL}</div>
-        </div>
-        <div className={style.section}>
-          <h2>Ausweiß</h2>
-          <div className={style.description}>
-            Laden Sie hier bitte eine Kopie Ihres Ausweißes hoch.
-          </div>
-          <button className={style.buttonupload} onClick={handleClickAusweis}>
-            Datei hochladen
-          </button>
-          <input
-            type="file"
-            onChange={handleChangeAusweis}
-            ref={hiddenFileInputAusweis}
-            style={{ display: "none" }}
-          />
-          <div>{uploadedFileURLAusweis}</div>
-        </div>
-        <div className={style.section}>
-          <h2>Stromrechnung</h2>
-          <div className={style.description}>
-            Laden Sie hier bitte eine Kopie Ihrer aktuellen Stromrechnung hoch.
-          </div>
-          <button
-            className={style.buttonupload}
-            onClick={handleClickStromrechnung}
-          >
-            Datei hochladen
-          </button>
-          <input
-            type="file"
-            onChange={handleChangeStromrechnung}
-            ref={hiddenFileInputStromrechnung}
-            style={{ display: "none" }}
-          />
-          <div>{uploadedFileURLStromrechnung}</div>
-        </div>
-        <div className={style.section}>
-          <h2>Katasterauszug</h2>
-          <div className={style.description}>
-            Laden Sie hier bitte eine Kopie Ihres Katasterauszuges hoch.
-          </div>
-          <button className={style.buttonupload} onClick={handleClickKataster}>
-            Datei hochladen
-          </button>
-          <input
-            type="file"
-            onChange={handleChangeKataster}
-            ref={hiddenFileInputKataster}
-            style={{ display: "none" }}
-          />
-          <div>{uploadedFileURLKataster}</div>
-        </div>
-        <form onSubmit={createPDF}>
-          <div className={style.section}>
-            <h2>Persönliche Daten</h2>
-            {Object.keys(Personendaten).map((key) => {
-              return (
-                <DataField
-                  name={key}
-                  type={Personendaten[key].type}
-                  key={Personendaten[key].key}
-                  value={Personendaten[key].content}
-                  onChange={handleChangePerson()}
-                  required={Personendaten[key].required}
-                  maxlength={Personendaten[key].maxlength}
-                ></DataField>
-              );
-            })}
-            <div className={style.question}>
-              Führen Sie die Arbeiten als Privatperson durch?
+          <section className={style.container}>
+            <div className={style.header}>
+              <div className={style.image}></div>
+              <h1>Produzentenportal für PV-Anlagen (Baubeginn)</h1>
+              <button
+                onClick={() => signOut(auth)}
+                className={style.buttonlogout}
+                title="Abmelden"
+              >
+                <img src={logoutSvg} alt="Logout" width="24" height="24" />
+              </button>
             </div>
-            <div className={style.inputbox}>
-              <div>
-                <input
-                  className={style.radiobutton}
-                  type="radio"
-                  id="Ja"
-                  name="Privatperson"
-                  value="Ja"
-                  onChange={() => handleChangePrivatpersonRadiobutton("Ja")}
-                  checked={Personendaten["Privatperson"].selectedValue === "Ja"}
-                ></input>
-                <label htmlFor="Ja">Ja</label>
+            <div className={style.section}>
+              <h2>Unterschrift</h2>
+              <div className={style.description}>
+                Bitte laden Sie hier Ihre Unterschrift hoch.
               </div>
-              <div>
-                <input
-                  className={style.radiobutton}
-                  type="radio"
-                  id="Nein"
-                  name="Privatperson"
-                  value="Nein"
-                  onChange={() => handleChangePrivatpersonRadiobutton("Nein")}
-                  checked={
-                    Personendaten["Privatperson"].selectedValue === "Nein"
-                  }
-                ></input>
-                <label htmlFor="nein">
-                  Nein, ich führe die Arbeiten als gesetzlicher Vertreter
-                  folgendes Unternehmens durch:
-                </label>
-                <input
-                  type="text"
-                  value={Personendaten["Privatperson"].content}
-                  onChange={handleChangePrivatpersonContent()}
-                  className={style.inputtextfield}
-                ></input>
-              </div>
-            </div>
-          </div>
-          <div className={style.section}>
-            <h2>Steuerrechtliche Angaben</h2>
-            <div className={style.inputbox} id={style.spannung}>
-              <div>
-                <input
-                  className={style.radiobutton}
-                  type="radio"
-                  id="110% Steuerbonus"
-                  name="Steuer"
-                  value="110% Steuerbonus"
-                  onChange={() => handleChangeSteuer("110% Steuerbonus")}
-                  checked={
-                    Personendaten["Steuer"].selectedValue === "110% Steuerbonus"
-                  }
-                ></input>
-                <label htmlFor="110% Steuerbonus">110% Steuerbonus</label>
-              </div>
-              <div>
-                <input
-                  className={style.radiobutton}
-                  type="radio"
-                  id="50% Steuerbonus"
-                  name="Steuer"
-                  value="50% Steuerbonus"
-                  onChange={() => handleChangeSteuer("50% Steuerbonus")}
-                  checked={
-                    Personendaten["Steuer"].selectedValue === "50% Steuerbonus"
-                  }
-                ></input>
-                <label htmlFor="50% Steuerbonus">50% Steuerbonus</label>
-              </div>
-              <div>
-                <input
-                  className={style.radiobutton}
-                  type="radio"
-                  id="Ansuchen für Landesbeitrag"
-                  name="Steuer"
-                  value="Ansuchen für Landesbeitrag"
-                  onChange={() =>
-                    handleChangeSteuer("Ansuchen für Landesbeitrag")
-                  }
-                  checked={
-                    Personendaten["Steuer"].selectedValue ===
-                    "Ansuchen für Landesbeitrag"
-                  }
-                ></input>
-                <label htmlFor="Ansuchen für Landesbeitrag">
-                  Ansuchen für Landesbeitrag
-                </label>
-              </div>
-              <div>
-                <input
-                  className={style.radiobutton}
-                  type="radio"
-                  id="Keines davon"
-                  name="Steuer"
-                  value="Keines davon"
-                  onChange={() => handleChangeSteuer("Keines davon")}
-                  checked={
-                    Personendaten["Steuer"].selectedValue === "Keines davon"
-                  }
-                ></input>
-                <label htmlFor="Keines davon">Keines davon</label>
-              </div>
-            </div>
-          </div>
-          <div className={style.section}>
-            <h2>Daten der PV-Anlage</h2>
-            {Object.keys(PVDaten).map((key) => {
-              return (
-                <DataField
-                  name={key}
-                  type={PVDaten[key].type}
-                  key={PVDaten[key].key}
-                  value={PVDaten[key].content}
-                  onChange={handleChangePvData()}
-                  required={PVDaten[key].required}
-                  maxlength={PVDaten[key].maxlength}
-                ></DataField>
-              );
-            })}
-
-            <div className={style.question}>Spannung der Anlage:</div>
-            <div className={style.inputbox} id={style.spannung}>
-              <div>
-                <input
-                  className={style.radiobutton}
-                  type="radio"
-                  id="Monofase"
-                  name="Spannung"
-                  value="Monofase"
-                  onChange={() => handleChangeSpannungRadioButton("Monofase")}
-                  checked={
-                    PVDaten["Spannung der Anlage"].selectedValue === "Monofase"
-                  }
-                ></input>
-                <label htmlFor="Monofase">Monofase 230 [V]</label>
-              </div>
-              <div>
-                <input
-                  className={style.radiobutton}
-                  type="radio"
-                  id="Trifase"
-                  name="Spannung"
-                  value="Trifase"
-                  onChange={() => handleChangeSpannungRadioButton("Trifase")}
-                  checked={
-                    PVDaten["Spannung der Anlage"].selectedValue === "Trifase"
-                  }
-                ></input>
-                <label htmlFor="Trifase">Trifase 400 [V]</label>
-              </div>
-            </div>
-
-            <div className={style.question}>Wird ein Speicher installiert?</div>
-            <div className={style.inputbox}>
+              <button className={style.buttonupload} onClick={handleClick}>
+                Datei hochladen
+              </button>
               <input
-                className={style.radiobutton}
-                type="radio"
-                id="Ja"
-                name="Speicher"
-                value="Ja"
-                onChange={() => handleChangeSpeicherRadioButton("Ja")}
-                checked={PVDaten["Speicher"].selectedValue === "Ja"}
-              ></input>
-              <label htmlFor="Ja">Ja, mit:</label>{" "}
-              <div className={style.radiodescription}>
-                • Speicherkapazität[kWh]{" "}
-                <input
-                  type="number"
-                  value={PVDaten["Speicher"].content}
-                  onChange={handleChangeSpeicherContent()}
-                  className={style.inputfield}
-                ></input>
-              </div>
-              <div className={style.radiodescription}>
-                • Gesamtleistung[kW]{" "}
-                <input
-                  type="number"
-                  value={PVDaten["Speicher"].leistung}
-                  onChange={handleChangeSpeicherLeistung()}
-                  className={style.inputfield}
-                ></input>
-              </div>
+                type="file"
+                onChange={handleChange}
+                ref={hiddenFileInput}
+                style={{ display: "none" }}
+              />
+              <div>{uploadedFileURL}</div>
             </div>
-            <div className={style.inputbox}>
+            <div className={style.section}>
+              <h2>Ausweiß</h2>
+              <div className={style.description}>
+                Laden Sie hier bitte eine Kopie Ihres Ausweißes hoch.
+              </div>
+              <button
+                className={style.buttonupload}
+                onClick={handleClickAusweis}
+              >
+                Datei hochladen
+              </button>
               <input
-                type="radio"
-                id="Nein"
-                name="Speicher"
-                value="Nein"
-                onChange={() => handleChangeSpeicherRadioButton("Nein")}
-                checked={PVDaten["Speicher"].selectedValue === "Nein"}
-                className={style.radiobutton}
-              ></input>
-              <label htmlFor="Nein">Nein</label>
+                type="file"
+                onChange={handleChangeAusweis}
+                ref={hiddenFileInputAusweis}
+                style={{ display: "none" }}
+              />
+              <div>{uploadedFileURLAusweis}</div>
             </div>
-          </div>
-          <div className={style.section}>
-            <h2>Örtliche Angaben zur PV-Anlage</h2>
-            {Object.keys(PVAdresse).map((key) => {
-              return (
-                <DataField
-                  name={key}
-                  type={PVAdresse[key].type}
-                  key={PVAdresse[key].key}
-                  value={PVAdresse[key].content}
-                  onChange={handleChangePvAdress()}
-                  required={PVAdresse[key].required}
-                  maxlength={PVAdresse[key].maxlength}
-                ></DataField>
-              );
-            })}
-          </div>
-          <div className={style.section}>
-            <h2>Technische Angaben zur PV-Anlage</h2>
-            <h3 id={style.exception}>Modul</h3>
-            {Object.keys(Modul).map((key) => {
-              return (
-                <TechnikField
-                  name={key}
-                  type={Modul[key].type}
-                  key={Modul[key].key}
-                  value={Modul[key].content}
-                  onChange={handleChangeModul()}
-                  required={Modul[key].required}
-                  maxlength={Modul[key].maxlength}
-                ></TechnikField>
-              );
-            })}
-            <h3>Übergabeschutzgerät (SPI)</h3>
-            {Object.keys(Spi).map((key) => {
-              return (
-                <TechnikField
-                  name={key}
-                  type={Spi[key].type}
-                  key={Spi[key].key}
-                  value={Spi[key].content}
-                  onChange={handleChangeSpi()}
-                  required={Spi[key].required}
-                  maxlength={Spi[key].maxlength}
-                ></TechnikField>
-              );
-            })}
-            <h3>Inverter</h3>
-            {Object.keys(Inverter).map((key) => {
-              return (
-                <TechnikField
-                  name={key}
-                  type={Inverter[key].type}
-                  key={Inverter[key].key}
-                  value={Inverter[key].content}
-                  onChange={handleChangeInverter()}
-                  required={Inverter[key].required}
-                  maxlength={Inverter[key].maxlength}
-                ></TechnikField>
-              );
-            })}
-            <h3>Speicher</h3>
-            {Object.keys(Speicher).map((key) => {
-              return (
-                <TechnikField
-                  name={key}
-                  type={Speicher[key].type}
-                  key={Speicher[key].key}
-                  value={Speicher[key].content}
-                  onChange={handleChangeSpeicher()}
-                  required={Speicher[key].required}
-                  maxlength={Speicher[key].maxlength}
-                ></TechnikField>
-              );
-            })}
-          </div>
-          <div className={style.section}>
-            <h2>Techniker der PV-Anlage (gesetzlicher Vertreter)</h2>
-            {Object.keys(PersonendatenEl).map((key) => {
-              return (
-                <DataField
-                  name={key}
-                  type={PersonendatenEl[key].type}
-                  key={PersonendatenEl[key].key}
-                  value={PersonendatenEl[key].content}
-                  required={PersonendatenEl[key].required}
-                  onChange={handleChangeEl()}
-                ></DataField>
-              );
-            })}
-          </div>
+            <div className={style.section}>
+              <h2>Stromrechnung</h2>
+              <div className={style.description}>
+                Laden Sie hier bitte eine Kopie Ihrer aktuellen Stromrechnung
+                hoch.
+              </div>
+              <button
+                className={style.buttonupload}
+                onClick={handleClickStromrechnung}
+              >
+                Datei hochladen
+              </button>
+              <input
+                type="file"
+                onChange={handleChangeStromrechnung}
+                ref={hiddenFileInputStromrechnung}
+                style={{ display: "none" }}
+              />
+              <div>{uploadedFileURLStromrechnung}</div>
+            </div>
+            <div className={style.section}>
+              <h2>Katasterauszug</h2>
+              <div className={style.description}>
+                Laden Sie hier bitte eine Kopie Ihres Katasterauszuges hoch.
+              </div>
+              <button
+                className={style.buttonupload}
+                onClick={handleClickKataster}
+              >
+                Datei hochladen
+              </button>
+              <input
+                type="file"
+                onChange={handleChangeKataster}
+                ref={hiddenFileInputKataster}
+                style={{ display: "none" }}
+              />
+              <div>{uploadedFileURLKataster}</div>
+            </div>
+            <form onSubmit={createPDF}>
+              <div className={style.section}>
+                <h2>Persönliche Daten</h2>
+                {Object.keys(Personendaten).map((key) => {
+                  return (
+                    <DataField
+                      name={key}
+                      type={Personendaten[key].type}
+                      key={Personendaten[key].key}
+                      value={Personendaten[key].content}
+                      onChange={handleChangePerson()}
+                      required={Personendaten[key].required}
+                      maxlength={Personendaten[key].maxlength}
+                    ></DataField>
+                  );
+                })}
+                <div className={style.question}>
+                  Führen Sie die Arbeiten als Privatperson durch?
+                </div>
+                <div className={style.inputbox}>
+                  <div>
+                    <input
+                      className={style.radiobutton}
+                      type="radio"
+                      id="Ja"
+                      name="Privatperson"
+                      value="Ja"
+                      onChange={() => handleChangePrivatpersonRadiobutton("Ja")}
+                      checked={
+                        Personendaten["Privatperson"].selectedValue === "Ja"
+                      }
+                    ></input>
+                    <label htmlFor="Ja">Ja</label>
+                  </div>
+                  <div>
+                    <input
+                      className={style.radiobutton}
+                      type="radio"
+                      id="Nein"
+                      name="Privatperson"
+                      value="Nein"
+                      onChange={() =>
+                        handleChangePrivatpersonRadiobutton("Nein")
+                      }
+                      checked={
+                        Personendaten["Privatperson"].selectedValue === "Nein"
+                      }
+                    ></input>
+                    <label htmlFor="nein">
+                      Nein, ich führe die Arbeiten als gesetzlicher Vertreter
+                      folgendes Unternehmens durch:
+                    </label>
+                    <input
+                      type="text"
+                      value={Personendaten["Privatperson"].content}
+                      onChange={handleChangePrivatpersonContent()}
+                      className={style.inputtextfield}
+                    ></input>
+                  </div>
+                </div>
+              </div>
+              <div className={style.section}>
+                <h2>Steuerrechtliche Angaben</h2>
+                <div className={style.inputbox} id={style.spannung}>
+                  <div>
+                    <input
+                      className={style.radiobutton}
+                      type="radio"
+                      id="110% Steuerbonus"
+                      name="Steuer"
+                      value="110% Steuerbonus"
+                      onChange={() => handleChangeSteuer("110% Steuerbonus")}
+                      checked={
+                        Personendaten["Steuer"].selectedValue ===
+                        "110% Steuerbonus"
+                      }
+                    ></input>
+                    <label htmlFor="110% Steuerbonus">110% Steuerbonus</label>
+                  </div>
+                  <div>
+                    <input
+                      className={style.radiobutton}
+                      type="radio"
+                      id="50% Steuerbonus"
+                      name="Steuer"
+                      value="50% Steuerbonus"
+                      onChange={() => handleChangeSteuer("50% Steuerbonus")}
+                      checked={
+                        Personendaten["Steuer"].selectedValue ===
+                        "50% Steuerbonus"
+                      }
+                    ></input>
+                    <label htmlFor="50% Steuerbonus">50% Steuerbonus</label>
+                  </div>
+                  <div>
+                    <input
+                      className={style.radiobutton}
+                      type="radio"
+                      id="Ansuchen für Landesbeitrag"
+                      name="Steuer"
+                      value="Ansuchen für Landesbeitrag"
+                      onChange={() =>
+                        handleChangeSteuer("Ansuchen für Landesbeitrag")
+                      }
+                      checked={
+                        Personendaten["Steuer"].selectedValue ===
+                        "Ansuchen für Landesbeitrag"
+                      }
+                    ></input>
+                    <label htmlFor="Ansuchen für Landesbeitrag">
+                      Ansuchen für Landesbeitrag
+                    </label>
+                  </div>
+                  <div>
+                    <input
+                      className={style.radiobutton}
+                      type="radio"
+                      id="Keines davon"
+                      name="Steuer"
+                      value="Keines davon"
+                      onChange={() => handleChangeSteuer("Keines davon")}
+                      checked={
+                        Personendaten["Steuer"].selectedValue === "Keines davon"
+                      }
+                    ></input>
+                    <label htmlFor="Keines davon">Keines davon</label>
+                  </div>
+                </div>
+              </div>
+              <div className={style.section}>
+                <h2>Daten der PV-Anlage</h2>
+                {Object.keys(PVDaten).map((key) => {
+                  return (
+                    <DataField
+                      name={key}
+                      type={PVDaten[key].type}
+                      key={PVDaten[key].key}
+                      value={PVDaten[key].content}
+                      onChange={handleChangePvData()}
+                      required={PVDaten[key].required}
+                      maxlength={PVDaten[key].maxlength}
+                    ></DataField>
+                  );
+                })}
 
-          <div className={style.section}></div>
-          <button
-            className={style.submitbutton}
-            type="submit"
-            disabled={isButtonenabled}
-          >
-            {"Daten abschicken"}
-          </button>
-        </form>
-      </section>
+                <div className={style.question}>Spannung der Anlage:</div>
+                <div className={style.inputbox} id={style.spannung}>
+                  <div>
+                    <input
+                      className={style.radiobutton}
+                      type="radio"
+                      id="Monofase"
+                      name="Spannung"
+                      value="Monofase"
+                      onChange={() =>
+                        handleChangeSpannungRadioButton("Monofase")
+                      }
+                      checked={
+                        PVDaten["Spannung der Anlage"].selectedValue ===
+                        "Monofase"
+                      }
+                    ></input>
+                    <label htmlFor="Monofase">Monofase 230 [V]</label>
+                  </div>
+                  <div>
+                    <input
+                      className={style.radiobutton}
+                      type="radio"
+                      id="Trifase"
+                      name="Spannung"
+                      value="Trifase"
+                      onChange={() =>
+                        handleChangeSpannungRadioButton("Trifase")
+                      }
+                      checked={
+                        PVDaten["Spannung der Anlage"].selectedValue ===
+                        "Trifase"
+                      }
+                    ></input>
+                    <label htmlFor="Trifase">Trifase 400 [V]</label>
+                  </div>
+                </div>
+
+                <div className={style.question}>
+                  Wird ein Speicher installiert?
+                </div>
+                <div className={style.inputbox}>
+                  <input
+                    className={style.radiobutton}
+                    type="radio"
+                    id="Ja"
+                    name="Speicher"
+                    value="Ja"
+                    onChange={() => handleChangeSpeicherRadioButton("Ja")}
+                    checked={PVDaten["Speicher"].selectedValue === "Ja"}
+                  ></input>
+                  <label htmlFor="Ja">Ja, mit:</label>{" "}
+                  <div className={style.radiodescription}>
+                    • Speicherkapazität[kWh]{" "}
+                    <input
+                      type="number"
+                      value={PVDaten["Speicher"].content}
+                      onChange={handleChangeSpeicherContent()}
+                      className={style.inputfield}
+                    ></input>
+                  </div>
+                  <div className={style.radiodescription}>
+                    • Gesamtleistung[kW]{" "}
+                    <input
+                      type="number"
+                      value={PVDaten["Speicher"].leistung}
+                      onChange={handleChangeSpeicherLeistung()}
+                      className={style.inputfield}
+                    ></input>
+                  </div>
+                </div>
+                <div className={style.inputbox}>
+                  <input
+                    type="radio"
+                    id="Nein"
+                    name="Speicher"
+                    value="Nein"
+                    onChange={() => handleChangeSpeicherRadioButton("Nein")}
+                    checked={PVDaten["Speicher"].selectedValue === "Nein"}
+                    className={style.radiobutton}
+                  ></input>
+                  <label htmlFor="Nein">Nein</label>
+                </div>
+              </div>
+              <div className={style.section}>
+                <h2>Örtliche Angaben zur PV-Anlage</h2>
+                {Object.keys(PVAdresse).map((key) => {
+                  return (
+                    <DataField
+                      name={key}
+                      type={PVAdresse[key].type}
+                      key={PVAdresse[key].key}
+                      value={PVAdresse[key].content}
+                      onChange={handleChangePvAdress()}
+                      required={PVAdresse[key].required}
+                      maxlength={PVAdresse[key].maxlength}
+                    ></DataField>
+                  );
+                })}
+              </div>
+              <div className={style.section}>
+                <h2>Technische Angaben zur PV-Anlage</h2>
+                <h3 id={style.exception}>Modul</h3>
+                {Object.keys(Modul).map((key) => {
+                  return (
+                    <TechnikField
+                      name={key}
+                      type={Modul[key].type}
+                      key={Modul[key].key}
+                      value={Modul[key].content}
+                      onChange={handleChangeModul()}
+                      required={Modul[key].required}
+                      maxlength={Modul[key].maxlength}
+                    ></TechnikField>
+                  );
+                })}
+                <h3>Übergabeschutzgerät (SPI)</h3>
+                {Object.keys(Spi).map((key) => {
+                  return (
+                    <TechnikField
+                      name={key}
+                      type={Spi[key].type}
+                      key={Spi[key].key}
+                      value={Spi[key].content}
+                      onChange={handleChangeSpi()}
+                      required={Spi[key].required}
+                      maxlength={Spi[key].maxlength}
+                    ></TechnikField>
+                  );
+                })}
+                <h3>Inverter</h3>
+                {Object.keys(Inverter).map((key) => {
+                  return (
+                    <TechnikField
+                      name={key}
+                      type={Inverter[key].type}
+                      key={Inverter[key].key}
+                      value={Inverter[key].content}
+                      onChange={handleChangeInverter()}
+                      required={Inverter[key].required}
+                      maxlength={Inverter[key].maxlength}
+                    ></TechnikField>
+                  );
+                })}
+                <h3>Speicher</h3>
+                {Object.keys(Speicher).map((key) => {
+                  return (
+                    <TechnikField
+                      name={key}
+                      type={Speicher[key].type}
+                      key={Speicher[key].key}
+                      value={Speicher[key].content}
+                      onChange={handleChangeSpeicher()}
+                      required={Speicher[key].required}
+                      maxlength={Speicher[key].maxlength}
+                    ></TechnikField>
+                  );
+                })}
+              </div>
+              <div className={style.section}>
+                <h2>Techniker der PV-Anlage (gesetzlicher Vertreter)</h2>
+                {Object.keys(PersonendatenEl).map((key) => {
+                  return (
+                    <DataField
+                      name={key}
+                      type={PersonendatenEl[key].type}
+                      key={PersonendatenEl[key].key}
+                      value={PersonendatenEl[key].content}
+                      required={PersonendatenEl[key].required}
+                      onChange={handleChangeEl()}
+                    ></DataField>
+                  );
+                })}
+              </div>
+
+              <div className={style.section}></div>
+              <button
+                className={style.submitbutton}
+                type="submit"
+                disabled={isButtonenabled}
+              >
+                {"Daten abschicken"}
+              </button>
+            </form>
+          </section>
+        </div>
+      )}
     </div>
   );
 }

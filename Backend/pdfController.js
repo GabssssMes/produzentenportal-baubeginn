@@ -20,7 +20,7 @@ exports.uploadKataster = async (req, res) => {
   res.send(req.file.filename);
 };
 exports.createPdf = async (req, res) => {
-  //console.log(req.body);
+  const userEmail = req.body.userEmail;
   const PersonalData = req.body.Personendaten;
   const PersonalDataEl = req.body.PersonendatenEl;
   const PVData = req.body.PVDaten;
@@ -120,7 +120,7 @@ exports.createPdf = async (req, res) => {
           PersonalData["Vorname"].content +
           ".pdf";
       pdfDoc4 = await PDFDocument.load(
-        readFileSync("./Backend/Documents/Dichiarazione fino 20kW.pdf")
+        readFileSync("./Backend/Documents/Dichiarazione fino 20kW.pdf"),
       );
       const pages4 = pdfDoc4.getPages();
 
@@ -132,7 +132,7 @@ exports.createPdf = async (req, res) => {
           x: 118,
           y: 700,
           size: 6,
-        }
+        },
       );
       pages4[0].drawText(PersonalData["Geburtsort"].content, {
         x: 267,
@@ -147,7 +147,7 @@ exports.createPdf = async (req, res) => {
           x: 410,
           y: 700,
           size: 6,
-        }
+        },
       );
       pages4[0].drawText(Geburtsdatum, {
         x: 66,
@@ -188,7 +188,7 @@ exports.createPdf = async (req, res) => {
           x: 220,
           y: 671,
           size: 6,
-        }
+        },
       );
       pages4[0].drawText(PVData["POD"].content, {
         x: 90,
@@ -201,7 +201,7 @@ exports.createPdf = async (req, res) => {
           x: 108,
           y: 583,
           size: 6,
-        }
+        },
       );
       pages4[0].drawText(PVAdress["Postleitzahl"].content, {
         x: 202,
@@ -220,7 +220,7 @@ exports.createPdf = async (req, res) => {
           x: 476,
           y: 583,
           size: 8,
-        }
+        },
       );
       pages4[0].drawText(
         PVData["Nennleistung der gesamten Inverter[kW]"].content,
@@ -228,7 +228,7 @@ exports.createPdf = async (req, res) => {
           x: 193,
           y: 560,
           size: 8,
-        }
+        },
       );
       if (
         Number(PVData["Nennleistung der gesamten Inverter[kW]"].content) <
@@ -240,7 +240,7 @@ exports.createPdf = async (req, res) => {
             x: 244,
             y: 538,
             size: 8,
-          }
+          },
         );
       } else {
         pages4[0].drawText(PVData["Spitzenleistung[kW]"].content, {
@@ -283,8 +283,8 @@ exports.createPdf = async (req, res) => {
         ".pdf";
     pdfDoc4 = await PDFDocument.load(
       readFileSync(
-        "./Backend/Documents/07 Bis - Nuova Dichiaraz  sostitutiva di atto notorio Off  elettr  - DL 16_2012_Vorlage.pdf"
-      )
+        "./Backend/Documents/07 Bis - Nuova Dichiaraz  sostitutiva di atto notorio Off  elettr  - DL 16_2012_Vorlage.pdf",
+      ),
     );
     const pages4 = pdfDoc4.getPages();
 
@@ -302,7 +302,9 @@ exports.createPdf = async (req, res) => {
         PersonalData["Vorname"].content +
         ".pdf";
     pdfDoc5 = await PDFDocument.load(
-      readFileSync("./Backend/Documents/DENUNCIA ATTIVITA OFFICINA_Vorlage.pdf")
+      readFileSync(
+        "./Backend/Documents/DENUNCIA ATTIVITA OFFICINA_Vorlage.pdf",
+      ),
     );
     const pages5 = pdfDoc5.getPages();
     if (PersonalData["Privatperson"].selectedValue !== "Ja") {
@@ -321,7 +323,7 @@ exports.createPdf = async (req, res) => {
           PersonalData["Vorname"].content +
           ".pdf";
       pdfDoc6 = await PDFDocument.load(
-        readFileSync("./Backend/Documents/Vorlage Delega.pdf")
+        readFileSync("./Backend/Documents/Vorlage Delega.pdf"),
       );
       const pages6 = pdfDoc6.getPages();
       pages6[0].drawText(
@@ -332,7 +334,7 @@ exports.createPdf = async (req, res) => {
           x: 121,
           y: 605,
           size: 8,
-        }
+        },
       );
       pages6[0].drawText(PersonalData["Geburtsort"].content, {
         x: 387,
@@ -357,7 +359,7 @@ exports.createPdf = async (req, res) => {
           x: 289,
           y: 584,
           size: 8,
-        }
+        },
       );
       pages6[0].drawText(
         PersonalData["Straße"].content +
@@ -367,7 +369,7 @@ exports.createPdf = async (req, res) => {
           x: 58,
           y: 564,
           size: 8,
-        }
+        },
       );
       pages6[0].drawText(PersonalData["Privatperson"].content, {
         x: 58,
@@ -395,7 +397,7 @@ exports.createPdf = async (req, res) => {
           x: 415,
           y: 504,
           size: 8,
-        }
+        },
       );
       pages6[0].drawText(
         PVAdress["Postleitzahl"].content + " " + PVAdress["Gemeinde"].content,
@@ -403,7 +405,7 @@ exports.createPdf = async (req, res) => {
           x: 125,
           y: 484,
           size: 8,
-        }
+        },
       );
       pages6[0].drawText(
         PVAdress["Straße"].content + " " + PVAdress["Nummer"].content,
@@ -411,7 +413,7 @@ exports.createPdf = async (req, res) => {
           x: 354,
           y: 484,
           size: 8,
-        }
+        },
       );
       pages6[0].drawText(date, {
         x: 97,
@@ -435,7 +437,7 @@ exports.createPdf = async (req, res) => {
         x: 159,
         y: 695,
         size: 8,
-      }
+      },
     );
     pages4[0].drawText(PersonalData["Geburtsort"].content, {
       x: 101,
@@ -459,7 +461,7 @@ exports.createPdf = async (req, res) => {
         x: 439,
         y: 620,
         size: 8,
-      }
+      },
     );
     pages4[0].drawText(PersonalData["Straße"].content, {
       x: 120,
@@ -501,7 +503,7 @@ exports.createPdf = async (req, res) => {
         x: 449,
         y: 513,
         size: 8,
-      }
+      },
     );
     pages4[0].drawText(PVAdress["Gemeinde"].content, {
       x: 161,
@@ -556,7 +558,7 @@ exports.createPdf = async (req, res) => {
         x: 524,
         y: 461,
         size: 8,
-      }
+      },
     );
     pages5[0].drawText(PersonalData["Straße"].content, {
       x: 100,
@@ -602,7 +604,7 @@ exports.createPdf = async (req, res) => {
         x: 325,
         y: 130,
         size: 8,
-      }
+      },
     );
     pages5[0].drawText(PVAdress["Straße"].content, {
       x: 103,
@@ -631,7 +633,7 @@ exports.createPdf = async (req, res) => {
         x: 521,
         y: 87,
         size: 8,
-      }
+      },
     );
     pages5[1].drawText(PVData["POD"].content, {
       x: 363,
@@ -644,7 +646,7 @@ exports.createPdf = async (req, res) => {
         x: 58,
         y: 254,
         size: 6,
-      }
+      },
     );
     pages5[1].drawText(Modul["Leistung[kW]"].content, {
       x: 221,
@@ -662,7 +664,7 @@ exports.createPdf = async (req, res) => {
         x: 478,
         y: 254,
         size: 6,
-      }
+      },
     );
     pages5[1].drawText(
       Inverter["Marke"].content + ", " + Inverter["Modell"].content,
@@ -670,7 +672,7 @@ exports.createPdf = async (req, res) => {
         x: 58,
         y: 135,
         size: 6,
-      }
+      },
     );
     pages5[1].drawText(
       PVData["Nennleistung der gesamten Inverter[kW]"].content,
@@ -678,7 +680,7 @@ exports.createPdf = async (req, res) => {
         x: 357,
         y: 135,
         size: 5,
-      }
+      },
     );
 
     filesToDelete = filesToDelete.concat([filename4, filename5]);
@@ -724,10 +726,10 @@ exports.createPdf = async (req, res) => {
       PersonalData["Vorname"].content +
       ".pdf";
   pdfDoc = await PDFDocument.load(
-    readFileSync("./Backend/Documents/Modello unico parte 1.pdf")
+    readFileSync("./Backend/Documents/Modello unico parte 1.pdf"),
   );
   pdfDoc2 = await PDFDocument.load(
-    readFileSync("./Backend/Documents/Modello unico parte 2.pdf")
+    readFileSync("./Backend/Documents/Modello unico parte 2.pdf"),
   );
 
   const pages = pdfDoc.getPages();
@@ -754,7 +756,7 @@ exports.createPdf = async (req, res) => {
       x: 114,
       y: 665,
       size: 8,
-    }
+    },
   );
   pages[0].drawText(PersonalData["Geburtsort"].content, {
     x: 316,
@@ -778,7 +780,7 @@ exports.createPdf = async (req, res) => {
       x: 325,
       y: 653,
       size: 8,
-    }
+    },
   );
   pages[0].drawText(
     PersonalData["Straße"].content + " " + PersonalData["Hausnummer"].content,
@@ -786,7 +788,7 @@ exports.createPdf = async (req, res) => {
       x: 364,
       y: 652,
       size: 6,
-    }
+    },
   );
   pages[0].drawText(PersonalData["Postleitzahl"].content, {
     x: 60,
@@ -801,7 +803,7 @@ exports.createPdf = async (req, res) => {
       x: 163,
       y: 643,
       size: 6,
-    }
+    },
   );
   pages[0].drawText(PersonalData["Telefonnummer"].content, {
     x: 114,
@@ -843,7 +845,7 @@ exports.createPdf = async (req, res) => {
         x: 168,
         y: 537,
         size: 8,
-      }
+      },
     );
   }
   pages[0].drawText(Baubeginn, {
@@ -883,14 +885,14 @@ exports.createPdf = async (req, res) => {
       x: 102,
       y: 320,
       size: 8,
-    }
+    },
   );
-  
-      pages[0].drawText(PVAdress["Postleitzahl"].content, {
-        x: 170,
-        y: 329,
-        size: 8,
-      });
+
+  pages[0].drawText(PVAdress["Postleitzahl"].content, {
+    x: 170,
+    y: 329,
+    size: 8,
+  });
   pages[0].drawText(PVAdress["Straße"].content, {
     x: 359,
     y: 329,
@@ -963,7 +965,7 @@ exports.createPdf = async (req, res) => {
         x: 434,
         y: 59,
         size: 8,
-      }
+      },
     );
   } else {
     pages[0].drawText(PVData["Spitzenleistung[kW]"].content, {
@@ -994,7 +996,7 @@ exports.createPdf = async (req, res) => {
       x: 109,
       y: 725,
       size: 6,
-    }
+    },
   );
   pages2[0].drawText(PVData["Spitzenleistung[kW]"].content, {
     x: 80,
@@ -1016,7 +1018,7 @@ exports.createPdf = async (req, res) => {
         x: 134,
         y: 609,
         size: 8,
-      }
+      },
     );
   } else {
     pages2[0].drawText(PVData["Spitzenleistung[kW]"].content, {
@@ -1067,7 +1069,7 @@ exports.createPdf = async (req, res) => {
         x: 268,
         y: 469,
         size: 6,
-      }
+      },
     );
   }
   pages2[0].drawText(Inverter["Marke"].content, {
@@ -1139,7 +1141,7 @@ exports.createPdf = async (req, res) => {
         PersonalData["Vorname"].content +
         ".pdf";
     pdfDoc3 = await PDFDocument.load(
-      readFileSync("./Backend/Documents/Regolamento_Bruneck.pdf")
+      readFileSync("./Backend/Documents/Regolamento_Bruneck.pdf"),
     );
     const pages3 = pdfDoc3.getPages();
     pdfsToSend = pdfsToSend.concat([pdfDoc3]);
@@ -1164,7 +1166,7 @@ exports.createPdf = async (req, res) => {
         x: 227,
         y: 638,
         size: 8,
-      }
+      },
     );
     pages3[1].drawText(PersonalData["Geburtsort"].content, {
       x: 227,
@@ -1187,7 +1189,7 @@ exports.createPdf = async (req, res) => {
         x: 227,
         y: 566,
         size: 8,
-      }
+      },
     );
     if (PersonalData["Privatperson"].selectedValue === "Ja") {
       pages3[1].drawLine({
@@ -1229,7 +1231,7 @@ exports.createPdf = async (req, res) => {
         x: 226,
         y: 151,
         size: 8,
-      }
+      },
     );
 
     pages3[1].drawText(PVAdress["Gemeinde"].content, {
@@ -1253,7 +1255,7 @@ exports.createPdf = async (req, res) => {
         x: 401,
         y: 670,
         size: 8,
-      }
+      },
     );
     pages3[7].drawText(
       PersonalData["Vorname"].content + " " + PersonalData["Nachname"].content,
@@ -1261,7 +1263,7 @@ exports.createPdf = async (req, res) => {
         x: 60,
         y: 498,
         size: 8,
-      }
+      },
     );
     pages3[7].drawText(PersonalData["Telefonnummer"].content, {
       x: 358,
@@ -1281,7 +1283,7 @@ exports.createPdf = async (req, res) => {
         x: 60,
         y: 446,
         size: 8,
-      }
+      },
     );
     pages3[7].drawText(PersonalDataEl["Telefonnummer"].content, {
       x: 257,
@@ -1299,7 +1301,7 @@ exports.createPdf = async (req, res) => {
         x: 407,
         y: 411,
         size: 8,
-      }
+      },
     );
 
     if (PVData["Speicher"].selectedValue === "Ja") {
@@ -1325,7 +1327,7 @@ exports.createPdf = async (req, res) => {
           x: 451,
           y: 364,
           size: 8,
-        }
+        },
       );
     } else if (
       Number(PVData["Nennleistung der gesamten Inverter[kW]"].content) >=
@@ -1372,7 +1374,7 @@ exports.createPdf = async (req, res) => {
         x: 390,
         y: 676,
         size: 8,
-      }
+      },
     );
     pages3[14].drawText(Inverter["Marke"].content, {
       x: 141,
@@ -1459,12 +1461,13 @@ exports.createPdf = async (req, res) => {
         PersonalData["Steuer"].selectedValue,
         Modul,
         filesToDelete,
-        attachmentSize
+        attachmentSize,
+        userEmail,
       ).then(() => {
         res.send(
-          "Vielen Dank, Ihre Daten wurden erfolgreich übermittelt! Sie können das Portal jetzt verlassen!"
+          "Vielen Dank, Ihre Daten wurden erfolgreich übermittelt! Sie können das Portal jetzt verlassen!",
         );
-      })
+      }),
     );
   } else if (
     PVData["POD"].content.split("")[2] === "0" &&
@@ -1489,7 +1492,7 @@ exports.createPdf = async (req, res) => {
           PersonalData["Vorname"].content +
           ".pdf";
       pdfDoc3 = await PDFDocument.load(
-        readFileSync("./Backend/Documents/Bozza Regolamento_BT_LUSON_2024.pdf")
+        readFileSync("./Backend/Documents/Bozza Regolamento_BT_LUSON_2024.pdf"),
       );
       const pages3 = pdfDoc3.getPages();
       pdfsToSend = pdfsToSend.concat([pdfDoc3]);
@@ -1509,7 +1512,7 @@ exports.createPdf = async (req, res) => {
           x: 176,
           y: 550,
           size: 8,
-        }
+        },
       );
       pages3[0].drawText(
         PersonalData["Geburtsort"].content + " " + Geburtsdatum,
@@ -1517,7 +1520,7 @@ exports.createPdf = async (req, res) => {
           x: 200,
           y: 531,
           size: 8,
-        }
+        },
       );
       pages3[0].drawText(PersonalData["Steuernummer"].content, {
         x: 215,
@@ -1537,7 +1540,7 @@ exports.createPdf = async (req, res) => {
           x: 127,
           y: 495,
           size: 8,
-        }
+        },
       );
       pages3[0].drawText(PersonalData["Fraktion"].content, {
         x: 453,
@@ -1607,7 +1610,7 @@ exports.createPdf = async (req, res) => {
           x: 315,
           y: 418,
           size: 8,
-        }
+        },
       );
 
       pages3[8].drawText(
@@ -1618,7 +1621,7 @@ exports.createPdf = async (req, res) => {
           x: 73,
           y: 414,
           size: 8,
-        }
+        },
       );
       pages3[8].drawText(PersonalData["Telefonnummer"].content, {
         x: 369,
@@ -1670,7 +1673,7 @@ exports.createPdf = async (req, res) => {
             x: 185,
             y: 560,
             size: 8,
-          }
+          },
         );
       } else if (
         Number(PVData["Nennleistung der gesamten Inverter[kW]"].content) >=
@@ -1694,7 +1697,7 @@ exports.createPdf = async (req, res) => {
           x: 97,
           y: 184,
           size: 8,
-        }
+        },
       );
 
       pages3[16].drawText(SPI["Marke"].content, {
@@ -1772,7 +1775,7 @@ exports.createPdf = async (req, res) => {
           x: 107,
           y: 510,
           size: 8,
-        }
+        },
       );
       pages3[22].drawText(PersonalData["Telefonnummer"].content, {
         x: 429,
@@ -1791,12 +1794,13 @@ exports.createPdf = async (req, res) => {
           PersonalData["Steuer"].selectedValue,
           Modul,
           filesToDelete,
-          attachmentSize
+          attachmentSize,
+          userEmail,
         ).then(() => {
           res.send(
-            "Vielen Dank, Ihre Daten wurden erfolgreich übermittelt! Sie können das Portal jetzt verlassen!"
+            "Vielen Dank, Ihre Daten wurden erfolgreich übermittelt! Sie können das Portal jetzt verlassen!",
           );
-        })
+        }),
       );
     } else {
       attachmentSize = attachmentSize + 7500000;
@@ -1815,8 +1819,8 @@ exports.createPdf = async (req, res) => {
           ".pdf";
       pdfDoc3 = await PDFDocument.load(
         readFileSync(
-          "./Backend/Documents/Bozza Regolamento_BT_LUSON_2024 sotto 11.pdf"
-        )
+          "./Backend/Documents/Bozza Regolamento_BT_LUSON_2024 sotto 11.pdf",
+        ),
       );
       const pages3 = pdfDoc3.getPages();
       pdfsToSend = pdfsToSend.concat([pdfDoc3]);
@@ -1836,7 +1840,7 @@ exports.createPdf = async (req, res) => {
           x: 176,
           y: 550,
           size: 8,
-        }
+        },
       );
       pages3[0].drawText(
         PersonalData["Geburtsort"].content + " " + Geburtsdatum,
@@ -1844,7 +1848,7 @@ exports.createPdf = async (req, res) => {
           x: 200,
           y: 531,
           size: 8,
-        }
+        },
       );
       pages3[0].drawText(PersonalData["Steuernummer"].content, {
         x: 215,
@@ -1864,7 +1868,7 @@ exports.createPdf = async (req, res) => {
           x: 127,
           y: 495,
           size: 8,
-        }
+        },
       );
       pages3[0].drawText(PersonalData["Fraktion"].content, {
         x: 453,
@@ -1934,7 +1938,7 @@ exports.createPdf = async (req, res) => {
           x: 315,
           y: 418,
           size: 8,
-        }
+        },
       );
 
       pages3[8].drawText(
@@ -1945,7 +1949,7 @@ exports.createPdf = async (req, res) => {
           x: 73,
           y: 414,
           size: 8,
-        }
+        },
       );
       pages3[8].drawText(PersonalData["Telefonnummer"].content, {
         x: 369,
@@ -1981,7 +1985,7 @@ exports.createPdf = async (req, res) => {
             x: 185,
             y: 560,
             size: 8,
-          }
+          },
         );
       } else if (
         Number(PVData["Nennleistung der gesamten Inverter[kW]"].content) >=
@@ -2011,12 +2015,13 @@ exports.createPdf = async (req, res) => {
           PersonalData["Steuer"].selectedValue,
           Modul,
           filesToDelete,
-          attachmentSize
+          attachmentSize,
+          userEmail,
         ).then(() => {
           res.send(
-            "Vielen Dank, Ihre Daten wurden erfolgreich übermittelt! Sie können das Portal jetzt verlassen!"
+            "Vielen Dank, Ihre Daten wurden erfolgreich übermittelt! Sie können das Portal jetzt verlassen!",
           );
-        })
+        }),
       );
     }
   } else if (
@@ -2039,7 +2044,7 @@ exports.createPdf = async (req, res) => {
         ".pdf";
 
     let pdfDoc3 = await PDFDocument.load(
-      readFileSync("./Backend/Documents/Domanda di Connessione Vierschach.pdf")
+      readFileSync("./Backend/Documents/Domanda di Connessione Vierschach.pdf"),
     );
     const pages3 = pdfDoc3.getPages();
     filesToDelete = filesToDelete.concat([filename3]);
@@ -2050,7 +2055,7 @@ exports.createPdf = async (req, res) => {
         x: 95,
         y: 583,
         size: 8,
-      }
+      },
     );
     pages3[1].drawText(PersonalData["Geburtsort"].content, {
       x: 144,
@@ -2074,7 +2079,7 @@ exports.createPdf = async (req, res) => {
         x: 183,
         y: 531,
         size: 8,
-      }
+      },
     );
     pages3[1].drawText(PersonalData["Wohnhaft in der Gemeinde"].content, {
       x: 195,
@@ -2134,8 +2139,8 @@ exports.createPdf = async (req, res) => {
 
       let pdfDoc2 = await PDFDocument.load(
         readFileSync(
-          "./Backend/Documents/Bozza Regolamento_BT_Vierschach_2024.pdf"
-        )
+          "./Backend/Documents/Bozza Regolamento_BT_Vierschach_2024.pdf",
+        ),
       );
       const pages2 = pdfDoc2.getPages();
       filesToDelete = filesToDelete.concat([filename2]);
@@ -2147,7 +2152,7 @@ exports.createPdf = async (req, res) => {
           x: 176,
           y: 550,
           size: 8,
-        }
+        },
       );
       pages2[0].drawText(
         PersonalData["Geburtsort"].content + " " + Geburtsdatum,
@@ -2155,7 +2160,7 @@ exports.createPdf = async (req, res) => {
           x: 200,
           y: 531,
           size: 8,
-        }
+        },
       );
       pages2[0].drawText(PersonalData["Steuernummer"].content, {
         x: 215,
@@ -2175,7 +2180,7 @@ exports.createPdf = async (req, res) => {
           x: 127,
           y: 495,
           size: 8,
-        }
+        },
       );
       pages2[0].drawText(PersonalData["Fraktion"].content, {
         x: 453,
@@ -2245,7 +2250,7 @@ exports.createPdf = async (req, res) => {
           x: 315,
           y: 418,
           size: 8,
-        }
+        },
       );
 
       pages2[8].drawText(
@@ -2256,7 +2261,7 @@ exports.createPdf = async (req, res) => {
           x: 73,
           y: 414,
           size: 8,
-        }
+        },
       );
       pages2[8].drawText(PersonalData["Telefonnummer"].content, {
         x: 369,
@@ -2308,7 +2313,7 @@ exports.createPdf = async (req, res) => {
             x: 298,
             y: 560,
             size: 8,
-          }
+          },
         );
       } else if (
         Number(PVData["Nennleistung der gesamten Inverter[kW]"].content) >=
@@ -2332,7 +2337,7 @@ exports.createPdf = async (req, res) => {
           x: 97,
           y: 149,
           size: 8,
-        }
+        },
       );
 
       pages2[16].drawText(SPI["Marke"].content, {
@@ -2410,7 +2415,7 @@ exports.createPdf = async (req, res) => {
           x: 107,
           y: 510,
           size: 8,
-        }
+        },
       );
       pages2[22].drawText(PersonalData["Telefonnummer"].content, {
         x: 429,
@@ -2437,12 +2442,13 @@ exports.createPdf = async (req, res) => {
           PersonalData["Steuer"].selectedValue,
           Modul,
           filesToDelete,
-          attachmentSize
+          attachmentSize,
+          userEmail,
         ).then(() => {
           res.send(
-            "Vielen Dank, Ihre Daten wurden erfolgreich übermittelt! Sie können das Portal jetzt verlassen!"
+            "Vielen Dank, Ihre Daten wurden erfolgreich übermittelt! Sie können das Portal jetzt verlassen!",
           );
-        })
+        }),
       );
     } else {
       attachmentSize = attachmentSize + 8000000;
@@ -2461,8 +2467,8 @@ exports.createPdf = async (req, res) => {
 
       let pdfDoc2 = await PDFDocument.load(
         readFileSync(
-          "./Backend/Documents/Bozza Regolamento_BT_Vierschach_2024 sotto 11,08kW.pdf"
-        )
+          "./Backend/Documents/Bozza Regolamento_BT_Vierschach_2024 sotto 11,08kW.pdf",
+        ),
       );
       const pages2 = pdfDoc2.getPages();
       filesToDelete = filesToDelete.concat([filename2]);
@@ -2475,7 +2481,7 @@ exports.createPdf = async (req, res) => {
           x: 176,
           y: 550,
           size: 8,
-        }
+        },
       );
       pages2[0].drawText(
         PersonalData["Geburtsort"].content + " " + Geburtsdatum,
@@ -2483,7 +2489,7 @@ exports.createPdf = async (req, res) => {
           x: 200,
           y: 531,
           size: 8,
-        }
+        },
       );
       pages2[0].drawText(PersonalData["Steuernummer"].content, {
         x: 215,
@@ -2503,7 +2509,7 @@ exports.createPdf = async (req, res) => {
           x: 127,
           y: 495,
           size: 8,
-        }
+        },
       );
       pages2[0].drawText(PersonalData["Fraktion"].content, {
         x: 453,
@@ -2573,7 +2579,7 @@ exports.createPdf = async (req, res) => {
           x: 315,
           y: 404,
           size: 8,
-        }
+        },
       );
 
       pages2[8].drawText(
@@ -2584,7 +2590,7 @@ exports.createPdf = async (req, res) => {
           x: 73,
           y: 414,
           size: 8,
-        }
+        },
       );
       pages2[8].drawText(PersonalData["Telefonnummer"].content, {
         x: 369,
@@ -2620,7 +2626,7 @@ exports.createPdf = async (req, res) => {
             x: 319,
             y: 560,
             size: 8,
-          }
+          },
         );
       } else if (
         Number(PVData["Nennleistung der gesamten Inverter[kW]"].content) >=
@@ -2658,12 +2664,13 @@ exports.createPdf = async (req, res) => {
           PersonalData["Steuer"].selectedValue,
           Modul,
           filesToDelete,
-          attachmentSize
+          attachmentSize,
+          userEmail,
         ).then(() => {
           res.send(
-            "Vielen Dank, Ihre Daten wurden erfolgreich übermittelt! Sie können das Portal jetzt verlassen!"
+            "Vielen Dank, Ihre Daten wurden erfolgreich übermittelt! Sie können das Portal jetzt verlassen!",
           );
-        })
+        }),
       );
     }
   } else if (
@@ -2687,8 +2694,8 @@ exports.createPdf = async (req, res) => {
 
     let pdfDoc2 = await PDFDocument.load(
       readFileSync(
-        "./Backend/Documents/Regolamento_BT_AE Casies_2024 RDE_Formular.pdf"
-      )
+        "./Backend/Documents/Regolamento_BT_AE Casies_2024 RDE_Formular.pdf",
+      ),
     );
     const pages2 = pdfDoc2.getPages();
     filesToDelete = filesToDelete.concat([filename2]);
@@ -2699,7 +2706,7 @@ exports.createPdf = async (req, res) => {
         x: 152,
         y: 592,
         size: 8,
-      }
+      },
     );
     pages2[0].drawText(
       PersonalData["Geburtsort"].content + " " + Geburtsdatum,
@@ -2707,7 +2714,7 @@ exports.createPdf = async (req, res) => {
         x: 180,
         y: 574,
         size: 8,
-      }
+      },
     );
     pages2[0].drawText(PersonalData["Steuernummer"].content, {
       x: 194,
@@ -2720,7 +2727,7 @@ exports.createPdf = async (req, res) => {
         x: 109,
         y: 538,
         size: 8,
-      }
+      },
     );
     pages2[0].drawText(PersonalData["Fraktion"].content, {
       x: 403,
@@ -2790,7 +2797,7 @@ exports.createPdf = async (req, res) => {
         x: 298,
         y: 94,
         size: 8,
-      }
+      },
     );
 
     pages2[6].drawText(
@@ -2799,7 +2806,7 @@ exports.createPdf = async (req, res) => {
         x: 65,
         y: 228,
         size: 8,
-      }
+      },
     );
     pages2[6].drawText(PersonalData["Telefonnummer"].content, {
       x: 358,
@@ -2819,7 +2826,7 @@ exports.createPdf = async (req, res) => {
         x: 65,
         y: 200,
         size: 8,
-      }
+      },
     );
     pages2[6].drawText(PersonalDataEl["Telefonnummer"].content, {
       x: 358,
@@ -2871,7 +2878,7 @@ exports.createPdf = async (req, res) => {
           x: 136,
           y: 661,
           size: 8,
-        }
+        },
       );
     } else if (
       Number(PVData["Nennleistung der gesamten Inverter[kW]"].content) >=
@@ -2890,7 +2897,7 @@ exports.createPdf = async (req, res) => {
         x: 76,
         y: 248,
         size: 8,
-      }
+      },
     );
 
     pages2[13].drawText(SPI["Marke"].content, {
@@ -2960,7 +2967,7 @@ exports.createPdf = async (req, res) => {
         x: 94,
         y: 546,
         size: 8,
-      }
+      },
     );
     pages2[18].drawText(PersonalData["Telefonnummer"].content, {
       x: 410,
@@ -2976,7 +2983,7 @@ exports.createPdf = async (req, res) => {
         x: 94,
         y: 582,
         size: 8,
-      }
+      },
     );
     pages2[18].drawText(PersonalDataEl["Telefonnummer"].content, {
       x: 411,
@@ -3003,12 +3010,13 @@ exports.createPdf = async (req, res) => {
         PersonalData["Steuer"].selectedValue,
         Modul,
         filesToDelete,
-        attachmentSize
+        attachmentSize,
+        userEmail,
       ).then(() => {
         res.send(
-          "Vielen Dank, Ihre Daten wurden erfolgreich übermittelt! Sie können das Portal jetzt verlassen!"
+          "Vielen Dank, Ihre Daten wurden erfolgreich übermittelt! Sie können das Portal jetzt verlassen!",
         );
-      })
+      }),
     );
   } else if (
     PVData["POD"].content.split("")[2] === "0" &&
@@ -3031,8 +3039,8 @@ exports.createPdf = async (req, res) => {
 
     let pdfDoc2 = await PDFDocument.load(
       readFileSync(
-        "./Backend/Documents/Bozza Regolamento_Azienda Elettrica Chienes_2022.pdf"
-      )
+        "./Backend/Documents/Bozza Regolamento_Azienda Elettrica Chienes_2022.pdf",
+      ),
     );
     const pages2 = pdfDoc2.getPages();
     filesToDelete = filesToDelete.concat([filename2]);
@@ -3043,7 +3051,7 @@ exports.createPdf = async (req, res) => {
         x: 173,
         y: 584,
         size: 8,
-      }
+      },
     );
     pages2[0].drawText(
       PersonalData["Geburtsort"].content + " " + Geburtsdatum,
@@ -3051,7 +3059,7 @@ exports.createPdf = async (req, res) => {
         x: 198,
         y: 566,
         size: 8,
-      }
+      },
     );
     pages2[0].drawText(PersonalData["Steuernummer"].content, {
       x: 212,
@@ -3069,7 +3077,7 @@ exports.createPdf = async (req, res) => {
         x: 125,
         y: 530,
         size: 8,
-      }
+      },
     );
     pages2[0].drawText(PersonalData["Fraktion"].content, {
       x: 452,
@@ -3139,7 +3147,7 @@ exports.createPdf = async (req, res) => {
         x: 312,
         y: 436,
         size: 8,
-      }
+      },
     );
 
     pages2[7].drawText(
@@ -3148,7 +3156,7 @@ exports.createPdf = async (req, res) => {
         x: 71,
         y: 403,
         size: 8,
-      }
+      },
     );
     pages2[7].drawText(PersonalData["Telefonnummer"].content, {
       x: 364,
@@ -3168,7 +3176,7 @@ exports.createPdf = async (req, res) => {
         x: 71,
         y: 375,
         size: 8,
-      }
+      },
     );
     pages2[7].drawText(PersonalDataEl["Telefonnummer"].content, {
       x: 364,
@@ -3220,7 +3228,7 @@ exports.createPdf = async (req, res) => {
           x: 118,
           y: 521,
           size: 8,
-        }
+        },
       );
     } else if (
       Number(PVData["Nennleistung der gesamten Inverter[kW]"].content) >=
@@ -3239,7 +3247,7 @@ exports.createPdf = async (req, res) => {
         x: 90,
         y: 602,
         size: 8,
-      }
+      },
     );
 
     pages2[15].drawText(SPI["Marke"].content, {
@@ -3299,7 +3307,7 @@ exports.createPdf = async (req, res) => {
         x: 109,
         y: 545,
         size: 8,
-      }
+      },
     );
     pages2[21].drawText(PersonalData["Telefonnummer"].content, {
       x: 428,
@@ -3315,7 +3323,7 @@ exports.createPdf = async (req, res) => {
         x: 109,
         y: 580,
         size: 8,
-      }
+      },
     );
     pages2[21].drawText(PersonalDataEl["Telefonnummer"].content, {
       x: 428,
@@ -3342,12 +3350,13 @@ exports.createPdf = async (req, res) => {
         PersonalData["Steuer"].selectedValue,
         Modul,
         filesToDelete,
-        attachmentSize
+        attachmentSize,
+        userEmail,
       ).then(() => {
         res.send(
-          "Vielen Dank, Ihre Daten wurden erfolgreich übermittelt! Sie können das Portal jetzt verlassen!"
+          "Vielen Dank, Ihre Daten wurden erfolgreich übermittelt! Sie können das Portal jetzt verlassen!",
         );
-      })
+      }),
     );
   } else if (
     PVData["POD"].content.split("")[2] === "0" &&
@@ -3370,8 +3379,8 @@ exports.createPdf = async (req, res) => {
 
     let pdfDoc2 = await PDFDocument.load(
       readFileSync(
-        "./Backend/Documents/Bozza Regolamento_BT_Toblach_2022-1.pdf"
-      )
+        "./Backend/Documents/Bozza Regolamento_BT_Toblach_2022-1.pdf",
+      ),
     );
     const pages2 = pdfDoc2.getPages();
     filesToDelete = filesToDelete.concat([filename2]);
@@ -3382,7 +3391,7 @@ exports.createPdf = async (req, res) => {
         x: 177,
         y: 556,
         size: 8,
-      }
+      },
     );
     pages2[0].drawText(
       PersonalData["Geburtsort"].content + " " + Geburtsdatum,
@@ -3390,7 +3399,7 @@ exports.createPdf = async (req, res) => {
         x: 200,
         y: 539,
         size: 8,
-      }
+      },
     );
     pages2[0].drawText(PersonalData["Steuernummer"].content, {
       x: 214,
@@ -3408,7 +3417,7 @@ exports.createPdf = async (req, res) => {
         x: 136,
         y: 502,
         size: 8,
-      }
+      },
     );
     pages2[0].drawText(PersonalData["Fraktion"].content, {
       x: 455,
@@ -3432,7 +3441,7 @@ exports.createPdf = async (req, res) => {
         x: 523,
         y: 483,
         size: 8,
-      }
+      },
     );
     if (PersonalData["Privatperson"].selectedValue === "Ja") {
       pages2[0].drawLine({
@@ -3487,7 +3496,7 @@ exports.createPdf = async (req, res) => {
         x: 317,
         y: 413,
         size: 8,
-      }
+      },
     );
 
     pages2[7].drawText(
@@ -3496,7 +3505,7 @@ exports.createPdf = async (req, res) => {
         x: 75,
         y: 190,
         size: 8,
-      }
+      },
     );
     pages2[7].drawText(PersonalData["Telefonnummer"].content, {
       x: 365,
@@ -3548,7 +3557,7 @@ exports.createPdf = async (req, res) => {
           x: 215,
           y: 409,
           size: 8,
-        }
+        },
       );
     } else if (
       Number(PVData["Nennleistung der gesamten Inverter[kW]"].content) >=
@@ -3567,7 +3576,7 @@ exports.createPdf = async (req, res) => {
         x: 94,
         y: 200,
         size: 8,
-      }
+      },
     );
 
     pages2[15].drawText(SPI["Marke"].content, {
@@ -3627,7 +3636,7 @@ exports.createPdf = async (req, res) => {
         x: 112,
         y: 518,
         size: 8,
-      }
+      },
     );
     pages2[21].drawText(PersonalData["Telefonnummer"].content, {
       x: 429,
@@ -3654,12 +3663,13 @@ exports.createPdf = async (req, res) => {
         PersonalData["Steuer"].selectedValue,
         Modul,
         filesToDelete,
-        attachmentSize
+        attachmentSize,
+        userEmail,
       ).then(() => {
         res.send(
-          "Vielen Dank, Ihre Daten wurden erfolgreich übermittelt! Sie können das Portal jetzt verlassen!"
+          "Vielen Dank, Ihre Daten wurden erfolgreich übermittelt! Sie können das Portal jetzt verlassen!",
         );
-      })
+      }),
     );
   } else {
     //wenn Anlage von EDYNA
@@ -3694,15 +3704,15 @@ exports.createPdf = async (req, res) => {
 
       let pdfDoc2 = await PDFDocument.load(
         readFileSync(
-          "./Backend/Documents/Delega_mandato_di_rappresentanza_Unificato_TICA.pdf"
-        )
+          "./Backend/Documents/Delega_mandato_di_rappresentanza_Unificato_TICA.pdf",
+        ),
       );
       const pages2 = pdfDoc2.getPages();
 
       let pdfDoc3 = await PDFDocument.load(
         readFileSync(
-          "./Backend/Documents/Regolamento_di_Esercizio_BT_ab-11,08.pdf"
-        )
+          "./Backend/Documents/Regolamento_di_Esercizio_BT_ab-11,08.pdf",
+        ),
       );
       const pages3 = pdfDoc3.getPages();
       filesToDelete = filesToDelete.concat([filename2, filename3]);
@@ -3755,7 +3765,7 @@ exports.createPdf = async (req, res) => {
           x: 379,
           y: 585,
           size: 9,
-        }
+        },
       );
       if (PersonalData["Privatperson"].selectedValue !== "Ja") {
         pages2[0].drawText(PersonalData["Privatperson"].content, {
@@ -3782,7 +3792,7 @@ exports.createPdf = async (req, res) => {
           x: 131,
           y: 656,
           size: 8,
-        }
+        },
       );
 
       pages3[0].drawText(
@@ -3791,7 +3801,7 @@ exports.createPdf = async (req, res) => {
           x: 171,
           y: 620,
           size: 8,
-        }
+        },
       );
       pages3[0].drawText(
         PersonalData["Steuernummer"].content +
@@ -3801,7 +3811,7 @@ exports.createPdf = async (req, res) => {
           x: 171,
           y: 590,
           size: 8,
-        }
+        },
       );
       pages3[0].drawText(
         PersonalData["Straße"].content +
@@ -3811,7 +3821,7 @@ exports.createPdf = async (req, res) => {
           x: 99,
           y: 550,
           size: 8,
-        }
+        },
       );
       pages3[0].drawText(PersonalData["Fraktion"].content, {
         x: 337,
@@ -3831,7 +3841,7 @@ exports.createPdf = async (req, res) => {
           x: 321,
           y: 517,
           size: 8,
-        }
+        },
       );
       pages3[0].drawText(PersonalData["Postleitzahl"].content, {
         x: 406,
@@ -3850,7 +3860,7 @@ exports.createPdf = async (req, res) => {
           x: 96,
           y: 724,
           size: 8,
-        }
+        },
       );
       pages3[2].drawText(PVAdress["Gemeinde"].content, {
         x: 92,
@@ -3893,7 +3903,7 @@ exports.createPdf = async (req, res) => {
           x: 388,
           y: 622,
           size: 8,
-        }
+        },
       );
       pages3[5].drawText(PersonalData["Vorname"].content, {
         x: 67,
@@ -3928,7 +3938,7 @@ exports.createPdf = async (req, res) => {
           x: 114,
           y: 634,
           size: 8,
-        }
+        },
       );
       pages3[5].drawText(PersonalData["Wohnhaft in der Gemeinde"].content, {
         x: 85,
@@ -3943,7 +3953,7 @@ exports.createPdf = async (req, res) => {
           x: 305,
           y: 616,
           size: 8,
-        }
+        },
       );
       pages3[5].drawText(PersonalData["Postleitzahl"].content, {
         x: 445,
@@ -3972,7 +3982,7 @@ exports.createPdf = async (req, res) => {
           x: 305,
           y: 550,
           size: 8,
-        }
+        },
       );
       pages3[5].drawText(PVAdress["Postleitzahl"].content, {
         x: 447,
@@ -3992,7 +4002,7 @@ exports.createPdf = async (req, res) => {
           x: 141,
           y: 482,
           size: 8,
-        }
+        },
       );
       pages3[5].drawText(
         PersonalData["Vorname"].content +
@@ -4002,7 +4012,7 @@ exports.createPdf = async (req, res) => {
           x: 141,
           y: 375,
           size: 8,
-        }
+        },
       );
       pages3[5].drawText(
         PersonalDataEl["Vorname"].content +
@@ -4012,7 +4022,7 @@ exports.createPdf = async (req, res) => {
           x: 141,
           y: 428,
           size: 8,
-        }
+        },
       );
       pages3[5].drawText(
         PersonalDataEl["Vorname"].content +
@@ -4022,7 +4032,7 @@ exports.createPdf = async (req, res) => {
           x: 141,
           y: 319,
           size: 8,
-        }
+        },
       );
       pages3[5].drawText(PersonalData["Telefonnummer"].content, {
         x: 383,
@@ -4087,7 +4097,7 @@ exports.createPdf = async (req, res) => {
           x: 140,
           y: 683,
           size: 8,
-        }
+        },
       );
       pages3[12].drawText(
         PersonalData["Geburtsort"].content + "     " + Geburtsdatum,
@@ -4095,7 +4105,7 @@ exports.createPdf = async (req, res) => {
           x: 178,
           y: 662,
           size: 8,
-        }
+        },
       );
       pages3[12].drawText(
         PersonalData["Steuernummer"].content +
@@ -4105,7 +4115,7 @@ exports.createPdf = async (req, res) => {
           x: 177,
           y: 639,
           size: 8,
-        }
+        },
       );
       pages3[12].drawText(
         PersonalData["Straße"].content +
@@ -4115,7 +4125,7 @@ exports.createPdf = async (req, res) => {
           x: 109,
           y: 609,
           size: 8,
-        }
+        },
       );
 
       pages3[12].drawText(PersonalData["Fraktion"].content, {
@@ -4141,7 +4151,7 @@ exports.createPdf = async (req, res) => {
           x: 324,
           y: 586,
           size: 8,
-        }
+        },
       );
       pages3[12].drawText(PVData["POD"].content, {
         x: 349,
@@ -4154,7 +4164,7 @@ exports.createPdf = async (req, res) => {
           x: 115,
           y: 520,
           size: 8,
-        }
+        },
       );
       pages3[12].drawText(PVAdress["Postleitzahl"].content, {
         x: 450,
@@ -4172,7 +4182,7 @@ exports.createPdf = async (req, res) => {
           x: 400,
           y: 443,
           size: 8,
-        }
+        },
       );
 
       if (
@@ -4185,7 +4195,7 @@ exports.createPdf = async (req, res) => {
             x: 232,
             y: 412,
             size: 8,
-          }
+          },
         );
       } else if (
         Number(PVData["Nennleistung der gesamten Inverter[kW]"].content) >=
@@ -4216,7 +4226,7 @@ exports.createPdf = async (req, res) => {
           x: 78,
           y: 591,
           size: 8,
-        }
+        },
       );
       pages3[13].drawText(
         PersonalData["Vorname"].content +
@@ -4226,7 +4236,7 @@ exports.createPdf = async (req, res) => {
           x: 264,
           y: 531,
           size: 8,
-        }
+        },
       );
       pages3[13].drawText(
         PVAdress["Straße"].content + " " + PVAdress["Nummer"].content,
@@ -4234,7 +4244,7 @@ exports.createPdf = async (req, res) => {
           x: 272,
           y: 592,
           size: 8,
-        }
+        },
       );
       pages3[13].drawText(PVAdress["Gemeinde"].content, {
         x: 273,
@@ -4252,7 +4262,7 @@ exports.createPdf = async (req, res) => {
             x: 324,
             y: 601,
             size: 8,
-          }
+          },
         );
 
         pages3[11].drawText(
@@ -4261,7 +4271,7 @@ exports.createPdf = async (req, res) => {
             x: 37,
             y: 605,
             size: 8,
-          }
+          },
         );
       } else if (
         Number(PVData["Nennleistung der gesamten Inverter[kW]"].content) >=
@@ -4287,7 +4297,7 @@ exports.createPdf = async (req, res) => {
           x: 84,
           y: 253,
           size: 8,
-        }
+        },
       );
 
       pdfsToSend = pdfsToSend.concat([pdfDoc2, pdfDoc3]);
@@ -4315,12 +4325,13 @@ exports.createPdf = async (req, res) => {
           PersonalData["Steuer"].selectedValue,
           Modul,
           filesToDelete,
-          attachmentSize
+          attachmentSize,
+          userEmail,
         ).then(() => {
           res.send(
-            "Vielen Dank, Ihre Daten wurden erfolgreich übermittelt! Sie können das Portal jetzt verlassen!"
+            "Vielen Dank, Ihre Daten wurden erfolgreich übermittelt! Sie können das Portal jetzt verlassen!",
           );
-        })
+        }),
       );
     } else {
       attachmentSize = attachmentSize + 350000 + 1500000;
@@ -4351,15 +4362,15 @@ exports.createPdf = async (req, res) => {
 
       let pdfDoc2 = await PDFDocument.load(
         readFileSync(
-          "./Backend/Documents/Delega_mandato_di_rappresentanza_Unificato_TICA.pdf"
-        )
+          "./Backend/Documents/Delega_mandato_di_rappresentanza_Unificato_TICA.pdf",
+        ),
       );
       const pages2 = pdfDoc2.getPages();
 
       let pdfDoc3 = await PDFDocument.load(
         readFileSync(
-          "./Backend/Documents/Regolamento_di_Esercizio_BT_bis-11,08.pdf"
-        )
+          "./Backend/Documents/Regolamento_di_Esercizio_BT_bis-11,08.pdf",
+        ),
       );
       const pages3 = pdfDoc3.getPages();
       filesToDelete = filesToDelete.concat([filename2, filename3]);
@@ -4412,7 +4423,7 @@ exports.createPdf = async (req, res) => {
           x: 379,
           y: 585,
           size: 9,
-        }
+        },
       );
       if (PersonalData["Privatperson"].selectedValue !== "Ja") {
         pages2[0].drawText(PersonalData["Privatperson"].content, {
@@ -4440,7 +4451,7 @@ exports.createPdf = async (req, res) => {
           x: 131,
           y: 656,
           size: 8,
-        }
+        },
       );
       pages3[0].drawText(
         PersonalData["Geburtsort"].content + "    " + Geburtsdatum,
@@ -4448,7 +4459,7 @@ exports.createPdf = async (req, res) => {
           x: 171,
           y: 620,
           size: 8,
-        }
+        },
       );
       pages3[0].drawText(
         PersonalData["Steuernummer"].content +
@@ -4458,7 +4469,7 @@ exports.createPdf = async (req, res) => {
           x: 171,
           y: 590,
           size: 8,
-        }
+        },
       );
       pages3[0].drawText(
         PersonalData["Straße"].content +
@@ -4468,7 +4479,7 @@ exports.createPdf = async (req, res) => {
           x: 99,
           y: 530,
           size: 8,
-        }
+        },
       );
       pages3[0].drawText(PersonalData["Fraktion"].content, {
         x: 339,
@@ -4492,7 +4503,7 @@ exports.createPdf = async (req, res) => {
           x: 201,
           y: 418,
           size: 8,
-        }
+        },
       );
       if (
         Number(PVData["Nennleistung der gesamten Inverter[kW]"].content) <
@@ -4504,7 +4515,7 @@ exports.createPdf = async (req, res) => {
             x: 235,
             y: 390,
             size: 8,
-          }
+          },
         );
       } else {
         pages3[0].drawText(PVData["Spitzenleistung[kW]"].content, {
@@ -4522,7 +4533,7 @@ exports.createPdf = async (req, res) => {
           x: 55,
           y: 333,
           size: 8,
-        }
+        },
       );
       pages3[2].drawText(PersonalDataEl["Telefonnummer"].content, {
         x: 205,
@@ -4548,7 +4559,7 @@ exports.createPdf = async (req, res) => {
           x: 253,
           y: 526,
           size: 8,
-        }
+        },
       );
       pages3[3].drawText(PVAdress["Straße"].content, {
         x: 149,
@@ -4589,7 +4600,7 @@ exports.createPdf = async (req, res) => {
           x: 54,
           y: 315,
           size: 8,
-        }
+        },
       );
       pages3[3].drawText(PVData["POD"].content, {
         x: 450,
@@ -4615,13 +4626,13 @@ exports.createPdf = async (req, res) => {
       pages3[4].drawText(
         String(
           Number(Modul["Anzahl"].content) *
-            Number(Modul["Leistung[kW]"].content)
+            Number(Modul["Leistung[kW]"].content),
         ),
         {
           x: 139,
           y: 204,
           size: 8,
-        }
+        },
       );
 
       pages3[5].drawText(date, {
@@ -4638,7 +4649,7 @@ exports.createPdf = async (req, res) => {
           x: 140,
           y: 683,
           size: 8,
-        }
+        },
       );
       pages3[6].drawText(
         PersonalData["Geburtsort"].content + "     " + Geburtsdatum,
@@ -4646,7 +4657,7 @@ exports.createPdf = async (req, res) => {
           x: 178,
           y: 662,
           size: 8,
-        }
+        },
       );
       pages3[6].drawText(
         PersonalData["Steuernummer"].content +
@@ -4656,7 +4667,7 @@ exports.createPdf = async (req, res) => {
           x: 177,
           y: 639,
           size: 8,
-        }
+        },
       );
       pages3[6].drawText(
         PersonalData["Straße"].content +
@@ -4666,7 +4677,7 @@ exports.createPdf = async (req, res) => {
           x: 109,
           y: 609,
           size: 8,
-        }
+        },
       );
 
       pages3[6].drawText(PersonalData["Fraktion"].content, {
@@ -4692,7 +4703,7 @@ exports.createPdf = async (req, res) => {
           x: 324,
           y: 586,
           size: 8,
-        }
+        },
       );
       pages3[6].drawText(PVData["POD"].content, {
         x: 349,
@@ -4705,7 +4716,7 @@ exports.createPdf = async (req, res) => {
           x: 115,
           y: 520,
           size: 8,
-        }
+        },
       );
       pages3[6].drawText(PVAdress["Postleitzahl"].content, {
         x: 450,
@@ -4723,7 +4734,7 @@ exports.createPdf = async (req, res) => {
           x: 400,
           y: 443,
           size: 8,
-        }
+        },
       );
 
       if (
@@ -4736,7 +4747,7 @@ exports.createPdf = async (req, res) => {
             x: 232,
             y: 412,
             size: 8,
-          }
+          },
         );
       } else if (
         Number(PVData["Nennleistung der gesamten Inverter[kW]"].content) >=
@@ -4762,7 +4773,7 @@ exports.createPdf = async (req, res) => {
           x: 78,
           y: 591,
           size: 8,
-        }
+        },
       );
       pages3[7].drawText(
         PersonalData["Vorname"].content +
@@ -4772,7 +4783,7 @@ exports.createPdf = async (req, res) => {
           x: 264,
           y: 531,
           size: 8,
-        }
+        },
       );
       pages3[7].drawText(
         PVAdress["Straße"].content + " " + PVAdress["Nummer"].content,
@@ -4780,7 +4791,7 @@ exports.createPdf = async (req, res) => {
           x: 272,
           y: 592,
           size: 8,
-        }
+        },
       );
       pages3[7].drawText(PVAdress["Gemeinde"].content, {
         x: 273,
@@ -4796,7 +4807,7 @@ exports.createPdf = async (req, res) => {
           x: 88,
           y: 254,
           size: 8,
-        }
+        },
       );
 
       pages3[8].drawText(date, {
@@ -4830,12 +4841,13 @@ exports.createPdf = async (req, res) => {
           PersonalData["Steuer"].selectedValue,
           Modul,
           filesToDelete,
-          attachmentSize
+          attachmentSize,
+          userEmail,
         ).then(() => {
           res.send(
-            "Vielen Dank, Ihre Daten wurden erfolgreich übermittelt! Sie können das Portal jetzt verlassen!"
+            "Vielen Dank, Ihre Daten wurden erfolgreich übermittelt! Sie können das Portal jetzt verlassen!",
           );
-        })
+        }),
       );
     }
   }
@@ -4853,7 +4865,8 @@ const sendMailflexible = async (
   Steuer,
   Modul,
   filesToDelete,
-  attachmentSize
+  attachmentSize,
+  userEmail,
 ) => {
   //console.log(UploadedFileSizes);
   //console.log(attachmentSize);
@@ -4870,23 +4883,31 @@ const sendMailflexible = async (
     }
   }
   //console.log(filesToSend);
-  await sendMultipleMails(filesToSend, FullName, Steuer, Modul).then(() => {
-    filesToDelete.map((file) => {
-      unlinkSync(file);
-      return;
-    });
-    deleteFilesOlderThan("./Backend/Documents/Uploads", 7200000);
-    console.log("Ihre Daten wurden erfolgreich gespeichert!");
-  });
+  await sendMultipleMails(filesToSend, FullName, Steuer, Modul, userEmail).then(
+    () => {
+      filesToDelete.map((file) => {
+        unlinkSync(file);
+        return;
+      });
+      deleteFilesOlderThan("./Backend/Documents/Uploads", 7200000);
+      console.log("Ihre Daten wurden erfolgreich gespeichert!");
+    },
+  );
 };
-const sendMultipleMails = async (filesToSend, FullName, Steuer, Modul) => {
+const sendMultipleMails = async (
+  filesToSend,
+  FullName,
+  Steuer,
+  Modul,
+  userEmail,
+) => {
   const transporter = nodemailer.createTransport({
     service: "Gmail",
     host: "smtp.gmail.com",
     port: 465,
     secure: true,
     auth: {
-      user: email, 
+      user: email,
       pass: emailpasswort,
     },
   });
@@ -4915,10 +4936,12 @@ const sendMultipleMails = async (filesToSend, FullName, Steuer, Modul) => {
           "\nAnzahl:" +
           Modul["Anzahl"].content +
           "\nLeistung[kW]:" +
-          Modul["Leistung[kW]"].content,
+          Modul["Leistung[kW]"].content +
+          "\n\nDie Daten wurden eingegeben von: " +
+          userEmail,
         attachments: doc,
       });
-    })
+    }),
   );
 };
 const saveFiles = async (pdfsToSend, pathsAndFilenames) => {
@@ -4927,7 +4950,7 @@ const saveFiles = async (pdfsToSend, pathsAndFilenames) => {
       await doc.save().then((x) => {
         writeFileSync(pathsAndFilenames[index].filename, x);
       });
-    })
+    }),
   );
 };
 const deleteFilesOlderThan = (directory, time) => {
@@ -4949,329 +4972,3 @@ const deleteFilesOlderThan = (directory, time) => {
     });
   });
 };
-
-/*sendMailflexible = async (
-  pathsAndFilenames,
-  UploadedFilesToSend,
-  FullName,
-  Steuer,
-  Modul,
-  filesToDelete
-) => {
-  const transporter = nodemailer.createTransport({
-    service: "Gmail",
-    host: "smtp.gmail.com",
-    port: 465,
-    secure: true,
-    auth: {
-      user: "gabrielmaler789@gmail.com",
-      pass: "owvmuijpjvbqrqpe",
-    },
-  });
-  const info = await transporter
-    .sendMail({
-      from: "gabrielmaler789@gmail.com",
-      to: "formulare.automatisiert@gmail.com",
-      //to: email,
-      subject: "Parte 1 von " + FullName,
-      text:
-        "Steuerrechtliche Angabe: " +
-        Steuer +
-        "\n\n" +
-        "Daten Modul\nMarke:" +
-        Modul["Marke"].content +
-        "\nModell:" +
-        Modul["Modell"].content +
-        "\nAnzahl:" +
-        Modul["Anzahl"].content +
-        "\nLeistung[kW]:" +
-        Modul["Leistung[kW]"].content,
-      attachments: pathsAndFilenames.concat(UploadedFilesToSend),
-    })
-    .then(() => {
-      filesToDelete.map((file) => {
-        unlinkSync(file);
-        return;
-      });
-      deleteFilesOlderThan("./Backend/Documents/Uploads", 7200000);
-      console.log("Ihre Daten wurden erfolgreich gespeichert!");
-    });
-};
-*/
-/*writeFileSync(
-      filename,
-      await pdfDoc.save().then(
-        writeFileSync(
-          filename2,
-          await pdfDoc2.save().then(
-            sendMailVierschach(
-              filename,
-              path,
-              PersonalData["Vorname"].content +
-                " " +
-                PersonalData["Nachname"].content,
-              filename2,
-              path2,
-              SignatureFilename,
-              AusweisFilename,
-              StromrechnungFilename,
-              KatasterFilename,
-              PersonalData["Steuer"].selectedValue,
-              Modul
-            ).then(() => {
-              res.send(
-                "Vielen Dank, Ihre Daten wurden erfolgreich übermittelt! Sie können das Portal jetzt verlassen!"
-              );
-            })
-          )
-        )
-      )
-    );*/
-/*writeFileSync(
-      filename,
-      await pdfDoc.save().then(
-        writeFileSync(
-          filename2,
-          await pdfDoc2.save().then(
-            writeFileSync(
-              filename3,
-              await pdfDoc3.save().then(
-                sendMail(
-                  filename,
-                  path,
-                  PersonalData["Vorname"].content +
-                    " " +
-                    PersonalData["Nachname"].content,
-                  filename2,
-                  path2,
-                  filename3,
-                  path3,
-                  SignatureFilename,
-                  AusweisFilename,
-                  StromrechnungFilename,
-                  KatasterFilename,
-                  PersonalData["Steuer"].selectedValue,
-                  Modul
-                ).then(() => {
-                  res.send(
-                    "Vielen Dank, Ihre Daten wurden erfolgreich übermittelt! Sie können das Portal jetzt verlassen!"
-                  );
-                })
-              )
-            )
-          )
-        )
-      )
-    );*/
-/*
-sendMailVierschach = async (
-  filename,
-  path,
-  FullName,
-  filename2,
-  path2,
-  SignatureFilename,
-  AusweisFilename,
-  StromrechnungFilename,
-  KatasterFilename,
-  Steuer,
-  Modul
-) => {
-  const transporter = nodemailer.createTransport({
-    service: "Gmail",
-    host: "smtp.gmail.com",
-    port: 465,
-    secure: true,
-    auth: {
-      user: "gabrielmaler789@gmail.com",
-      pass: "owvmuijpjvbqrqpe",
-    },
-  });
-  const info = await transporter
-    .sendMail({
-      from: "gabrielmaler789@gmail.com",
-      to: "formulare.automatisiert@gmail.com",
-      //to: email,
-      subject: "Formular Parte 1 von " + FullName,
-      text:
-        "Steuerrechtliche Angabe: " +
-        Steuer +
-        "\n\n" +
-        "Daten Modul\nMarke:" +
-        Modul["Marke"].content +
-        "\nModell:" +
-        Modul["Modell"].content +
-        "\nAnzahl:" +
-        Modul["Anzahl"].content +
-        "\nLeistung[kW]:" +
-        Modul["Leistung[kW]"].content,
-      attachments: [
-        {
-          filename: filename,
-          path: path,
-          contentType: "application/pdf",
-        },
-        {
-          filename: filename2,
-          path: path2,
-          contentType: "application/pdf",
-        },
-        {
-          filename: SignatureFilename[SignatureFilename.length - 1],
-          path:
-            "./Backend/Documents/Uploads/" +
-            SignatureFilename[SignatureFilename.length - 1],
-        },
-        {
-          filename: AusweisFilename[AusweisFilename.length - 1],
-          path:
-            "./Backend/Documents/Uploads/" +
-            AusweisFilename[AusweisFilename.length - 1],
-        },
-        {
-          filename: StromrechnungFilename[StromrechnungFilename.length - 1],
-          path:
-            "./Backend/Documents/Uploads/" +
-            StromrechnungFilename[StromrechnungFilename.length - 1],
-        },
-        {
-          filename: KatasterFilename[KatasterFilename.length - 1],
-          path:
-            "./Backend/Documents/Uploads/" +
-            KatasterFilename[KatasterFilename.length - 1],
-        },
-      ],
-    })
-    .then(() => {
-      console.log("Ihre Daten wurden erfolgreich gespeichert!");
-      unlinkSync(filename);
-      unlinkSync(filename2);
-      for (let i = SignatureFilename.length - 1; i > -1; i--) {
-        unlinkSync("./Backend/Documents/Uploads/" + SignatureFilename[i]);
-        SignatureFilename.pop();
-      }
-      for (i = AusweisFilename.length - 1; i > -1; i--) {
-        unlinkSync("./Backend/Documents/Uploads/" + AusweisFilename[i]);
-        AusweisFilename.pop();
-      }
-      for (i = StromrechnungFilename.length - 1; i > -1; i--) {
-        unlinkSync("./Backend/Documents/Uploads/" + StromrechnungFilename[i]);
-        StromrechnungFilename.pop();
-      }
-      for (i = KatasterFilename.length - 1; i > -1; i--) {
-        unlinkSync("./Backend/Documents/Uploads/" + KatasterFilename[i]);
-        KatasterFilename.pop();
-      }
-    });
-};
-*/
-/*
-sendMail = async (
-  filename,
-  path,
-  FullName,
-  filename2,
-  path2,
-  filename3,
-  path3,
-  SignatureFilename,
-  AusweisFilename,
-  StromrechnungFilename,
-  KatasterFilename,
-  Steuer,
-  Modul
-) => {
-  const transporter = nodemailer.createTransport({
-    service: "Gmail",
-    host: "smtp.gmail.com",
-    port: 465,
-    secure: true,
-    auth: {
-      user: "gabrielmaler789@gmail.com",
-      pass: "owvmuijpjvbqrqpe",
-    },
-  });
-  const info = await transporter
-    .sendMail({
-      from: "gabrielmaler789@gmail.com",
-      to: "formulare.automatisiert@gmail.com",
-      //to: email,
-      subject: "Formular Parte 1 von " + FullName,
-      text:
-        "Steuerrechtliche Angabe: " +
-        Steuer +
-        "\n\n" +
-        "Daten Modul\nMarke:" +
-        Modul["Marke"].content +
-        "\nModell:" +
-        Modul["Modell"].content +
-        "\nAnzahl:" +
-        Modul["Anzahl"].content +
-        "\nLeistung[kW]:" +
-        Modul["Leistung[kW]"].content,
-      attachments: [
-        {
-          filename: filename,
-          path: path,
-          contentType: "application/pdf",
-        },
-        {
-          filename: filename2,
-          path: path2,
-          contentType: "application/pdf",
-        },
-        {
-          filename: filename3,
-          path: path3,
-          contentType: "application/pdf",
-        },
-        {
-          filename: SignatureFilename[SignatureFilename.length - 1],
-          path:
-            "./Backend/Documents/Uploads/" +
-            SignatureFilename[SignatureFilename.length - 1],
-        },
-        {
-          filename: AusweisFilename[AusweisFilename.length - 1],
-          path:
-            "./Backend/Documents/Uploads/" +
-            AusweisFilename[AusweisFilename.length - 1],
-        },
-        {
-          filename: StromrechnungFilename[StromrechnungFilename.length - 1],
-          path:
-            "./Backend/Documents/Uploads/" +
-            StromrechnungFilename[StromrechnungFilename.length - 1],
-        },
-        {
-          filename: KatasterFilename[KatasterFilename.length - 1],
-          path:
-            "./Backend/Documents/Uploads/" +
-            KatasterFilename[KatasterFilename.length - 1],
-        },
-      ],
-    })
-    .then(() => {
-      console.log("Ihre Daten wurden erfolgreich gespeichert!");
-      unlinkSync(filename);
-      unlinkSync(filename2);
-      unlinkSync(filename3);
-      for (let i = SignatureFilename.length - 1; i > -1; i--) {
-        unlinkSync("./Backend/Documents/Uploads/" + SignatureFilename[i]);
-        SignatureFilename.pop();
-      }
-      for (i = AusweisFilename.length - 1; i > -1; i--) {
-        unlinkSync("./Backend/Documents/Uploads/" + AusweisFilename[i]);
-        AusweisFilename.pop();
-      }
-      for (i = StromrechnungFilename.length - 1; i > -1; i--) {
-        unlinkSync("./Backend/Documents/Uploads/" + StromrechnungFilename[i]);
-        StromrechnungFilename.pop();
-      }
-      for (i = KatasterFilename.length - 1; i > -1; i--) {
-        unlinkSync("./Backend/Documents/Uploads/" + KatasterFilename[i]);
-        KatasterFilename.pop();
-      }
-    });
-};
-*/

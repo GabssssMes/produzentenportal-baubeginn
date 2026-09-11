@@ -102,6 +102,21 @@ button:hover {
   padding: 5px 20px;
   border-radius: 5px;
 }
+.buttonlogout {
+  border: none;
+  color: #fff;
+  transition: all 0.2s ease;
+  background: rgb(41, 119, 164);
+  border-radius: 5px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  margin: 5px;
+  padding: 5px;
+  position: absolute;
+  right: 15px;
+  top: 15px;
+}
 .radiobutton:hover {
   cursor: pointer;
 }
@@ -112,8 +127,9 @@ button:hover {
   height: 5rem;
   width: 10rem;
   position: absolute;
-  left: 10px;
   top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
 }
 .header {
   display: flex;
@@ -121,21 +137,24 @@ button:hover {
   min-height: 50px;
   align-items: center;
 }
+.headerLogin {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 50px;
+  align-items: center;
+}
+.imageLogin {
+  background-image: url("../logo.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 5rem;
+  width: 10rem;
+}
 #spannung {
   margin-bottom: 15px;
 }
-@media (max-width: 950px) {
-  h1 {
-    padding-left: 10rem;
-  }
-}
-@media (max-width: 550px) {
-  .image {
-    left: 50%;
-    transform: translateX(-50%);
-  }
-  h1 {
-    padding-left: 0rem;
-    padding-top: 5rem;
-  }
+h1 {
+  padding-left: 0rem;
+  padding-top: 5rem;
 }

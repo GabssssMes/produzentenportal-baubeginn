@@ -48,7 +48,7 @@ upload = multer({ storage });*/
 pdfRoute.post(
   "/uploadStromrechnung",
   upload.single("file"),
-  uploadStromrechnung
+  uploadStromrechnung,
 ); // to upload Stromrechnung
 
 /*storage = multer.diskStorage({
